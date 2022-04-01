@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Child</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="msgLabel">...</div>
+    <script>
+        window.addEventListener('message', function (e) {
+            if (e.source !== window.parent) {
+                return;
+            }
+            //console.log(e)
+            document.getElementById('msgLabel').textContent = e.data
+        });
+    </script>
+</body>
+
+</html>

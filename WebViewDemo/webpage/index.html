@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Parent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div>
+        <button onclick="closeDwcWebview()">close DWC</button>
+    </div>
+    <iframe src="/data.html"></iframe>
+
+    <script>
+        function startup() {
+            document.body.style.backgroundColor = '#C1FF33';
+        }
+
+        function sendMessage(message) {
+            let targetOrigin = 'http://localhost:5000/';
+            window.frames[0].postMessage(`message from parent: ${message}`, targetOrigin);
+        }
+
+        function closeDwcWebview() {
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.ibc) {
+                // iOS
+
+                window.webkit.messageHandlers.ibc.postMessage({ 'action': 'quit ...' });
+
+            } else if (window.abc) {
+                // Android
+
+                // window.abc.quitBrowser();
+                // pass parameters
+                // window.abc.quitBrowser({ 'action': 'quit ...' });
+                window.abc.quitBrowser(JSON.stringify({ 'action': 'changed ...' }));
+            } else {
+                // web
+                
+                window.alert('not in WebView')
+                sendMessage('@ web page')
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WebViewDemo</string>
+    <string name="et_hints">please input message to send to web page</string>
+    <string name="btn_ok">OK</string>
+</resources>
