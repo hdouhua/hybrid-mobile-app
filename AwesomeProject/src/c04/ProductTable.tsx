@@ -53,13 +53,12 @@ export default function ProductTable() {
   }, []);
 
   const getUpdatedProducts = (product: Product) => {
-    const newProducts = [...products];
-    for (let index = 0; index < newProducts.length; index++) {
-      if (newProducts[index].id === product.id) {
-        newProducts[index] = product;
+    return products.map(it => {
+      if (it.id === product.id) {
+        return product;
       }
-    }
-    return newProducts;
+      return it;
+    });
   };
   const handleIncrement = (product: Product) => {
     console.log('increment');
@@ -94,9 +93,11 @@ export default function ProductTable() {
           key={product.name}
         />
       ))}
-      <Text style={{marginTop: 30, fontWeight: 'bold', textAlign: 'center'}}>
-        总价: {total}
-      </Text>
+      <View style={{flexDirection: 'column', alignItems: 'flex-end'}}>
+        <Text style={{width: 100, marginTop: 30, fontWeight: 'bold'}}>
+          总价: {total}
+        </Text>
+      </View>
     </View>
   );
 }

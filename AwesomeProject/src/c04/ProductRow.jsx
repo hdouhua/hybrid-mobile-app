@@ -23,17 +23,9 @@ export default function ProductRow({
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Button
-          title="+"
-          hitSlop="10"
-          onPress={() => handleIncrement(product)}
-        />
-        <Text>{product.count}</Text>
-        <Button
-          title="-"
-          hitSlop="10"
-          onPress={() => handleDecrement(product)}
-        />
+        <Button title="+" onPress={() => handleIncrement(product)} />
+        <Text style={{width: 18, textAlign: 'center'}}>{product.count}</Text>
+        <Button title="-" onPress={() => handleDecrement(product)} />
       </View>
     </View>
   );
