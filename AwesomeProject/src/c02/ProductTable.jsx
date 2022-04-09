@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import Category from './Category';
-import Product from './Product';
+import ProductRow from './ProductRow';
 
 export default function ProductTable({products}) {
   const rows = [];
@@ -13,7 +13,7 @@ export default function ProductTable({products}) {
         <Category category={product.category} key={product.category} />,
       );
     }
-    rows.push(<Product product={product} key={product.name} />);
+    rows.push(<ProductRow product={product} key={product.name} />);
     lastCategory = product.category;
   });
 
@@ -23,7 +23,7 @@ export default function ProductTable({products}) {
         <Text style={{flex: 1, fontWeight: 'bold'}}>名称</Text>
         <Text style={{width: 50, fontWeight: 'bold'}}>价格</Text>
       </View>
-      <View>{rows}</View>
+      {rows}
     </View>
   );
 }
