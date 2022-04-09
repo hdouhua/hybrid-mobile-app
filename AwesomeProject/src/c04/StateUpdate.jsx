@@ -26,7 +26,7 @@ export default function StateUpdate() {
           backgroundColor: 'pink',
           marginBottom: 10,
         }}>
-        <Text>update state - object state in wrong way:</Text>
+        <Text>update state - object in wrong way:</Text>
         <Button
           title="+"
           onPress={() => {

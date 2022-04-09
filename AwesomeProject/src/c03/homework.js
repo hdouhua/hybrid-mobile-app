@@ -8,18 +8,27 @@ const images = [
   'https://dogshome.com/wp-content/uploads/2016/07/LDH-reasons-to-adopt-a-cat-1013425-Beatrix-featured.jpg',
   'https://www.purina.co.uk/sites/default/files/2020-12/Understanding%20Your%20Cat%27s%20Body%20LanguageHERO.jpg',
   'https://static.scientificamerican.com/sciam/cache/file/9CAE9C60-8BC5-4CA3-95C180EFACDD99FD_source.jpg',
+  'https://d2zp5xs5cp8zlg.cloudfront.net/image-30938-800.jpg',
 ];
 
 function Item({uri, height}) {
+  if (height) {
+    return (
+      <View
+        style={{
+          width: '45%',
+          height: height,
+          alignSelf: 'flex-start',
+          borderWidth: 1,
+          borderColor: 'red',
+        }}>
+        <Image style={styles.img} source={{uri: uri}} />
+        <Text style={styles.txt}>kitty</Text>
+      </View>
+    );
+  }
   return (
-    <View
-      style={{
-        width: '45%',
-        height: height,
-        alignSelf: 'flex-start',
-        borderWidth: 1,
-        borderColor: 'red',
-      }}>
+    <View style={styles.item}>
       <Image style={styles.img} source={{uri: uri}} />
       <Text style={styles.txt}>kitty</Text>
     </View>
@@ -29,9 +38,9 @@ function Item({uri, height}) {
 export default function Homework() {
   return (
     <View style={styles.container}>
-      {/* {images.map((value, index) => (
-        <Item uri={value} height={120} key={`cat_${index}`} />
-      ))} */}
+      {images.map((value, index) => (
+        <Item uri={value} key={`cat_${index}`} />
+      ))}
       <Item uri={images[0]} height={100} />
       <Item uri={images[1]} height={120} />
       <Item uri={images[2]} height={120} />
@@ -52,13 +61,12 @@ const styles = StyleSheet.create({
   },
   item: {
     width: '45%',
-    height: 120,
     alignSelf: 'flex-start',
     borderWidth: 1,
     borderColor: 'red',
   },
   img: {
-    height: '80%',
+    aspectRatio: 640 / 480,
   },
   txt: {
     textAlign: 'center',

@@ -1,3 +1,3 @@
 # Awesome Project
 
-A demo project make of React Native.
+A demo project made of React Native.
