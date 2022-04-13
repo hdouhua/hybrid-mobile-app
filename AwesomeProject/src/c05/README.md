@@ -65,7 +65,7 @@ Image.prefetch(url);
 
 参考各平台信息。
 
-在实际工作中，不推荐在 React Native 中使用宿主应用图片资源。
+在实际工作中，不推荐在 React Native 中使用宿主应用图片资源
 - 这种加载图片的方法没有任何的安全检查，一不小心就容易引起线上报错
 - 无法使用 React Native 动态更新的优势
 
@@ -87,6 +87,15 @@ Base64 图片指的是使用 Base64 编码加载图片的方法，它适用于�
 
 [Image to Base64](https://base64.guru/converter/encode/image)
 
+## TODO
+
+React Native 框架对图片的默认缓存处理并不是最优的方案，社区中提供了替代方案 [FastImage](https://github.com/DylanVann/react-native-fast-image)，它是基于 SDWebImage (iOS) 和 Glide (Android) 实现的性能和效果会更好一些。
+
 ## 最佳实践
 
-TBD
+- 关于静态图片资源
+  如果使用的是自研的热更新平台，就需要注意图片资源一定要先于 bundle 或和 bundle 一起下发，因为在执行 bundle 时，图片资源是必须已经存在的。
+- 关于网络图片和 Base64 图片
+  这两类图片之管理起来都不方便，一张张手动上传网络图片不方便，一张张手动把图片 Base64 化也不方便，所以需要一个自动化的工具来管理它们。如下是自研自动化图片管理工具的一些方向：
+  - 把需要上传到网络的图片放在代码仓库的 assets/network 目录，把需要 Base64 化的图片放在 assets/base64 目录。
+  - 本地开发的时候，可以通过使用 require 静态图片资源的形式，引入 assets/network 或 assets/base64 目录中的图片来进行本地调试。在代码编译打包的时候，通过工具将 assets/network 目录中的图片上传到 CDN 上，将 assets/base64 目录中的图片都 Base64 化，并将 require 形式的静态图片资源代码转换为网络图片或 Base64 图片的代码。
