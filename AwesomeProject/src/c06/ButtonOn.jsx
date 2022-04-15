@@ -25,7 +25,7 @@ export default function ButtonOn() {
         onLongPress={handleLongPress}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}>
-        <Text>press on/out</Text>
+        <Text>press in/out</Text>
       </Pressable>
     </View>
   );
