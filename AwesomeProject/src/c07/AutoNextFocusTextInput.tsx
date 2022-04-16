@@ -10,7 +10,8 @@ export default function AutoNextFocusTextInput() {
 
   return (
     <>
-      <Text style={Styles.gap}>提交是自动设置下一输入框为焦点</Text>
+      <View style={Styles.newFormField} />
+      <Text>提交是自动设置下一输入框为焦点</Text>
       <View style={Styles.formItem}>
         <Text>姓名</Text>
         <TextInput
@@ -18,6 +19,7 @@ export default function AutoNextFocusTextInput() {
           style={Styles.input}
           onSubmitEditing={() => ref2.current?.focus()}
           textContentType="name"
+          autoComplete="name"
           returnKeyType="next"
         />
       </View>

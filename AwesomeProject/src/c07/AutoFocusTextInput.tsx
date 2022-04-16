@@ -20,6 +20,8 @@ export default function AutoFocusTextInput() {
         value={text}
         style={Styles.input}
         onChangeText={setText}
+        // 自动焦点属性
+        // autoFocus
       />
     </View>
   );

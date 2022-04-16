@@ -24,7 +24,7 @@ export default function ControlledTextInput() {
           }}
         />
       </View>
-      <Text style={Styles.txt}>{text}</Text>
+      <Text style={Styles.txt}>输入：{text}</Text>
     </>
   );
 }
