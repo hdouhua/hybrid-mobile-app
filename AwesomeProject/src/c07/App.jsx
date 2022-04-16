@@ -5,6 +5,7 @@ import UncontrolledTextInput from './UncontrolledTextInput';
 import ControlledTextInput from './ControlledTextInput';
 import AutoFocusTextInput from './AutoFocusTextInput';
 import AutoNextFocusTextInput from './AutoNextFocusTextInput';
+import CodeVerification from './homework';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <ControlledTextInput />
       <AutoFocusTextInput />
       <AutoNextFocusTextInput />
+      <CodeVerification />
     </SafeAreaView>
   );
 }

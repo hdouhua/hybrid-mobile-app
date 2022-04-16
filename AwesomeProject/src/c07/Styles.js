@@ -11,7 +11,7 @@ export const Styles = StyleSheet.create({
     marginTop: 10,
   },
   txt: {
-    fontSize: 18,
+    fontSize: 16,
     color: 'blue',
     marginTop: 15,
   },
@@ -20,7 +20,39 @@ export const Styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'baseline',
   },
-  gap: {
-    marginTop: 15,
+  newFormField: {
+    marginTop: 30,
+    paddingTop: 30,
+    borderTopWidth: 3,
+    borderColor: 'grey',
+  },
+  // verification code
+  vcContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  vcHeader: {
+    textAlign: 'center',
+    fontSize: 22,
+    fontWeight: '400',
+  },
+  vcInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  vcInputItem: {
+    fontSize: 18,
+    fontWeight: '400',
+    textAlign: 'center',
+    width: 20,
+    borderBottomWidth: 2,
+    marginRight: 10,
+  },
+  vcNewCode: {
+    fontSize: 22,
+    fontWeight: '400',
+    color: 'blue',
   },
 });
