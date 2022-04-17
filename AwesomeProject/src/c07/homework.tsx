@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import {View, TextInput, Text, Alert} from 'react-native';
 
 import {Styles} from './Styles';
@@ -6,61 +6,80 @@ import {Styles} from './Styles';
 const CODE_LENGTH = 6;
 
 export default function CodeVerification() {
-  const [text, setText] = React.useState('');
+  const codesRef = useRef(new Array(CODE_LENGTH).fill(null));
   const codeInputRef = useRef<TextInput[]>([null]);
-  const codeInputList = [...Array(CODE_LENGTH).keys()];
 
-  const handleChange = (it: number) => (c: string) => {
-    let t = [...text];
-    if (c) {
-      t[it] = c;
-      setText(t.join(''));
-      // set next focus
-      if (it < CODE_LENGTH - 1) {
-        codeInputRef.current[it + 1]?.focus();
-      }
+  const _setFocus = (i: number) => {
+    if (i >= 0 && i < CODE_LENGTH) {
+      codeInputRef.current[i]?.focus();
     }
   };
-  const handleSubmit = (it: number) => () => {
+  const _handleSubmit = (it: number) => {
     if (it < CODE_LENGTH - 1) {
-      codeInputRef.current[it + 1]?.focus();
+      _setFocus(it + 1);
     } else {
-      Alert.alert(text);
+      for (let index = 0; index < CODE_LENGTH; index++) {
+        if (!codesRef.current[index]) {
+          _setFocus(index);
+          return;
+        }
+      }
+      Alert.alert('Verification Code', codesRef.current.join(''));
     }
   };
-  const sendNewCode = () => {
-    Alert.alert('已发送！');
+  const handlers = (it: number) => ({
+    handlerChange: function (c: string) {
+      codesRef.current[it] = c;
+      if (c) {
+        _setFocus(it + 1);
+      }
+      if (it === CODE_LENGTH - 1) {
+        // auto submit
+        _handleSubmit(it);
+      }
+    },
+    handleKeyPress: function (e) {
+      if (e.nativeEvent.key === 'Backspace') {
+        codesRef.current[it] = null;
+        _setFocus(it - 1);
+      }
+    },
+    handleSubmit: function () {
+      _handleSubmit(it);
+    },
+  });
+  const handleResend = () => {
+    Alert.alert('已请求新验证码！');
   };
-
-  useEffect(() => {
-    codeInputRef.current[0].focus();
-  }, []);
 
   return (
     <>
       <View style={Styles.newFormField} />
-      <View style={Styles.vcContainer}>
-        <Text style={Styles.vcHeader}>
+      <View style={Styles.cvContainer}>
+        <Text style={Styles.cvHeader}>
           输入发送至 {'\n'}+86 ********645 的验证码
         </Text>
 
-        <View style={Styles.vcInputContainer}>
-          {codeInputList.map(it => {
+        <View style={Styles.cvInputContainer}>
+          {[...Array(CODE_LENGTH).keys()].map(it => {
+            const handler = handlers(it);
             return (
               <TextInput
                 key={it}
                 ref={el => (codeInputRef.current[it] = el)}
-                style={Styles.vcInputItem}
+                style={Styles.cvInputItem}
+                selectTextOnFocus
                 keyboardType="number-pad"
                 maxLength={1}
-                onChangeText={handleChange(it)}
-                onSubmitEditing={handleSubmit(it)}
+                onKeyPress={handler.handleKeyPress}
+                onChangeText={handler.handlerChange}
+                onSubmitEditing={handler.handleSubmit}
               />
             );
           })}
         </View>
 
-        <Text style={Styles.vcNewCode} onPress={sendNewCode}>
+        <Text style={Styles.cvNewCode} onPress={handleResend}>
           发送新验证码
         </Text>
       </View>
