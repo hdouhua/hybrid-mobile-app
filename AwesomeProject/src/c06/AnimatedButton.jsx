@@ -3,7 +3,7 @@ import {View, Text, Pressable} from 'react-native';
 
 import {Styles} from './Styles';
 
-export default function AnimationButton() {
+export default function AnimatedButton() {
   const handlePress = () => {
     console.log('presse me');
   };
