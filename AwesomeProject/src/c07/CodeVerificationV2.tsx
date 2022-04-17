@@ -1,3 +1,8 @@
+/**
+ * inspired by the blog:
+ * https://www.codedaily.io/tutorials/Create-a-Segmented-Auto-Moving-SMS-Code-Verification-Input-in-React-Native
+ */
+
 import React, {useCallback, useRef, useState} from 'react';
 import {View, TextInput, Text, Alert, Pressable} from 'react-native';
 
