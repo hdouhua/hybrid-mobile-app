@@ -26,33 +26,72 @@ export const Styles = StyleSheet.create({
     borderTopWidth: 3,
     borderColor: 'grey',
   },
-  // verification code
-  vcContainer: {
+  // code verification v1
+  cvContainer: {
     flexDirection: 'column',
     alignItems: 'center',
   },
-  vcHeader: {
+  cvHeader: {
     textAlign: 'center',
     fontSize: 22,
     fontWeight: '400',
   },
-  vcInputContainer: {
+  cvInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 15,
   },
-  vcInputItem: {
-    fontSize: 18,
+  cvInputItem: {
+    fontSize: 22,
     fontWeight: '400',
     textAlign: 'center',
-    width: 20,
+    width: 30,
+    height: 45,
+    borderBottomColor: 'lightgrey',
     borderBottomWidth: 2,
     marginRight: 10,
   },
-  vcNewCode: {
+  cvNewCode: {
     fontSize: 22,
     fontWeight: '400',
     color: 'blue',
+  },
+  // code verification v2
+  cv2_wrap: {
+    position: 'relative',
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 15,
+  },
+  cv2_input: {
+    position: 'absolute',
+    width: 30,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'transparent',
+    opacity: 0,
+  },
+  cv2_display: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'lightgrey',
+    width: 30,
+    height: 45,
+    marginRight: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'visible',
+  },
+  cv2_text: {
+    fontSize: 22,
+  },
+  cv2_shadows: {
+    position: 'absolute',
+    left: -4,
+    top: -4,
+    bottom: -4,
+    right: -4,
+    borderColor: 'lightblue',
+    borderWidth: 4,
   },
 });
