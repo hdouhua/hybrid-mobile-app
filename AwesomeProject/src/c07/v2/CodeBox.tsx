@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, TextInput, Alert, Pressable} from 'react-native';
+import {View, TextInput, Alert, TouchableWithoutFeedback} from 'react-native';
 
 import CodeBoxItem from './CodeBoxItem';
 import {Styles} from '../Styles';
@@ -11,6 +11,8 @@ export function CodeBox() {
   const [text, setText] = useState('');
   const [focused, setFocused] = useState(false);
   const codes = text.split('');
+  const selectedIndex =
+    codes.length < CODE_LENGTH ? codes.length : CODE_LENGTH - 1;
 
   const handlePress = () => {
     inputRef.current.focus();
@@ -43,12 +45,17 @@ export function CodeBox() {
 
   console.log('render CodeBox');
   return (
-    <Pressable onPress={handlePress}>
+    <TouchableWithoutFeedback onPress={handlePress}>
       <View style={Styles.cv2_wrap}>
         <TextInput
           ref={inputRef}
           value=""
-          style={Styles.cv2_input}
+          style={[
+            Styles.cv2_input,
+            {
+              left: selectedIndex * 40 + 22,
+            },
+          ]}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChangeText={handleChange}
@@ -56,11 +63,8 @@ export function CodeBox() {
           onSubmitEditing={handleSubmit}
         />
         {[...Array(CODE_LENGTH).keys()].map(index => {
-          let selected = codes.length === index;
-          let filled =
-            codes.length === CODE_LENGTH && index === CODE_LENGTH - 1;
           const code = codes[index] || '';
-          const shadow = (selected || filled) && focused;
+          const shadow = selectedIndex === index && focused;
 
           return (
             <CodeBoxItem
@@ -72,6 +76,6 @@ export function CodeBox() {
           );
         })}
       </View>
-    </Pressable>
+    </TouchableWithoutFeedback>
   );
 }
