@@ -43,7 +43,7 @@ export function CodeBox() {
     }
   };
 
-  console.log('render CodeBox');
+  console.debug('render CodeBox');
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={Styles.cv2_wrap}>
@@ -56,6 +56,7 @@ export function CodeBox() {
               left: selectedIndex * 40 + 22,
             },
           ]}
+          blurOnSubmit={false}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChangeText={handleChange}

@@ -14,7 +14,7 @@ export default function CodeVerification() {
     Alert.alert('已请求新验证码！');
   }, []);
 
-  console.log('rerender v2');
+  console.debug('rerender v2');
   return (
     <>
       <View style={Styles.newFormField} />

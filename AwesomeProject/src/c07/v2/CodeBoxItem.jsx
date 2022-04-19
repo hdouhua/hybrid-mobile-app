@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 import {Styles} from '../Styles';
 
 function CodeBoxItem({code, shadow, index}) {
-  console.log(`rendering ... ${index}`);
+  console.debug(`rendering ... ${index}`);
   return (
     <View style={Styles.cv2_display}>
       <Text style={Styles.cv2_text}>{code}</Text>

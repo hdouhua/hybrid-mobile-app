@@ -68,7 +68,8 @@ export default function CodeVerification() {
                 key={it}
                 ref={el => (codeInputRef.current[it] = el)}
                 style={Styles.cvInputItem}
-                selectTextOnFocus
+                selectTextOnFocus={true}
+                blurOnSubmit={false}
                 keyboardType="number-pad"
                 maxLength={1}
                 onKeyPress={handler.handleKeyPress}
