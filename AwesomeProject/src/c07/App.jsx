@@ -6,7 +6,7 @@ import ControlledTextInput from './ControlledTextInput';
 import AutoFocusTextInput from './AutoFocusTextInput';
 import AutoNextFocusTextInput from './AutoNextFocusTextInput';
 import CodeVerification from './homework';
-import CodeVerificationV2 from './CodeVerificationV2';
+import CodeVerificationV2 from './v2/CodeVerification';
 
 export default function App() {
   return (
