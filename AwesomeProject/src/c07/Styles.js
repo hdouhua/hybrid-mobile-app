@@ -70,6 +70,7 @@ export const Styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     backgroundColor: 'transparent',
+    fontSize: 22,
   },
   cv2_display: {
     borderBottomWidth: 2,
