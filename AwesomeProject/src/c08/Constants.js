@@ -3,6 +3,7 @@
  */
 
 const NUM_ITEMS = 100;
+
 export const ITEM_HEIGHT = 100;
 
 export const DATA = new Array(NUM_ITEMS).fill(0).map((_, index) => ({

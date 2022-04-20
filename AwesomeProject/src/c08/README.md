@@ -2,15 +2,17 @@
 
 React Native 官方提供的列表组件是 `FlatList` ，但是更推荐使用开源社区提供的列表组件 `RecyclerListView` 。理由就是性能更好。
 
-列表性能表象就是通常说的卡顿，通常，评判列表卡顿的指标是 UI 线程的帧率和 JavaScript 线程的帧率。
+列表性能对于用户的直观感受就是是否卡顿。通常，评判列表卡顿的指标是 UI 线程的帧率和 JavaScript 线程的帧率。
 
-FlastList 和 RecyclerListView 的底层实现都是滚动组件 ScrollView ，那先从 ScrollView 聊起。
+FlastList 和 RecyclerListView 的底层实现都是组件 ScrollView 。
 
-## ScrollView 
+## ScrollView
 
 ScrollView 是一个支持横向或竖向的滚动组件。
 
-ScrollView 组件一次性直接渲染所有子视图，所有内容都会在首次刷新时进行渲染。内容很少的情况下当然无所谓，内容多起来了，速度便慢下来了。优化之一是懒加载。先渲染 N 个子视图。
+ScrollView 组件一次性直接渲染所有子视图，所有内容都会在首次刷新时进行渲染。内容很少的情况下当然无所谓，内容多起来了，速度便慢下来了。优化之一是懒加载，先渲染 N 个子视图。
+
+>[参考](https://reactnative.dev/docs/scrollview)
 
 ## FlatList 列表组件 —— “自动”按需渲染
 
@@ -20,27 +22,29 @@ FlatList 组件底层使用的是虚拟列表 VirtualizedList ，VirtualizedList
 
 实现 FlatList 自动按需渲染的思路具体可以分为三步：
 
-- 通过滚动事件的回调参数，计算需要按需渲染的区域；
+1. 通过滚动事件的回调参数，计算需要按需渲染的区域；
 
-  滚动时会触发“异步”回调 onScroll 事件。
+   滚动时会触发“异步”回调 onScroll 事件。
 
-- 通过需要按需渲染的区域，计算需要按需渲染的列表项索引；
+1. 通过需要按需渲染的区域，计算需要按需渲染的列表项索引；
   
-  根据 UI 设计，获取列表项高度，并以此计算按需渲染区域的高度，设置 getItemLayout 属性把列表项的高度提前告诉 FlastList。
+   根据 UI 设计，获取列表项高度，以此计算按需渲染区域的高度，设置 getItemLayout 属性把列表项的高度提前告诉 FlastList。
 
-  如果不能确定列表项的高度，也就是未知高度的列表项，FlastList 会启用列表项的布局回调函数 onLayout，在 onLayout 中会有大量的动态测量高度的计算，包括每个列表项的准确高度和整体的平均高度。
+   如果不能确定列表项的高度，也就是未知高度的列表项，FlastList 会启用列表项的布局回调函数 onLayout，在 onLayout 中会有大量的动态测量高度的计算，包括每个列表项的准确高度和整体的平均高度。
 
-  实际生产中，如果你不填 getItemLayout 属性，也就是不把列表项的高度提前告诉 FlastList ，让 FlastList 通过 onLayout 的布局回调动态计算，用户是可以感觉到滑动**卡顿**。
+   实际生产中，如果你不填 getItemLayout 属性，也就是不把列表项的高度提前告诉 FlastList ，让 FlastList 通过 onLayout 的布局回调动态计算，用户是可以感觉到滑动**卡顿**。
 
-- 只渲染需要按需渲染列表项，不需要渲染的列表项用空视图代替。
+1. 只渲染需要按需渲染列表项，不需要渲染的列表项用空视图代替。
 
-  这个过程是顺滑的，表项是一个个渲染的，而不是 1 个屏幕或 10 个屏幕渲染的。
+   这个过程是顺滑的，表项是一个个渲染的，而不是 1 个屏幕或 10 个屏幕渲染的。
 
 ## RecyclerListView —— 可复用的列表组件
 
 在首次渲染时，RecyclerListView 只会渲染首屏内容和用户即将看到的内容，所以它的首次渲染速度很快。在滚动渲染时，只会渲染屏幕内的和屏幕附近 250 像素的内容，距离屏幕太远的内容是空的。
 
 这个组件的复用灵感来源于**原生**的可复用列表组件。比如，iOS 里的 `UITableView` 和 Android 里的动态列表 `RecyclerView` 。
+
+>[参考](https://github.com/Flipkart/recyclerlistview)
 
 ### 复用机制
 
@@ -55,9 +59,9 @@ FlatList 组件底层使用的是虚拟列表 VirtualizedList ，VirtualizedList
 
 三个必填参数：
 
-- 列表数据：dataProvider(dp)；
-- 列表项的布局方法：layoutProvider；
-- 列表项的渲染函数：rowRenderer。
+- 列表数据：dataProvider
+- 列表项的布局方法：layoutProvider
+- 列表项的渲染函数：rowRenderer
 
 ## 总结
 
