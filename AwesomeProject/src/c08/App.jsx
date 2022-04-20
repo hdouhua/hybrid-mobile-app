@@ -6,13 +6,15 @@ import {Styles} from './Styles';
 import SlowList from './SlowList';
 import FastList from './FlatList';
 import RecyclerList from './RecyclerList';
+import RecyclerListV2 from './homework';
 
 export default function App() {
   return (
     <SafeAreaView style={Styles.safeView}>
       {/* <SlowList /> */}
       {/* <FastList /> */}
-      <RecyclerList />
+      {/* <RecyclerList /> */}
+      <RecyclerListV2 />
     </SafeAreaView>
   );
 }
