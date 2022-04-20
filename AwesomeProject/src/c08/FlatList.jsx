@@ -4,7 +4,6 @@ import {Pressable, FlatList, Text} from 'react-native';
 import {Styles} from './Styles';
 
 const NUM_ITEMS = 1000;
-
 const DATA = new Array(NUM_ITEMS).fill(0).map((_, index) => ({
   title: `Item ${index}`,
   id: index,
@@ -22,6 +21,11 @@ export default function FastList() {
   const renderItem = ({item}) => <Item title={item.title} />;
 
   return (
-    <FlatList data={DATA} renderItem={renderItem} keyExtractor={it => it.id} />
+    <FlatList
+      debug={true}
+      data={DATA}
+      renderItem={renderItem}
+      keyExtractor={it => it.id}
+    />
   );
 }
