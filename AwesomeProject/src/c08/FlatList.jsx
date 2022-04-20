@@ -1,31 +1,26 @@
 import React from 'react';
-import {Pressable, FlatList, Text} from 'react-native';
+import {FlatList} from 'react-native';
 
 import {Styles} from './Styles';
-
-const NUM_ITEMS = 1000;
-const DATA = new Array(NUM_ITEMS).fill(0).map((_, index) => ({
-  title: `Item ${index}`,
-  id: index,
-}));
-
-const Item = ({title}) => {
-  return (
-    <Pressable style={Styles.itemWrapper}>
-      <Text>{title}</Text>
-    </Pressable>
-  );
-};
+import {DATA, ITEM_HEIGHT} from './Constants';
+import ListItem from './ListItem';
 
 export default function FastList() {
-  const renderItem = ({item}) => <Item title={item.title} />;
+  const renderItem = ({item}) => <ListItem item={item} />;
+  const getItemLayout = (_, index) => ({
+    length: ITEM_HEIGHT,
+    offset: ITEM_HEIGHT * index,
+    index,
+  });
 
   return (
     <FlatList
+      style={Styles.container}
       debug={true}
       data={DATA}
       renderItem={renderItem}
       keyExtractor={it => it.id}
+      getItemLayout={getItemLayout}
     />
   );
 }
