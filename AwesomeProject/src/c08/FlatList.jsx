@@ -2,8 +2,8 @@ import React from 'react';
 import {FlatList} from 'react-native';
 
 import {Styles} from './Styles';
-import {DATA, ITEM_HEIGHT} from './Constants';
-import ListItem from './ListItem';
+import {DATA, ITEM_HEIGHT} from './utils/constant';
+import ListItem from './components/ListItem';
 
 export default function FastList() {
   const renderItem = ({item}) => <ListItem item={item} />;

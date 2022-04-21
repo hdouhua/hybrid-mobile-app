@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pressable, Text} from 'react-native';
 
-import {Styles} from './Styles';
+import {Styles} from '../Styles';
 
 export default function ListItem({item, style}) {
   return (

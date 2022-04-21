@@ -3,10 +3,10 @@ import {Dimensions, RefreshControl, View, Text, Pressable} from 'react-native';
 import {RecyclerListView, DataProvider, LayoutProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {ViewTypes, ITEM_HEIGHT} from './Constants';
-import {generateArrayData} from './utils';
-import ListItem from './ListItem';
-import Loading from './Loading';
+import {ViewTypes, ITEM_HEIGHT} from './utils/constant';
+import {generateArrayData} from './utils/util';
+import ListItem from './components/ListItem';
+import Loading from './components/Loading';
 
 const BaseDataProvider = new DataProvider((r1, r2) => {
   return r1.id !== r2.id;

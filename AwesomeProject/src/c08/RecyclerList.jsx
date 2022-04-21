@@ -8,8 +8,8 @@ import {Dimensions} from 'react-native';
 import {RecyclerListView, DataProvider, LayoutProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {DATA, ITEM_HEIGHT} from './Constants';
-import ListItem from './ListItem';
+import {DATA, ITEM_HEIGHT} from './utils/constant';
+import ListItem from './components/ListItem';
 
 export default function RecyclerList() {
   let {width} = Dimensions.get('window');
