@@ -34,10 +34,14 @@ export const Styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
-    alignContent: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  loadingIndicator: {
     backgroundColor: 'lightgrey',
     opacity: 0.7,
+    padding: 20,
   },
   footerWrapper: {
     alignItems: 'stretch',
@@ -47,8 +51,8 @@ export const Styles = StyleSheet.create({
     height: 50,
     borderWidth: 1,
     borderColor: 'lightgrey',
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   footerTxt: {
     color: 'grey',

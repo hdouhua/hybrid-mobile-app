@@ -4,10 +4,10 @@ import {RecyclerListView, DataProvider, LayoutProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
 import {ViewTypes, ITEM_HEIGHT} from './Constants';
+import {generateArrayData} from './utils';
 import ListItem from './ListItem';
 import Loading from './Loading';
 
-const BATCH_SIZE = 30;
 const BaseDataProvider = new DataProvider((r1, r2) => {
   return r1.id !== r2.id;
 });
@@ -80,14 +80,10 @@ export default function RecyclerList() {
   async function fetchData() {
     //FIXME: setLoading() will cause re-render
     setLoading(true);
-    let waitingFor = 500 * Math.floor(((Math.random() * 100) % 10) + 1);
     await new Promise(resolve => {
+      let waitingFor = 500 * Math.floor(((Math.random() * 100) % 10) + 1);
       setTimeout(() => {
-        let count = dataProvider.getSize();
-        let newData = new Array(BATCH_SIZE).fill(0).map((_, index) => ({
-          title: `Item ${index + count}`,
-          id: index + count,
-        }));
+        let newData = generateArrayData(dataProvider.getSize(), 30);
         dataRef.current = dataRef.current.concat(newData);
         setDataProvider(dataProvider.cloneWithRows(dataRef.current));
         resolve();
@@ -97,7 +93,9 @@ export default function RecyclerList() {
   }
 
   useEffect(() => {
-    fetchData();
+    if (dataRef.current.length === 0) {
+      fetchData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -111,10 +109,14 @@ export default function RecyclerList() {
           dataProvider={dataProvider}
           layoutProvider={layoutProvider}
           rowRenderer={rowRenderer}
+          // 可以使用 onEndReached 方案自动加载新数据
+          // onEndReached={handleRefreshAndLoadMore}
+          // 也可以使用 renderFooter 手动加在更多数据
           renderFooter={renderFooter}
           scrollViewProps={{
             refreshControl: (
               <RefreshControl
+                title="Pull to refresh"
                 refreshing={loading}
                 onRefresh={handleRefreshAndLoadMore}
               />

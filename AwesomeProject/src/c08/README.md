@@ -3,6 +3,7 @@
 <p>
 <img src="../../docs/c08_1.png" width="30%" />
 <img src="../../docs/c08_2.png" width="30%" />
+<img src="../../docs/c08_3.png" width="30%" />
 </p>
 
 React Native 官方提供的列表组件是 `FlatList` ，但是更推荐使用开源社区提供的列表组件 `RecyclerListView` 。理由就是性能更好。
