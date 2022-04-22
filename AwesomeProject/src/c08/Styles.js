@@ -28,7 +28,7 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#7cbb00',
     borderColor: '#7cbb00',
   },
-  loading: {
+  loadingLayer: {
     position: 'absolute',
     left: 0,
     right: 0,
@@ -38,12 +38,13 @@ export const Styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'transparent',
   },
-  loadingIndicator: {
+  loadingLayerIndicator: {
     backgroundColor: 'lightgrey',
-    opacity: 0.7,
     padding: 20,
+    borderRadius: 5,
   },
   footerWrapper: {
+    height: 56,
     alignItems: 'stretch',
     margin: 10,
   },
@@ -58,5 +59,6 @@ export const Styles = StyleSheet.create({
     color: 'grey',
     fontSize: 18,
     fontWeight: '600',
+    textAlign: 'center',
   },
 });

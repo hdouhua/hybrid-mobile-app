@@ -1,20 +1,27 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Dimensions, RefreshControl, View, Text, Pressable} from 'react-native';
+import {Dimensions, RefreshControl} from 'react-native';
 import {RecyclerListView, DataProvider, LayoutProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {ViewTypes, ITEM_HEIGHT} from './utils/constant';
+import {
+  ViewTypes,
+  ITEM_HEIGHT,
+  FETCH_BATCH_SIZE,
+  FETCH_DATA_SIZE,
+} from './utils/constant';
 import {generateArrayData} from './utils/util';
+import {LoadingIndicator as ListFooter} from './components/ListFooter';
 import ListItem from './components/ListItem';
-import Loading from './components/Loading';
+import LoadingLayer from './components/Loading';
 
-const BaseDataProvider = new DataProvider((r1, r2) => {
-  return r1.id !== r2.id;
-});
+// // disalbe debug
+// console.debug = () => {};
+const BaseDataProvider = new DataProvider((r1, r2) => r1.id !== r2.id);
 
 export default function RecyclerList() {
   const dataRef = useRef([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [noMoreData, setNoMoreData] = useState(false);
   const [dataProvider, setDataProvider] = useState(BaseDataProvider);
   let {width} = Dimensions.get('window');
 
@@ -48,6 +55,7 @@ export default function RecyclerList() {
       }
     },
   );
+  layoutProvider.shouldRefreshWithAnchoring = false; // to prevent list flickering
   const rowRenderer = (type, data) => {
     let style = null;
     switch (type) {
@@ -61,20 +69,16 @@ export default function RecyclerList() {
     return <ListItem item={data} style={style} />;
   };
   const renderFooter = () => {
-    return (
-      <View style={Styles.footerWrapper}>
-        <Pressable style={Styles.footerBtn} onPress={handleRefreshAndLoadMore}>
-          <Text style={Styles.footerTxt}>Load More...</Text>
-        </Pressable>
-      </View>
-    );
+    console.debug('render footer ...');
+    return <ListFooter loading={loading} noMore={noMoreData} />;
+    // return <ListFooter onRefetch={handleRefetch} />;
   };
 
-  const handleRefreshAndLoadMore = async () => {
+  const handleRefetch = async () => {
     if (!loading) {
-      console.log('fetching ...');
+      console.debug('fetching ...');
       await fetchData();
-      console.log('finished');
+      console.debug('finished');
     }
   };
   async function fetchData() {
@@ -83,9 +87,16 @@ export default function RecyclerList() {
     await new Promise(resolve => {
       let waitingFor = 500 * Math.floor(((Math.random() * 100) % 10) + 1);
       setTimeout(() => {
-        let newData = generateArrayData(dataProvider.getSize(), 30);
-        dataRef.current = dataRef.current.concat(newData);
-        setDataProvider(dataProvider.cloneWithRows(dataRef.current));
+        if (dataProvider.getSize() > FETCH_DATA_SIZE) {
+          setNoMoreData(true);
+        } else {
+          let newData = generateArrayData(
+            dataProvider.getSize(),
+            FETCH_BATCH_SIZE,
+          );
+          dataRef.current = dataRef.current.concat(newData);
+          setDataProvider(dp => dp.cloneWithRows(dataRef.current));
+        }
         resolve();
       }, waitingFor);
     });
@@ -99,32 +110,27 @@ export default function RecyclerList() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('render RecyclerListView');
-
-  return (
-    <>
-      {dataProvider.getSize() > 0 ? (
-        <RecyclerListView
-          style={Styles.container}
-          dataProvider={dataProvider}
-          layoutProvider={layoutProvider}
-          rowRenderer={rowRenderer}
-          // 可以使用 onEndReached 方案自动加载新数据
-          // onEndReached={handleRefreshAndLoadMore}
-          // 也可以使用 renderFooter 手动加在更多数据
-          renderFooter={renderFooter}
-          scrollViewProps={{
-            refreshControl: (
-              <RefreshControl
-                title="Pull to refresh"
-                refreshing={loading}
-                onRefresh={handleRefreshAndLoadMore}
-              />
-            ),
-          }}
-        />
-      ) : null}
-      {loading && <Loading />}
-    </>
+  console.debug('render RecyclerListView');
+  return dataProvider.getSize() > 0 ? (
+    <RecyclerListView
+      style={Styles.container}
+      dataProvider={dataProvider}
+      layoutProvider={layoutProvider}
+      rowRenderer={rowRenderer}
+      onEndReached={handleRefetch}
+      onEndReachedThreshold={30}
+      renderFooter={renderFooter}
+      scrollViewProps={{
+        refreshControl: (
+          <RefreshControl
+            title="Pull to refresh"
+            refreshing={loading}
+            onRefresh={handleRefetch}
+          />
+        ),
+      }}
+    />
+  ) : (
+    loading && <LoadingLayer />
   );
 }
