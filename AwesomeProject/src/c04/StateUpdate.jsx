@@ -14,9 +14,9 @@ export default function StateUpdate() {
           marginBottom: 10,
         }}>
         <Text>update state - primitive values:</Text>
-        <Button title="+" onPress={() => setCount(count + 1)} />
+        <Button title="+" onPress={() => setCount(c => c + 1)} />
         <Text>{count}</Text>
-        <Button title="-" onPress={() => setCount(count - 1)} />
+        <Button title="-" onPress={() => setCount(c => c - 1)} />
       </View>
 
       <View
@@ -54,12 +54,20 @@ export default function StateUpdate() {
         <Text>update state - object:</Text>
         <Button
           title="+"
-          onPress={() => setObjCount({count: objCount.count + 1})}
+          onPress={() =>
+            setObjCount(c => ({
+              count: c.count + 1,
+            }))
+          }
         />
         <Text>{objCount.count}</Text>
         <Button
           title="-"
-          onPress={() => setObjCount({count: objCount.count - 1})}
+          onPress={() =>
+            setObjCount(c => ({
+              count: c.count - 1,
+            }))
+          }
         />
       </View>
     </View>
