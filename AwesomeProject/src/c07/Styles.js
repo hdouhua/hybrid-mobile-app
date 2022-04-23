@@ -26,7 +26,6 @@ export const Styles = StyleSheet.create({
     borderTopWidth: 3,
     borderColor: 'grey',
   },
-  // code verification v1
   cvContainer: {
     flexDirection: 'column',
     alignItems: 'center',
@@ -36,6 +35,12 @@ export const Styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '400',
   },
+  cvNewCode: {
+    fontSize: 22,
+    fontWeight: '400',
+    color: 'blue',
+  },
+  // code verification v1
   cvInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -44,18 +49,12 @@ export const Styles = StyleSheet.create({
   },
   cvInputItem: {
     fontSize: 22,
-    fontWeight: '400',
     textAlign: 'center',
     width: 30,
     height: 45,
     borderBottomColor: 'lightgrey',
     borderBottomWidth: 2,
     marginRight: 10,
-  },
-  cvNewCode: {
-    fontSize: 22,
-    fontWeight: '400',
-    color: 'blue',
   },
   // code verification v2
   cv2_wrap: {
@@ -93,5 +92,31 @@ export const Styles = StyleSheet.create({
     right: -4,
     borderColor: 'lightblue',
     borderWidth: 4,
+  },
+  // code verification v3
+  cv3_container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: 262,
+    marginLeft: 28,
+    marginVertical: 15,
+  },
+  cv3_input: {
+    fontSize: 22,
+    letterSpacing: 28,
+    marginHorizontal: 6,
+  },
+  cv3_lineContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginTop: 5,
+  },
+  cv3_lineItem: {
+    width: 30,
+    borderTopWidth: 2,
+    borderTopColor: 'lightgrey',
+    marginRight: 10,
   },
 });

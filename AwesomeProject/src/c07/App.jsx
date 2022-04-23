@@ -7,17 +7,21 @@ import AutoFocusTextInput from './AutoFocusTextInput';
 import AutoNextFocusTextInput from './AutoNextFocusTextInput';
 import CodeVerification from './homework';
 import CodeVerificationV2 from './v2/CodeVerification';
+import CodeVerificationV3 from './v3/CodeVerification';
+
+import {Styles} from './Styles';
 
 export default function App() {
   return (
-    <SafeAreaView style={{marginHorizontal: 30}}>
+    <SafeAreaView style={Styles.safeView}>
       <ScrollView>
+        <CodeVerificationV3 />
+        <CodeVerificationV2 />
+        <CodeVerification />
         <UncontrolledTextInput />
         <ControlledTextInput />
         <AutoFocusTextInput />
         <AutoNextFocusTextInput />
-        <CodeVerification />
-        <CodeVerificationV2 />
       </ScrollView>
     </SafeAreaView>
   );

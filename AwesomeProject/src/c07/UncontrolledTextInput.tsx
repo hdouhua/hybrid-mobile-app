@@ -11,6 +11,7 @@ export default function UncontrolledTextInput() {
 
   return (
     <>
+      <View style={Styles.newFormField} />
       <View style={Styles.formItem}>
         <Text>非受控组件</Text>
         <TextInput
