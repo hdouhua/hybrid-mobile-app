@@ -3,8 +3,8 @@ import {StyleSheet} from 'react-native';
 export const Styles = StyleSheet.create({
   safeView: {
     marginHorizontal: 30,
-    flexDirection: 'column',
     flex: 1,
+    // flexDirection: 'column',
     alignItems: 'center',
   },
   basePressable: {
@@ -12,6 +12,8 @@ export const Styles = StyleSheet.create({
     height: 50,
     marginTop: 10,
     backgroundColor: 'red',
+    // flexDirection: 'column',
+    alignItems: 'center',
   },
   rect: {
     margin: 10,
@@ -21,6 +23,8 @@ export const Styles = StyleSheet.create({
     width: 150,
     height: 100,
     backgroundColor: 'orange',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  baseText: {color: 'white', textAlign: 'center', lineHeight: 50},
+  baseText: {color: 'white', lineHeight: 50},
 });

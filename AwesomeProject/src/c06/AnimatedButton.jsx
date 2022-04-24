@@ -17,7 +17,7 @@ export default function AnimatedButton() {
           Styles.basePressable,
           {opacity: pressed ? 0.5 : 1},
         ]}>
-        <Text style={Styles.baseText}>aminimation button</Text>
+        <Text style={Styles.baseText}>animated button</Text>
       </Pressable>
     </View>
   );

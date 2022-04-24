@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
-  extends: ['@react-native-community', 'plugin:react-hooks/recommended'],
   plugins: ['react-hooks'],
+  extends: ['@react-native-community', 'plugin:react-hooks/recommended'],
   rules: {
     'react-native/no-inline-styles': 'off',
     'react-hooks/rules-of-hooks': 'error',

@@ -3,15 +3,10 @@ import {Dimensions, RefreshControl} from 'react-native';
 import {RecyclerListView, DataProvider, LayoutProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {
-  ViewTypes,
-  ITEM_HEIGHT,
-  FETCH_BATCH_SIZE,
-  FETCH_DATA_SIZE,
-} from './utils/constant';
-import {generateArrayData} from './utils/util';
-import {LoadingIndicator as ListFooter} from './components/ListFooter';
+import {ViewTypes, ITEM_HEIGHT} from './utils/constant';
+import {fetchData} from './utils/util';
 import ListItem from './components/ListItem';
+import {LoadingIndicator as ListFooter} from './components/ListFooter';
 import LoadingLayer from './components/Loading';
 
 // // disalbe debug
@@ -22,7 +17,7 @@ export default function RecyclerList() {
   const dataRef = useRef([]);
   const [loading, setLoading] = useState(false);
   const [noMoreData, setNoMoreData] = useState(false);
-  const [dataProvider, setDataProvider] = useState(BaseDataProvider);
+  const [dataProvider, setDataProvider] = useState(() => BaseDataProvider);
   let {width} = Dimensions.get('window');
 
   const layoutProvider = new LayoutProvider(
@@ -77,35 +72,26 @@ export default function RecyclerList() {
   const handleRefetch = async () => {
     if (!loading) {
       console.debug('fetching ...');
-      await fetchData();
+      //FIXME: setLoading() will cause re-render
+      setLoading(true);
+
+      let newData = await fetchData(dataProvider.getSize());
+      if (newData) {
+        dataRef.current = dataRef.current.concat(newData);
+        setDataProvider(dp => dp.cloneWithRows(dataRef.current));
+      } else {
+        setNoMoreData(true);
+      }
+
+      setLoading(false);
       console.debug('finished');
     }
   };
-  async function fetchData() {
-    //FIXME: setLoading() will cause re-render
-    setLoading(true);
-    await new Promise(resolve => {
-      let waitingFor = 500 * Math.floor(((Math.random() * 100) % 10) + 1);
-      setTimeout(() => {
-        if (dataProvider.getSize() > FETCH_DATA_SIZE) {
-          setNoMoreData(true);
-        } else {
-          let newData = generateArrayData(
-            dataProvider.getSize(),
-            FETCH_BATCH_SIZE,
-          );
-          dataRef.current = dataRef.current.concat(newData);
-          setDataProvider(dp => dp.cloneWithRows(dataRef.current));
-        }
-        resolve();
-      }, waitingFor);
-    });
-    setLoading(false);
-  }
 
   useEffect(() => {
+    // ensure it is executed at the first time -- for development mode
     if (dataRef.current.length === 0) {
-      fetchData();
+      handleRefetch();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
