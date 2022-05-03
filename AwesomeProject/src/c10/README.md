@@ -17,12 +17,12 @@
 
 - 三条思路：“一推理”、“二分法”、“三问人”。
 
-![debug-](https://static001.geekbang.org/resource/image/83/c0/8326a0d730d4ac2fd526ec02dc7125c0.png?wh=1504x1504)
+![debug-roadmap](https://static001.geekbang.org/resource/image/83/c0/8326a0d730d4ac2fd526ec02dc7125c0.png?wh=1504x1504)
 
 ## 调试工具 PK
 
-![debug-tools-comparision](https://static001.geekbang.org/resource/image/ca/5c/ca825d7cdyy4d0513f8244bac454c45c.png?wh=1724x810)
+![debug-tools-comparison](https://static001.geekbang.org/resource/image/ca/5c/ca825d7cdyy4d0513f8244bac454c45c.png?wh=1724x810)
 
 ## 拓展
 
-[RN 官方参考](https://reactnative.dev/docs/debugging)
+[RN 调试的官网参考](https://reactnative.dev/docs/debugging)
