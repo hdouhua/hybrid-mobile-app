@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Dimensions, RefreshControl} from 'react-native';
-import {RecyclerListView, DataProvider, LayoutProvider} from 'recyclerlistview';
+import {RefreshControl} from 'react-native';
+import {RecyclerListView, DataProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {ViewTypes, ITEM_HEIGHT} from './utils/constant';
-import {fetchData} from './utils/util';
+import {fetchData} from './utils/dataUtil';
+import {getLayoutProvider} from './utils/layoutUtil';
 import ListItem from './components/ListItem';
 import {LoadingIndicator as ListFooter} from './components/ListFooter';
 import LoadingLayer from './components/Loading';
@@ -18,50 +18,10 @@ export default function RecyclerList() {
   const [loading, setLoading] = useState(false);
   const [noMoreData, setNoMoreData] = useState(false);
   const [dataProvider, setDataProvider] = useState(() => BaseDataProvider);
-  let {width} = Dimensions.get('window');
 
-  const layoutProvider = new LayoutProvider(
-    index => {
-      if (index % 3 === 0) {
-        return ViewTypes.FULL;
-      } else if (index % 3 === 1) {
-        return ViewTypes.HALF_LEFT;
-      } else {
-        return ViewTypes.HALF_RIGHT;
-      }
-    },
-    (type, dim) => {
-      switch (type) {
-        case ViewTypes.HALF_LEFT:
-          dim.width = width / 2;
-          dim.height = ITEM_HEIGHT;
-          break;
-        case ViewTypes.HALF_RIGHT:
-          dim.width = width / 2;
-          dim.height = ITEM_HEIGHT;
-          break;
-        case ViewTypes.FULL:
-          dim.width = width;
-          dim.height = 120;
-          break;
-        default:
-          dim.width = 0;
-          dim.height = 0;
-      }
-    },
-  );
-  layoutProvider.shouldRefreshWithAnchoring = false; // to prevent list flickering
+  const layoutProvider = getLayoutProvider();
   const rowRenderer = (type, data) => {
-    let style = null;
-    switch (type) {
-      case ViewTypes.HALF_LEFT:
-        style = Styles.itemWrapperLeft;
-        break;
-      case ViewTypes.HALF_RIGHT:
-        style = Styles.itemWrapperRight;
-        break;
-    }
-    return <ListItem item={data} style={style} />;
+    return <ListItem item={data} viewType={type} />;
   };
   const renderFooter = () => {
     console.debug('render footer ...');

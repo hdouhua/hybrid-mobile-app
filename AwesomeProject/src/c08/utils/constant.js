@@ -1,7 +1,7 @@
 /**
  *
  */
-import {generateArrayData} from './util';
+import {generateArrayData} from './dataUtil';
 
 export const ITEM_HEIGHT = 100;
 
