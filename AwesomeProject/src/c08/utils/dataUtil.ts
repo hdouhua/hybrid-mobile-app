@@ -16,10 +16,10 @@ export function generateArrayData(startIndex: number, count: number): Item[] {
 }
 
 export function fetchData(index: number) {
-  return new Promise(resolve => {
+  return new Promise<Item[] | null>(resolve => {
     let waitingFor = 300 * Math.floor(((Math.random() * 100) % 10) + 1);
     setTimeout(() => {
-      let result: Item[] = null;
+      let result: Item[] | null = null;
       if (index < FETCH_DATA_SIZE) {
         result = generateArrayData(index, FETCH_BATCH_SIZE);
       }
