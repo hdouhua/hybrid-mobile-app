@@ -1,3 +1,27 @@
+diff --git a/node_modules/recyclerlistview/dist/reactnative/core/dependencies/LayoutProvider.d.ts b/node_modules/recyclerlistview/dist/reactnative/core/dependencies/LayoutProvider.d.ts
+index e832379..0d2ee61 100644
+--- a/node_modules/recyclerlistview/dist/reactnative/core/dependencies/LayoutProvider.d.ts
++++ b/node_modules/recyclerlistview/dist/reactnative/core/dependencies/LayoutProvider.d.ts
+@@ -1,4 +1,4 @@
+-import { Layout, LayoutManager } from "../layoutmanager/LayoutManager";
++import { Layout, WrapGridLayoutManager, LayoutManager } from "../layoutmanager/LayoutManager";
+ /**
+  * Created by talha.naqvi on 05/04/17.
+  * You can create a new instance or inherit and override default methods
+@@ -19,10 +19,10 @@ export declare abstract class BaseLayoutProvider {
+     abstract checkDimensionDiscrepancy(dimension: Dimension, type: string | number, index: number): boolean;
+ }
+ export declare class LayoutProvider extends BaseLayoutProvider {
+-    private _getLayoutTypeForIndex;
+-    private _setLayoutForType;
++    protected _getLayoutTypeForIndex: (index: number) => string | number;
++    protected _setLayoutForType: (type: string | number, dim: Dimension, index: number) => void;
+     private _tempDim;
+-    private _lastLayoutManager;
++    protected _lastLayoutManager: WrapGridLayoutManager | undefined;
+     constructor(getLayoutTypeForIndex: (index: number) => string | number, setLayoutForType: (type: string | number, dim: Dimension, index: number) => void);
+     newLayoutManager(renderWindowSize: Dimension, isHorizontal?: boolean, cachedLayouts?: Layout[]): LayoutManager;
+     getLayoutTypeForIndex(index: number): string | number;
 diff --git a/node_modules/recyclerlistview/dist/reactnative/core/layoutmanager/LayoutManager.d.ts b/node_modules/recyclerlistview/dist/reactnative/core/layoutmanager/LayoutManager.d.ts
 index 51b60d7..3b22e34 100644
 --- a/node_modules/recyclerlistview/dist/reactnative/core/layoutmanager/LayoutManager.d.ts
@@ -21,6 +45,30 @@ index 51b60d7..3b22e34 100644
      constructor(layoutProvider: LayoutProvider, renderWindowSize: Dimension, isHorizontal?: boolean, cachedLayouts?: Layout[]);
      getContentDimension(): Dimension;
      getLayouts(): Layout[];
+diff --git a/node_modules/recyclerlistview/dist/web/core/dependencies/LayoutProvider.d.ts b/node_modules/recyclerlistview/dist/web/core/dependencies/LayoutProvider.d.ts
+index e832379..0d2ee61 100644
+--- a/node_modules/recyclerlistview/dist/web/core/dependencies/LayoutProvider.d.ts
++++ b/node_modules/recyclerlistview/dist/web/core/dependencies/LayoutProvider.d.ts
+@@ -1,4 +1,4 @@
+-import { Layout, LayoutManager } from "../layoutmanager/LayoutManager";
++import { Layout, WrapGridLayoutManager, LayoutManager } from "../layoutmanager/LayoutManager";
+ /**
+  * Created by talha.naqvi on 05/04/17.
+  * You can create a new instance or inherit and override default methods
+@@ -19,10 +19,10 @@ export declare abstract class BaseLayoutProvider {
+     abstract checkDimensionDiscrepancy(dimension: Dimension, type: string | number, index: number): boolean;
+ }
+ export declare class LayoutProvider extends BaseLayoutProvider {
+-    private _getLayoutTypeForIndex;
+-    private _setLayoutForType;
++    protected _getLayoutTypeForIndex: (index: number) => string | number;
++    protected _setLayoutForType: (type: string | number, dim: Dimension, index: number) => void;
+     private _tempDim;
+-    private _lastLayoutManager;
++    protected _lastLayoutManager: WrapGridLayoutManager | undefined;
+     constructor(getLayoutTypeForIndex: (index: number) => string | number, setLayoutForType: (type: string | number, dim: Dimension, index: number) => void);
+     newLayoutManager(renderWindowSize: Dimension, isHorizontal?: boolean, cachedLayouts?: Layout[]): LayoutManager;
+     getLayoutTypeForIndex(index: number): string | number;
 diff --git a/node_modules/recyclerlistview/dist/web/core/layoutmanager/LayoutManager.d.ts b/node_modules/recyclerlistview/dist/web/core/layoutmanager/LayoutManager.d.ts
 index 51b60d7..3b22e34 100644
 --- a/node_modules/recyclerlistview/dist/web/core/layoutmanager/LayoutManager.d.ts
@@ -88,6 +136,24 @@ index 0000000..0b32ccf
 +echo "BUILD SUCCESS!"
 +
 +rm package-lock.json
+diff --git a/node_modules/recyclerlistview/src/core/dependencies/LayoutProvider.ts b/node_modules/recyclerlistview/src/core/dependencies/LayoutProvider.ts
+index c47bb0a..af75cff 100644
+--- a/node_modules/recyclerlistview/src/core/dependencies/LayoutProvider.ts
++++ b/node_modules/recyclerlistview/src/core/dependencies/LayoutProvider.ts
+@@ -32,10 +32,10 @@ export abstract class BaseLayoutProvider {
+ 
+ export class LayoutProvider extends BaseLayoutProvider {
+ 
+-    private _getLayoutTypeForIndex: (index: number) => string | number;
+-    private _setLayoutForType: (type: string | number, dim: Dimension, index: number) => void;
++    protected _getLayoutTypeForIndex: (index: number) => string | number;
++    protected _setLayoutForType: (type: string | number, dim: Dimension, index: number) => void;
+     private _tempDim: Dimension;
+-    private _lastLayoutManager: WrapGridLayoutManager | undefined;
++    protected _lastLayoutManager: WrapGridLayoutManager | undefined;
+ 
+     constructor(getLayoutTypeForIndex: (index: number) => string | number, setLayoutForType: (type: string | number, dim: Dimension, index: number) => void) {
+         super();
 diff --git a/node_modules/recyclerlistview/src/core/layoutmanager/LayoutManager.ts b/node_modules/recyclerlistview/src/core/layoutmanager/LayoutManager.ts
 index e9454a4..e95d4cb 100644
 --- a/node_modules/recyclerlistview/src/core/layoutmanager/LayoutManager.ts

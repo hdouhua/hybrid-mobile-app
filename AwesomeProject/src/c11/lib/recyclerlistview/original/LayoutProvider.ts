@@ -1,3 +1,8 @@
+/**
+ * copied from
+ * https://github.com/Flipkart/recyclerlistview/blob/3.0.5/src/core/dependencies/LayoutProvider.ts
+ */
+
 import {
   LayoutManager,
   Layout,

@@ -13,7 +13,7 @@ export class WaterfallLayoutManager extends WrapGridLayoutManager {
   constructor(
     layoutProvider: LayoutProvider,
     renderWindowSize: Dimension,
-    isHorizontal: boolean = false,
+    isHorizontal = false,
     cachedLayouts?: Layout[],
   ) {
     super(layoutProvider, renderWindowSize, isHorizontal, cachedLayouts);
