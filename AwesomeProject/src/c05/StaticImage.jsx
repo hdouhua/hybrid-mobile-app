@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image, Alert} from 'react-native';
 import {Styles} from './Styles';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const cat = require('../res/cat_cute.jpeg');
 
 export default function StaticImage() {

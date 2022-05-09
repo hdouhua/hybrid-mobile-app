@@ -19,7 +19,7 @@ export default function RecyclerList() {
   }).cloneWithRows(DATA);
 
   const layoutProvider = new LayoutProvider(
-    _ => 'nothing',
+    () => 'nothing',
     (_, dim) => {
       dim.width = width;
       dim.height = ITEM_HEIGHT;

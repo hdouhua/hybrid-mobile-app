@@ -27,13 +27,11 @@ export default function RecyclerList() {
   const renderFooter = () => {
     console.debug('render footer ...');
     return <ListFooter loading={loading} noMore={noMoreData} />;
-    // return <ListFooter onRefetch={handleRefetch} />;
   };
 
   const handleRefetch = async () => {
     if (!loading) {
       console.debug('fetching ...');
-      //FIXME: setLoading() will cause re-render
       setLoading(true);
 
       let newData = await fetchDogs(dataProvider.getSize());

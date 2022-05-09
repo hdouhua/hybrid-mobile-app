@@ -97,3 +97,4 @@ export NODE_BINARY=$(command -v node)
 - [RN 升级助手](
 https://react-native-community.github.io/upgrade-helper/
 )
+- [Linting your TypeScript Codebase](https://typescript-eslint.io/docs/linting/)

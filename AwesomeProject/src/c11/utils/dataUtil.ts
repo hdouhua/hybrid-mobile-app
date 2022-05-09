@@ -17,7 +17,7 @@ export function generateArrayData(startIndex: number, count: number): Item[] {
 
 export function fetchData(index: number) {
   return new Promise<Item[] | null>(resolve => {
-    let waitingFor = 300 * Math.floor(((Math.random() * 100) % 10) + 1);
+    const waitingFor = 300 * Math.floor(((Math.random() * 100) % 10) + 1);
     setTimeout(() => {
       let result: Item[] | null = null;
       if (index < FETCH_DATA_SIZE) {
@@ -48,7 +48,7 @@ export async function fetchDogs(index: number) {
   // return result;
   // specially slow down fetch
   return new Promise(resolve => {
-    let waitingFor = 200 * Math.floor(((Math.random() * 100) % 10) + 1);
+    const waitingFor = 200 * Math.floor(((Math.random() * 100) % 10) + 1);
     setTimeout(() => {
       resolve(result);
     }, waitingFor);

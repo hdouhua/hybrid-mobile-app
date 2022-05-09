@@ -32,13 +32,13 @@ export function CodeBox() {
     if (text.length >= CODE_LENGTH) {
       handleSubmit();
     } else {
-      let newText = (text + value).slice(0, CODE_LENGTH);
+      const newText = (text + value).slice(0, CODE_LENGTH);
       setText(newText);
     }
   };
   const handleKeyPress = e => {
     if (e.nativeEvent.key === 'Backspace') {
-      let newText = text.slice(0, text.length - 1);
+      const newText = text.slice(0, text.length - 1);
       setText(newText);
     }
   };
