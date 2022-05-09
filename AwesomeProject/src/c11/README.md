@@ -6,7 +6,7 @@
 
 本节的主要任务：分析 RecyclerListView 组件的源码，实现双列/多列 瀑布流。(源码分析时可以借助工具 Flipper 跟踪调试)。
 
-## 创建新布局
+## 瀑布流布局
 
 ### 源码阅读
 
@@ -28,7 +28,7 @@
   >**在理解别人的组件代码时，利用 `UI/JSX = f(state, props)` 这个最基本 React/RN 原理，先找到实现 UI 的 JSX 部分，再找到 state、props，然后再理解逻辑 f 的部分。**
 
 
-[RecyclerListView](../../node_modules/recyclerlistview/src/core/RecyclerListView.tsx)
+[RecyclerListView](https://github.com/Flipkart/recyclerlistview/blob/3.0.5/src/core/RecyclerListView.tsx)
 
 - renderCompat 方法：实际就是类组件的 render 方法，它最外层是一个滚动组件 ScrollComponent ；
 - _generateRenderStack 方法：循环了状态 state.renderStack ，生成了若干个 renderedItems ；
@@ -70,7 +70,7 @@ private _renderRowUsingMeta(itemMeta: RenderStackItem): JSX.Element | null {
 //==> NEXT: LayoutManager.getLayouts
 ```
 
-[LayoutManager](../../node_modules/recyclerlistview/src/core/layoutmanager/LayoutManager.ts)
+[LayoutManager](https://github.com/Flipkart/recyclerlistview/blob/3.0.5/src/core/layoutmanager/LayoutManager.ts)
 
 - getLayouts 方法
 - relayoutFromIndex 方法: 经过一翻计算，计算出了实现单列布局的 x/y/height/width 值，然后把它们作为对象 push 到了 this._layouts 。  
@@ -130,11 +130,15 @@ lib
    }
    ```
 
+（*个人觉得 运行时修改 和 编译时修改 表达不是很准确，目前还没有想到什么更好的表述方式。*）
+
 在本节示例中，我的实践了 2 和 3，使用 2 修改了属性的访问属性为 protected ，使用 3 扩展了新布局。
 
 ### 最佳实践
 
-不建议使用第一种直接复制源码的方式。优先考虑在运行时的修改方法，通常该方案改动最小、侵入性也最小。如果运行时方案改不了，可以考虑有侵入性的编译时的 pathc-package 方案。
+不建议使用第一种直接复制源码的方式。
+优先考虑在运行时的修改方法，通常该方案改动最小、侵入性也最小。
+如果运行时方案改不了，可以考虑有侵入性的编译时的 pathc-package 方案。
 
 ## 参考
 
