@@ -21,6 +21,7 @@ function ImageRender({imageUri}) {
     }
   };
 
+  console.debug('render item');
   return (
     <View style={Styles.itemWrapper}>
       <Image

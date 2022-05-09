@@ -5,70 +5,18 @@
 import {
   Dimension,
   LayoutProvider,
-  LayoutManager,
-  Point,
+  WrapGridLayoutManager,
   Layout,
 } from 'recyclerlistview';
-import CustomError from './original/CustomError';
 
-export class WaterfallLayoutManager extends LayoutManager {
-  private _layoutProvider: LayoutProvider;
-  private _window: Dimension;
-  private _totalHeight: number;
-  private _totalWidth: number;
-  private _isHorizontal: boolean;
-  private _layouts: Layout[];
-
+export class WaterfallLayoutManager extends WrapGridLayoutManager {
   constructor(
     layoutProvider: LayoutProvider,
     renderWindowSize: Dimension,
     isHorizontal: boolean = false,
     cachedLayouts?: Layout[],
   ) {
-    super();
-    this._layoutProvider = layoutProvider;
-    this._window = renderWindowSize;
-    this._totalHeight = 0;
-    this._totalWidth = 0;
-    this._isHorizontal = !!isHorizontal;
-    this._layouts = cachedLayouts ? cachedLayouts : [];
-  }
-
-  public getContentDimension(): Dimension {
-    return {height: this._totalHeight, width: this._totalWidth};
-  }
-
-  public getLayouts(): Layout[] {
-    return this._layouts;
-  }
-
-  public getOffsetForIndex(index: number): Point {
-    if (this._layouts.length > index) {
-      return {x: this._layouts[index].x, y: this._layouts[index].y};
-    } else {
-      throw new CustomError({
-        message: 'No layout available for index: ' + index,
-        type: 'LayoutUnavailableException',
-      });
-    }
-  }
-
-  public overrideLayout(index: number, dim: Dimension): boolean {
-    const layout = this._layouts[index];
-    if (layout) {
-      layout.isOverridden = true;
-      layout.width = dim.width;
-      layout.height = dim.height;
-    }
-    return true;
-  }
-
-  public setMaxBounds(itemDim: Dimension): void {
-    if (this._isHorizontal) {
-      itemDim.height = Math.min(this._window.height, itemDim.height);
-    } else {
-      itemDim.width = Math.min(this._window.width, itemDim.width);
-    }
+    super(layoutProvider, renderWindowSize, isHorizontal, cachedLayouts);
   }
 
   //TODO:Talha laziliy calculate in future revisions
@@ -158,51 +106,5 @@ export class WaterfallLayoutManager extends LayoutManager {
     // 设置 scrollview 的最终高度
     this._totalHeight = Math.max(startLeftY, startRightY);
     this._totalWidth = this._window.width;
-  }
-
-  private _pointDimensionsToRect(itemRect: Layout): void {
-    if (this._isHorizontal) {
-      this._totalWidth = itemRect.x;
-    } else {
-      this._totalHeight = itemRect.y;
-    }
-  }
-
-  private _setFinalDimensions(maxBound: number): void {
-    if (this._isHorizontal) {
-      this._totalHeight = this._window.height;
-      this._totalWidth += maxBound;
-    } else {
-      this._totalWidth = this._window.width;
-      this._totalHeight += maxBound;
-    }
-  }
-
-  private _locateFirstNeighbourIndex(startIndex: number): number {
-    if (startIndex === 0) {
-      return 0;
-    }
-    let i = startIndex - 1;
-    for (; i >= 0; i--) {
-      if (this._isHorizontal) {
-        if (this._layouts[i].y === 0) {
-          break;
-        }
-      } else if (this._layouts[i].x === 0) {
-        break;
-      }
-    }
-    return i;
-  }
-
-  private _checkBounds(
-    itemX: number,
-    itemY: number,
-    itemDim: Dimension,
-    isHorizontal: boolean,
-  ): boolean {
-    return isHorizontal
-      ? itemY + itemDim.height <= this._window.height
-      : itemX + itemDim.width <= this._window.width;
   }
 }

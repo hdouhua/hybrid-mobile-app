@@ -1,0 +1,113 @@
+diff --git a/node_modules/recyclerlistview/dist/reactnative/core/layoutmanager/LayoutManager.d.ts b/node_modules/recyclerlistview/dist/reactnative/core/layoutmanager/LayoutManager.d.ts
+index 51b60d7..3b22e34 100644
+--- a/node_modules/recyclerlistview/dist/reactnative/core/layoutmanager/LayoutManager.d.ts
++++ b/node_modules/recyclerlistview/dist/reactnative/core/layoutmanager/LayoutManager.d.ts
+@@ -12,12 +12,12 @@ export declare abstract class LayoutManager {
+     abstract relayoutFromIndex(startIndex: number, itemCount: number): void;
+ }
+ export declare class WrapGridLayoutManager extends LayoutManager {
+-    private _layoutProvider;
+-    private _window;
+-    private _totalHeight;
+-    private _totalWidth;
+-    private _isHorizontal;
+-    private _layouts;
++    protected _layoutProvider: LayoutProvider;
++    protected _window: Dimension;
++    protected _totalHeight: number;
++    protected _totalWidth: number;
++    protected _isHorizontal: boolean;
++    protected _layouts: Layout[];
+     constructor(layoutProvider: LayoutProvider, renderWindowSize: Dimension, isHorizontal?: boolean, cachedLayouts?: Layout[]);
+     getContentDimension(): Dimension;
+     getLayouts(): Layout[];
+diff --git a/node_modules/recyclerlistview/dist/web/core/layoutmanager/LayoutManager.d.ts b/node_modules/recyclerlistview/dist/web/core/layoutmanager/LayoutManager.d.ts
+index 51b60d7..3b22e34 100644
+--- a/node_modules/recyclerlistview/dist/web/core/layoutmanager/LayoutManager.d.ts
++++ b/node_modules/recyclerlistview/dist/web/core/layoutmanager/LayoutManager.d.ts
+@@ -12,12 +12,12 @@ export declare abstract class LayoutManager {
+     abstract relayoutFromIndex(startIndex: number, itemCount: number): void;
+ }
+ export declare class WrapGridLayoutManager extends LayoutManager {
+-    private _layoutProvider;
+-    private _window;
+-    private _totalHeight;
+-    private _totalWidth;
+-    private _isHorizontal;
+-    private _layouts;
++    protected _layoutProvider: LayoutProvider;
++    protected _window: Dimension;
++    protected _totalHeight: number;
++    protected _totalWidth: number;
++    protected _isHorizontal: boolean;
++    protected _layouts: Layout[];
+     constructor(layoutProvider: LayoutProvider, renderWindowSize: Dimension, isHorizontal?: boolean, cachedLayouts?: Layout[]);
+     getContentDimension(): Dimension;
+     getLayouts(): Layout[];
+diff --git a/node_modules/recyclerlistview/scripts/build.sh b/node_modules/recyclerlistview/scripts/build.sh
+new file mode 100644
+index 0000000..0b32ccf
+--- /dev/null
++++ b/node_modules/recyclerlistview/scripts/build.sh
+@@ -0,0 +1,38 @@
++#!/usr/bin/env bash
++set -e
++
++npm i
++
++echo "Build started..."
++echo "Removing old builds..."
++rm -rf dist
++
++echo "Removing DEV mode code..."
++echo "Isolating WEB code..."
++cd src
++file-directives WEB,RELEASE
++
++echo "TSC: Building ES5 web package..."
++cd ..
++tsc --outDir dist/web
++
++echo "Isolating REACT-NATIVE code..."
++cd src
++file-directives REACT-NATIVE,RELEASE
++
++echo "TSC: Building ES5 react-native package..."
++cd ..
++tsc --outDir dist/reactnative
++
++# echo "Removing unnecessary files..."
++# rm -rf dist/reactnative/platform/web
++# rm -rf dist/web/platform/reactnative
++
++echo "Resetting code state..."
++cd src
++file-directives REACT-NATIVE,DEV
++cd ..
++
++echo "BUILD SUCCESS!"
++
++rm package-lock.json
+diff --git a/node_modules/recyclerlistview/src/core/layoutmanager/LayoutManager.ts b/node_modules/recyclerlistview/src/core/layoutmanager/LayoutManager.ts
+index e9454a4..e95d4cb 100644
+--- a/node_modules/recyclerlistview/src/core/layoutmanager/LayoutManager.ts
++++ b/node_modules/recyclerlistview/src/core/layoutmanager/LayoutManager.ts
+@@ -41,12 +41,12 @@ export abstract class LayoutManager {
+ }
+ 
+ export class WrapGridLayoutManager extends LayoutManager {
+-    private _layoutProvider: LayoutProvider;
+-    private _window: Dimension;
+-    private _totalHeight: number;
+-    private _totalWidth: number;
+-    private _isHorizontal: boolean;
+-    private _layouts: Layout[];
++    protected _layoutProvider: LayoutProvider;
++    protected _window: Dimension;
++    protected _totalHeight: number;
++    protected _totalWidth: number;
++    protected _isHorizontal: boolean;
++    protected _layouts: Layout[];
+ 
+     constructor(layoutProvider: LayoutProvider, renderWindowSize: Dimension, isHorizontal: boolean = false, cachedLayouts?: Layout[]) {
+         super();
