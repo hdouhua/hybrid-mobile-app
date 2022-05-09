@@ -6,16 +6,24 @@ A demo project made of React Native.
 
 TBD
 
-## build issues
+## 构建问题
+
+1. 
 
 ```
 Could not find node. Make sure it is in bash PATH or set the NODE_BINARY environment variable.
 ```
 
-to fix
+修复如下，
 
 ```
 sudo ln -s $(which node) /usr/local/bin/node
+```
+
+或者使用 .env file，创建 .xcode.env 在 ios 文件夹下
+
+```shell
+export NODE_BINARY=$(command -v node)
 ```
 
 ## 快速读懂 objective-c 代码
@@ -86,3 +94,6 @@ sudo ln -s $(which node) /usr/local/bin/node
 
 - [58车商通RN落地与实践 ](https://mp.weixin.qq.com/s?__biz=MzI1NDc5MzIxMw==&mid=2247487390&idx=1&sn=168e4c05f1f12ccdc2c99ad55db88f7b&chksm=ea3e8b0cdd49021a693295bde28f3c210463a644be9fb824a1ae563e18639fee826ff06ba091&scene=21)
 - [react-in-typescript](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup)
+- [RN 升级助手](
+https://react-native-community.github.io/upgrade-helper/
+)

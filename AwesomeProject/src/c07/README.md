@@ -95,3 +95,7 @@ TextInput 组件和键盘是联动的，得关心一下键盘。
 - 键盘类型
 
   keyboardType 可以控制键盘类型，可以让用户更方便地输入电话号码 phone-pad、邮箱地址 email-address 等等。
+
+## 参考
+
+- [Controlled and uncontrolled form inputs in React don't have to be complicated](https://goshacmd.com/controlled-vs-uncontrolled-inputs-react/)

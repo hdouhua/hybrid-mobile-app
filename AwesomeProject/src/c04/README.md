@@ -87,3 +87,4 @@ Error: Rendered fewer hooks than expected. This may be caused by an accidental e
 ## reference
 
 - [Hook 规则](https://zh-hans.reactjs.org/docs/hooks-rules.html)
+- [React 哲学](https://zh-hans.reactjs.org/docs/thinking-in-react.html)
