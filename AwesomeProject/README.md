@@ -26,6 +26,12 @@ sudo ln -s $(which node) /usr/local/bin/node
 export NODE_BINARY=$(command -v node)
 ```
 
+## 测试
+
+支持 RN in typescript 需要安装 ts-jest 包，配置 `transform`，详情参考 package.json 里的 jest 配置。
+
+>参考 [ts-jest 文档](https://kulshekhar.github.io/ts-jest/docs/guides/react-native/)
+
 ## 快速读懂 objective-c 代码
 
 - \-: 实例方法
@@ -98,3 +104,4 @@ export NODE_BINARY=$(command -v node)
 https://react-native-community.github.io/upgrade-helper/
 )
 - [Linting your TypeScript Codebase](https://typescript-eslint.io/docs/linting/)
+- [Fabric Architecture - React Native](https://medium.com/mindful-engineering/fabric-architecture-react-native-a4f5fd96b6d2)
