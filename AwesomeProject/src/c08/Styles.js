@@ -28,21 +28,6 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#7cbb00',
     borderColor: '#7cbb00',
   },
-  loadingLayer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-  },
-  loadingLayerIndicator: {
-    backgroundColor: 'lightgrey',
-    padding: 20,
-    borderRadius: 5,
-  },
   footerWrapper: {
     height: 56,
     alignItems: 'stretch',

@@ -3,11 +3,11 @@ import {RefreshControl} from 'react-native';
 import {RecyclerListView, DataProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {fetchDogs} from './utils/dataUtil';
+import {fetchDogs} from '../shared/utils/dataUtil';
+import LoadingLayer from '../shared/components/Loading';
 import {getLayoutProvider} from './utils/layoutUtil';
 import ListImageItem from './components/ListImageItem';
 import {LoadingIndicator as ListFooter} from './components/ListFooter';
-import LoadingLayer from './components/Loading';
 
 // // disalbe debug
 // console.debug = () => {};
@@ -21,7 +21,6 @@ export default function RecyclerList() {
 
   const layoutProvider = getLayoutProvider();
   const rowRenderer = (type, data) => {
-    //return <ListItem item={data} viewType={type} />;
     return <ListImageItem imageUri={data} />;
   };
   const renderFooter = () => {
@@ -35,7 +34,7 @@ export default function RecyclerList() {
       setLoading(true);
 
       let newData = await fetchDogs(dataProvider.getSize());
-      if (newData) {
+      if (newData && newData.length > 0) {
         dataRef.current = dataRef.current.concat(newData);
         setDataProvider(dp => dp.cloneWithRows(dataRef.current));
       } else {
@@ -64,6 +63,7 @@ export default function RecyclerList() {
       rowRenderer={rowRenderer}
       onEndReached={handleRefetch}
       onEndReachedThreshold={30}
+      scrollThrottle={50}
       renderFooter={renderFooter}
       scrollViewProps={{
         refreshControl: (

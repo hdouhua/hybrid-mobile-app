@@ -17,32 +17,10 @@ export const Styles = StyleSheet.create({
   img: {
     flex: 1,
   },
-  loadingLayer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-  },
-  loadingLayerIndicator: {
-    backgroundColor: 'lightgrey',
-    padding: 20,
-    borderRadius: 5,
-  },
   footerWrapper: {
     height: 56,
     alignItems: 'stretch',
     margin: 10,
-  },
-  footerBtn: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: 'lightgrey',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   footerTxt: {
     color: 'grey',

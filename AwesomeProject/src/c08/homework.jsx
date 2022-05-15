@@ -3,11 +3,11 @@ import {RefreshControl} from 'react-native';
 import {RecyclerListView, DataProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {fetchData} from './utils/dataUtil';
+import {fetchData} from '../shared/utils/dataUtil';
+import LoadingLayer from '../shared/components/Loading';
 import {getLayoutProvider} from './utils/layoutUtil';
 import ListItem from './components/ListItem';
 import {LoadingIndicator as ListFooter} from './components/ListFooter';
-import LoadingLayer from './components/Loading';
 
 // // disalbe debug
 // console.debug = () => {};
@@ -36,7 +36,7 @@ export default function RecyclerList() {
       setLoading(true);
 
       let newData = await fetchData(dataProvider.getSize());
-      if (newData) {
+      if (newData && newData.length > 0) {
         dataRef.current = dataRef.current.concat(newData);
         setDataProvider(dp => dp.cloneWithRows(dataRef.current));
       } else {

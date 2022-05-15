@@ -41,7 +41,7 @@ export async function fetchDogs(index: number) {
   );
 
   let result: string[] | null = null;
-  if (index < FETCH_DATA_SIZE) {
+  if (index < FETCH_DATA_SIZE && index < dogs.length) {
     result = dogs.slice(index, Math.min(dogs.length, index + FETCH_BATCH_SIZE));
   }
 

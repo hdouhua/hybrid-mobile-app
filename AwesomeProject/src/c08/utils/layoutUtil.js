@@ -22,11 +22,11 @@ export function getLayoutProvider() {
     (type, dim) => {
       switch (type) {
         case ViewTypes.HALF_LEFT:
-          dim.width = width / 2;
+          dim.width = width / 2 - 1;
           dim.height = ITEM_HEIGHT;
           break;
         case ViewTypes.HALF_RIGHT:
-          dim.width = width / 2;
+          dim.width = width / 2 - 1;
           dim.height = ITEM_HEIGHT;
           break;
         case ViewTypes.FULL:
