@@ -1,4 +1,4 @@
-# List: 高性能的无限列表
+# 高性能的无限列表
 
 <p>
 <img src="../../docs/c08_1.png" width="22%" />
@@ -7,7 +7,7 @@
 <img src="../../docs/c08_4.png" width="22%" />
 </p>
 
-React Native 官方提供的列表组件是 `FlatList` ，但是更推荐使用开源社区提供的列表组件 `RecyclerListView` 。理由就是性能更好。
+RN 官方提供的列表组件是 `FlatList` ，但是更推荐使用开源社区提供的列表组件 `RecyclerListView` 。理由就是性能更好。
 
 列表性能对于用户的直观感受就是是否卡顿。通常，评判列表卡顿的指标是 UI 线程的帧率和 JavaScript 线程的帧率。
 
@@ -88,4 +88,4 @@ FlatList 组件底层使用的是虚拟列表 VirtualizedList ，VirtualizedList
 - FlatList 要实时地销毁新建 Native 的 UI 视图
 - RecyclerListView 只是改变 UI 视图的内容和位置，在 UI 主线程计算量肯定少。
 
-![scrollview-flatlist](https://static001.geekbang.org/resource/image/e6/a0/e6cb77f6425810e752abbeb643dbb9a0.png?wh=1870x964)
+![pk-scrollview-flatlist-recyclerlistview](https://static001.geekbang.org/resource/image/e6/a0/e6cb77f6425810e752abbeb643dbb9a0.png?wh=1870x964)

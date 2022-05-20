@@ -10,17 +10,21 @@
 
 ![RN-hot-fast-refresh](https://static001.geekbang.org/resource/image/2f/15/2fd3716c54b10fe645b9a3d4301cdb15.jpg?wh=1980x711)
 
-`react-native start` 命令会启动一个 `Metro` 服务，Metro 服务会把更新的代码打包发送给 React Native 应用。
+`react-native start` 命令会启动一个 `Metro` 服务，Metro 服务会把更新的代码打包发送给 RN 应用。
 
-**一些概念**
+### 一些概念
 
 - Metro 服务的模块热替换服务
 - RN 应用中的模块热替换客户端（HMR Client）
 - 在 RN 应用启动时 Metro HMR 服务端 会和 HMR 客户端建立好 socket 连接
 - 保存代码时，Metro 服务的 bundle 服务会编译打包改动的部分生成新的 bundle
 
-**几个注意点**
+### 几个注意点
 
 - Fast Refresh 默认保存了函数组件的本地状态
 - 如果需要每次编辑重置状态，可以加上 `// @refresh` 注释在组件上
 - Fast Refresh 总是重新加载类组件（不会保存状态），这是为了保证可靠性
+
+## 参考
+
+- [Metro](https://facebook.github.io/metro/docs/getting-started)

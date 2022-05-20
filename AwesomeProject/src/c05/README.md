@@ -46,7 +46,7 @@ npx react-native run-ios --configuration Release
 
 ## 网络图片
 
-在使用网络图片时，需要将宽高属性作为一个必填项来处理。为什么呢？和前面介绍的静态图片资源不同的是，网络图片下载下来之前，React Native 是没法知道图片的宽高的，所以它只能用默认的 0 作为宽高。如果我们没有填写宽高属性，初始化默认宽高是 0，网络图片就展示不了。
+在使用网络图片时，需要将 width & height 属性作为一个必填项来处理。为什么呢？和前面介绍的静态图片资源不同的是，网络图片下载下来之前， RN 是没法知道图片的宽和高的，它们的默认值是 0 ，这样网络图片就展示不了。
 
 ```javascript
 <Image style={{width: 400, height: 400}} source={{uri: uri}} />
@@ -65,9 +65,9 @@ Image.prefetch(url);
 
 参考各平台信息。
 
-在实际工作中，不推荐在 React Native 中使用宿主应用图片资源
+在实际工作中，不推荐在 RN 中使用宿主应用图片资源
 - 这种加载图片的方法没有任何的安全检查，一不小心就容易引起线上报错
-- 无法使用 React Native 动态更新的优势
+- 无法使用 RN 动态更新的优势
 
 ## Base64 图片
 
@@ -75,7 +75,7 @@ Base64 指的是一种基于 64 个可见字符表示二进制数据的方式。
 
 Base64 图片指的是使用 Base64 编码加载图片的方法，它适用于那些图片体积小的场景。
 
-**即便是相同的图片，Base64 字符串的体积也要比二进制字节码的体积要大 1/3，这又进一步增加 Bundle 的大小。**
+**即便是相同的图片，Base64 字符串的体积也要比二进制字节码的体积大约 1/3，这会增加 Bundle 的大小。**
 
 ```jsx
 <Image
@@ -89,13 +89,15 @@ Base64 图片指的是使用 Base64 编码加载图片的方法，它适用于�
 
 ## TODO
 
-React Native 框架对图片的默认缓存处理并不是最优的方案，社区中提供了替代方案 [FastImage](https://github.com/DylanVann/react-native-fast-image)，它是基于 SDWebImage (iOS) 和 Glide (Android) 实现的性能和效果会更好一些。
+RN 框架对图片的默认缓存处理并不是最优的方案，社区中提供了替代方案 [FastImage](https://github.com/DylanVann/react-native-fast-image)，它是基于 SDWebImage (iOS) 和 Glide (Android) 实现的，性能和效果会更好一些。
 
 ## 最佳实践
 
 - 关于静态图片资源
   如果使用的是自研的热更新平台，就需要注意图片资源一定要先于 bundle 或和 bundle 一起下发，因为在执行 bundle 时，图片资源是必须已经存在的。
 - 关于网络图片和 Base64 图片
-  这两类图片之管理起来都不方便，一张张手动上传网络图片不方便，一张张手动把图片 Base64 化也不方便，所以需要一个自动化的工具来管理它们。如下是自研自动化图片管理工具的一些方向：
+  这两类图片之管理起来都不方便，一张张手动上传网络图片不方便，一张张手动把图片 Base64 化也不方便，所以需要一个自动化的工具来管理它们。
+  如下是自研自动化图片管理工具的一些方向：
   - 把需要上传到网络的图片放在代码仓库的 assets/network 目录，把需要 Base64 化的图片放在 assets/base64 目录。
-  - 本地开发的时候，可以通过使用 require 静态图片资源的形式，引入 assets/network 或 assets/base64 目录中的图片来进行本地调试。在代码编译打包的时候，通过工具将 assets/network 目录中的图片上传到 CDN 上，将 assets/base64 目录中的图片都 Base64 化，并将 require 形式的静态图片资源代码转换为网络图片或 Base64 图片的代码。
+  - 在本地开发的时候，可以通过使用 require 静态图片资源的形式，引入 assets/network 或 assets/base64 目录中的图片来进行本地调试。
+  - 在代码编译打包的时候，通过工具将 assets/network 目录中的图片上传到 CDN 上，将 assets/base64 目录中的图片都 Base64 化，并将 require 形式的静态图片资源代码转换为网络图片或 Base64 图片的代码。
