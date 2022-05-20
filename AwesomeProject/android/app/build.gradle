@@ -317,3 +317,32 @@ def isNewArchitectureEnabled() {
     // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
+
+// gradlew tasks --all
+task printTasks {
+    doLast {
+        println 'custom\'s tasks -----'
+        project.tasks.collect {
+            task ->
+            if (!task.group && task.name !='printTasks') {
+                println task.name
+            }
+        }
+    }
+}
+// project('app') {
+    // tasks.register('printTasks') {
+    //     doLast {
+    //         project.tasks.collect {
+    //             task ->
+    //             if (!task.group && task.name !='printTasks') {
+    //                 println task.name
+    //             }
+    //         }
+    //     }
+
+    //     doFirst {
+    //         println 'custom\'s tasks -----'
+    //     }
+    // }
+// }
