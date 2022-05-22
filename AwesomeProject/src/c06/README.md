@@ -1,4 +1,4 @@
-# pressable： 按钮的选择
+# Pressable： 按钮的选择
 
 <p>
 <img src="../../docs/c06.png" width="30%" />
@@ -93,3 +93,8 @@ HitRect 就是盒模型中的不透明的可见区域。你可以通过修改 hi
  *
  * T + DELAY => LONG_PRESS_DELAY + DELAY
 ```
+
+## 参考
+
+- [Pressable](https://reactnative.dev/docs/pressable)
+- [source code of Pressability](https://github.com/facebook/react-native/blob/main/Libraries/Pressability/Pressability.js)

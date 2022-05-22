@@ -5,7 +5,7 @@
 </p>
 
 TextInput 组件是自带状态的宿主组件 
-（自带状态？在 HTML 中，表单元素（如<input>、 <textarea> 和 <select>）通常自己维护 state，并根据用户输入进行更新。）
+（自带状态？在 HTML 中，表单元素（如\<input\>、 \<textarea\> 和 \<select\>）通常自己维护 state，并根据用户输入进行更新。）
 
 ## 输入内容
 
