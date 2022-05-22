@@ -3,7 +3,7 @@ import {ScrollView, Dimensions, View} from 'react-native';
 
 import {styles} from './Styles';
 import Grid from '../../components/Grid';
-import {queryIcons} from '../../apis/home';
+import {queryIcons} from '../../apis/dogs';
 
 export interface GridItemProps {
   id: string;

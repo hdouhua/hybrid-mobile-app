@@ -34,10 +34,28 @@ NFT 商城首页，高大上的 NFT (non-fungible token) 不可代替币。就�
 
 ## 拆分页面
 
-完全不了解 mobile app，不得不学习一下页面的组成部件。
+不了解 mobile app，因此学习一下页面的组成部件。
 参考了一下 [Material Design](https://material.io/components)
 
-TBD
+- [App bars: bottom](https://material.io/components/app-bars-bottom#anatomy) and [App bars: top](https://material.io/components/app-bars-top#anatomy)
+- [Backdrop](https://material.io/components/backdrop#anatomy)
+- [Banner](https://material.io/components/banners)
+- [Bottom Navigation](https://material.io/components/bottom-navigation#anatomy)
+- [Button](https://material.io/components/buttons#anatomy) and [FAB - floating action button](https://material.io/components/buttons-floating-action-button#anatomy)
+- [Cards](https://material.io/components/cards#anatomy)
+- [Chips](https://material.io/components/chips#anatomy)
+- [Data-Table](https://material.io/components/data-tables#anatomy)
+- [Dialog / Alert / Toast](https://material.io/components/dialogs#anatomy)
+- [quilted, woven and masonry Image-List](https://material.io/components/image-lists#usage)
+- [List](https://material.io/components/lists#anatomy)
+- [Sheets: side](https://material.io/components/sheets-side#anatomy) and [Sheets: bottom](https://material.io/components/sheets-bottom#anatomy)
+- [Navigation drawer](https://material.io/components/navigation-drawer#anatomy)
+- [Navigation rail](https://material.io/components/navigation-rail#anatomy)
+- [Tabs](https://material.io/components/tabs#anatomy)
+- [Menus](https://material.io/components/menus#anatomy)
+- [Snackbars](https://material.io/components/snackbars#anatomy)
+- Date pickers, Time pickers
+- Dividers, Switchers, Sliders, Progress indicator (Linear and circular), Tooltips
 
 ## 分解组件
 
@@ -69,3 +87,4 @@ TBD
 - [Infinite Queries @React-Query](https://react-query.tanstack.com/guides/infinite-queries)
 - [An efficient way to structure React Native projects](https://cheesecakelabs.com/blog/efficient-way-structure-react-native-projects/)
 - [UI Design Works for Inspiration](https://uxplanet.org/top-ui-ux-design-inspiration-2fb59111a784)
+- [4 ways to fake an API in frontend development](https://www.valentinog.com/blog/fake/)

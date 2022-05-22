@@ -1,4 +1,5 @@
 import {faker} from '@faker-js/faker';
+import {IconType, NFTPagingType, NFTType} from './PetApiTypes';
 
 interface CatSearchItem {
   id: string;
@@ -7,25 +8,6 @@ interface CatSearchItem {
   height: number;
 }
 type CatSearchResponse = CatSearchItem[];
-
-export interface IconType {
-  id: string;
-  image: string;
-  title: string;
-}
-
-export interface NFTType {
-  id: string;
-  image: string;
-  name: string;
-  motto: string;
-  liked: number;
-}
-
-export interface NFTPagingType {
-  items: NFTType[];
-  nextPageIndex: number;
-}
 
 const CatsUrl = 'https://api.thecatapi.com/v1/images/search';
 
@@ -40,11 +22,11 @@ export async function queryIcons(): Promise<IconType[]> {
   const data: CatSearchResponse = await fetch(url).then(res => res.json());
 
   return data.map(
-    item =>
+    it =>
       ({
-        id: item.id,
+        id: it.id,
         title: faker.animal.cat(),
-        image: item.url,
+        image: it.url,
       } as IconType),
   );
 }
@@ -58,13 +40,13 @@ export async function queryNfts({pageParam = 0}): Promise<NFTPagingType> {
   console.debug(url);
 
   const data: CatSearchResponse = await fetch(url).then(res => res.json());
-  const items: NFTType[] = data.map((item: CatSearchItem, index: number) => {
+  const items: NFTType[] = data.map((it: CatSearchItem, index: number) => {
     return {
-      id: `${item.id}_${pageParam.toString()}_${index.toString()}`,
-      image: item.url,
+      id: `${it.id}_${pageParam.toString()}_${index.toString()}`,
+      image: it.url,
       name: faker.animal.cat(),
       motto: faker.lorem.lines(1),
-      liked: item.width,
+      liked: it.width,
     };
   });
 

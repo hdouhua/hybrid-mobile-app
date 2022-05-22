@@ -22,9 +22,9 @@ const App: React.FC = () => {
 
   const {
     data,
+    isFetching,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
     status,
   } = useInfiniteQuery<RecyclerNFTs>(
@@ -66,7 +66,7 @@ const App: React.FC = () => {
         renderItem={({item}) => <WaterFallCard item={item} />}
         onEndReachedThreshold={0.1}
         onEndReached={() =>
-          !(isFetching || isFetchingNextPage) && fetchNextPage()
+          hasNextPage && !(isFetching || isFetchingNextPage) && fetchNextPage()
         }
         LoadingView={<Loading color="red" />}
         ListHeaderComponent={

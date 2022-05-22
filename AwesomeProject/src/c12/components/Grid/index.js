@@ -74,7 +74,7 @@ class Grid extends PureComponent {
   }
 
   renderItem = ({id, icon, text, onPress}, index, data) => {
-    console.debug('render grid item:', index);
+    console.debug('render Grid:', id);
     const {
       itemStyle,
       iconStyle,

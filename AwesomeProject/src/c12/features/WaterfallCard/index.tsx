@@ -2,7 +2,8 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {FetchInfiniteQueryOptions} from 'react-query';
 
-import {queryNfts, NFTType, NFTPagingType} from '../../apis/home';
+import {NFTType, NFTPagingType} from '../../apis/PetApiTypes';
+import {queryNfts} from '../../apis/cats';
 import {styles} from './Styles';
 
 export interface RecyclerNFT extends NFTType {
