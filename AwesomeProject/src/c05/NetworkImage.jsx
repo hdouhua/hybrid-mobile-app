@@ -9,10 +9,10 @@ export default function NetworkImage() {
   useEffect(() => {
     Image.prefetch(imageUri)
       .then(() => {
-        console.log('image loaded');
+        console.debug('image loaded');
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
       });
   }, [imageUri]);
 

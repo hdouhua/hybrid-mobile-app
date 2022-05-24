@@ -42,7 +42,7 @@ export default function ProductTable() {
         setProducts(data);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
         setRequestStatus(RequestStatus.ERROR);
         setProducts([]);
       });
@@ -61,12 +61,12 @@ export default function ProductTable() {
     });
   };
   const handleIncrement = (product: Product) => {
-    console.log('increment');
+    console.debug('increment');
     const newProduct: Product = {...product, count: product.count + 1};
     setProducts(getUpdatedProducts(newProduct));
   };
   const handleDecrement = (product: Product) => {
-    console.log('decrement');
+    console.debug('decrement');
     const newProduct: Product = {...product, count: product.count - 1};
     setProducts(getUpdatedProducts(newProduct));
   };

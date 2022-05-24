@@ -5,7 +5,7 @@ import {Styles} from './Styles';
 
 export default function AnimatedButton() {
   const handlePress = () => {
-    console.log('presse me');
+    console.debug('presse me');
   };
 
   return (

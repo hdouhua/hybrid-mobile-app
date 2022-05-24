@@ -5,7 +5,7 @@ import {Styles} from './Styles';
 
 export default function BasicButton() {
   const handlePress = () => {
-    console.log('presse');
+    console.debug('presse');
   };
 
   return (

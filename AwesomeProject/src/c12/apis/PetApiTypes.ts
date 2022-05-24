@@ -1,3 +1,6 @@
+/**
+ *
+ */
 
 export interface IconType {
   id: string;

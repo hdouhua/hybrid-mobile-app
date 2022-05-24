@@ -11,7 +11,7 @@ export default function SlowList() {
     <ScrollView
       style={Styles.container}
       onScroll={e => {
-        console.log(e.nativeEvent.layoutMeasurement);
+        console.debug(e.nativeEvent.layoutMeasurement);
       }}
       scrollEventThrottle={100}>
       {DATA.map(it => (

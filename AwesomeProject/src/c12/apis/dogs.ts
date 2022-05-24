@@ -13,7 +13,7 @@ export async function queryIcons(): Promise<IconType[]> {
     return [];
   }
 
-  const data = await new Promise<string[]>((resolve, _) => {
+  const data = await new Promise<string[]>(resolve => {
     const waitFor = (Math.floor(Math.random() * 100) % 5) * 200;
     setTimeout(() => {
       resolve(dogStore.slice(startIndex, startIndex + IconsPageSize));
@@ -37,7 +37,7 @@ export async function queryNfts({pageParam = 0}): Promise<NFTPagingType> {
     return {nextPageIndex: undefined, items: []};
   }
 
-  const data = await new Promise<string[]>((resolve, _) => {
+  const data = await new Promise<string[]>(resolve => {
     const waitFor = (Math.floor(Math.random() * 100) % 5) * 200;
     setTimeout(() => {
       resolve(dogStore.slice(startIndex, startIndex + NftsPageSize));

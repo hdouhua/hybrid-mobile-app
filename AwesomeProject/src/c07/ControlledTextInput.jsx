@@ -19,6 +19,7 @@ export default function ControlledTextInput() {
           style={Styles.input}
           onChangeText={input => {
             const time = Date.now();
+            //eslint-disable-next-line no-empty
             while (Date.now() - time <= 1000) {}
             setText(input);
           }}

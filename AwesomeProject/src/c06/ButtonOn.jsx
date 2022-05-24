@@ -5,16 +5,16 @@ import {Styles} from './Styles';
 
 export default function ButtonOn() {
   const handlePress = () => {
-    console.log('presse');
+    console.debug('presse');
   };
   const handlePressIn = () => {
-    console.log('presse in');
+    console.debug('presse in');
   };
   const handlePressOut = () => {
-    console.log('presse out');
+    console.debug('presse out');
   };
   const handleLongPress = () => {
-    console.log('long presse');
+    console.debug('long presse');
   };
 
   return (
