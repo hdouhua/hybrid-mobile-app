@@ -4,6 +4,11 @@ A demo project made of React Native.
 
 ## set up the development environment
 
+> Reference:
+>- [offical reference - set up development environment](https://reactnative.dev/docs/environment-setup)
+>- [video course - Installing React Native on macOS](https://academy.infinite.red/p/installing-react-native-tutorial-on-macos)
+>- [video course - Installing React Native on Windows 10](https://academy.infinite.red/p/installing-react-native-tutorial-on-windows-10)
+
 - start react-native metro
 
    ```shell
@@ -140,7 +145,7 @@ A demo project made of React Native.
 - 快速删除行: Command ⌘ + X
 - 成对选中： Command ⌘ + D
 
-## 一些参考
+## further reading & reference
 
 - [Fabric Architecture - React Native](https://medium.com/mindful-engineering/fabric-architecture-react-native-a4f5fd96b6d2)
 - [RN 升级助手](https://react-native-community.github.io/upgrade-helper/)
@@ -151,4 +156,5 @@ A demo project made of React Native.
 - [gradle](https://www.cnblogs.com/davenkin/p/gradle-learning-1.html)
 - [hooks for RN](https://github.com/react-native-community/hooks)
 - [A Comprehensive Guide To Mobile App Design](https://www.smashingmagazine.com/2018/02/comprehensive-guide-to-mobile-app-design/)
+- [Mobile App UI Design: An Expert’s Complete Guide for 2022](https://relevant.software/blog/mobile-app-ui-design-guide/)
 - [project template](https://instamobile.io/templates/)

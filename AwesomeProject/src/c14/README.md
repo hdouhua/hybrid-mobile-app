@@ -2,6 +2,10 @@
 
 Reanimated ： React Native’s Animated library reimplemented.
 
+<p>
+<img src="../../docs/c14.jpg" width="30%" />
+</p>
+
 ## 动画的基本原理
 
 看动画时，我们的眼睛接收到的是一张张并不连续的静态图片，但我们的大脑把这些不连续的图片“想象”成了一系列连续事件，这就是动画的基本原理。
