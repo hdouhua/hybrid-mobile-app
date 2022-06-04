@@ -8,7 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 const SIZE = 40;
-const BIG_SIZE = 80;
+const BIG_SIZE = 160;
 
 export default function AnimatedScroll(): React.ReactElement {
   const transY = useSharedValue(0);
@@ -26,14 +26,14 @@ export default function AnimatedScroll(): React.ReactElement {
     },
   });
 
-  const style = useAnimatedStyle(() => {
+  const animatedStyle = useAnimatedStyle(() => {
     const size = isScrolling.value ? BIG_SIZE : SIZE;
     return {
-      transform: [
-        {
-          translateY: transY.value,
-        },
-      ],
+      // transform: [
+      //   {
+      //     translateY: transY.value,
+      //   },
+      // ],
       width: withSpring(size),
       height: withSpring(size),
     };
@@ -44,15 +44,12 @@ export default function AnimatedScroll(): React.ReactElement {
   console.debug('render AnimatedScroll');
   return (
     <View style={styles.container}>
-      <View style={[styles.half, styles.boxContainer, {height}]}>
-        <Animated.View style={[styles.box, style]} />
+      <View style={[styles.mainContainer, {height}]}>
+        <Animated.View style={[styles.box, animatedStyle]} />
       </View>
-      <View style={[styles.half, {height}]}>
-        <Animated.ScrollView
-          style={styles.scroll}
-          onScroll={scrollHandler}
-          scrollEventThrottle={1}>
-          <View style={[styles.placeholder, {height}]} />
+      <View style={[styles.scrollContainer, {height}]}>
+        <Animated.ScrollView scrollEventThrottle={1} onScroll={scrollHandler}>
+          <View style={[styles.bar, {height}]} />
         </Animated.ScrollView>
       </View>
     </View>
@@ -63,25 +60,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+    margin: 5,
   },
-  half: {
-    flex: 1,
+  mainContainer: {
+    flex: 10,
     overflow: 'hidden',
-  },
-  boxContainer: {
     backgroundColor: 'lightblue',
+    flexDirection: 'column',
     justifyContent: 'center',
+    // alignItems: 'center',
   },
-  scroll: {
+  scrollContainer: {
     flex: 1,
-    backgroundColor: 'yellow',
   },
   box: {
     alignSelf: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'dodgerblue',
   },
-  placeholder: {
-    width: SIZE,
+  bar: {
     backgroundColor: 'brown',
   },
 });

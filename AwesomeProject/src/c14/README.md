@@ -3,7 +3,7 @@
 Reanimated ： React Native’s Animated library reimplemented.
 
 <p>
-<img src="../../docs/c14.jpg" width="30%" />
+<img src="../../docs/c14.png" width="30%" />
 </p>
 
 ## 动画的基本原理
