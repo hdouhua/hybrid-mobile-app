@@ -9,11 +9,11 @@ export default function RenderExample() {
   const [renderError, setRenderError] = useState(false);
 
   return (
-    // <SentryErrorBoundary
-    //   fallback={({eventId}) => (
-    //     <Text>Error boundary caught with event id: {eventId}</Text>
-    //   )}>
-    <ErrorBoundary>
+    <SentryErrorBoundary
+      fallback={({eventId}) => (
+        <Text>Error boundary caught with event id: {eventId}</Text>
+      )}>
+      {/* <ErrorBoundary> */}
       <View style={Styles.contentContainer}>
         <Text
           style={Styles.textButton}
@@ -24,7 +24,7 @@ export default function RenderExample() {
         </Text>
         {renderError && <div />}
       </View>
-    </ErrorBoundary>
-    // </SentryErrorBoundary>
+      {/* </ErrorBoundary> */}
+    </SentryErrorBoundary>
   );
 }

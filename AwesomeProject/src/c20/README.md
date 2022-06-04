@@ -1,5 +1,11 @@
 # Sentry
 
+<p>
+<img src="../../docs/c20-1.jpg" width="30%" />
+<img src="../../docs/c20-2.jpg" width="30%" />
+<img src="../../docs/c20-3.jpg" width="30%" />
+</p>
+
 ## 用户信息
 
 报错信息的 用户 和 设备 信息
@@ -20,7 +26,7 @@
 
 通过设置 PromiseRejectionTracker 的 PromiseRejectionTrackingOptions 来处理未捕获的 Promise 错误。相关源代码片段分析：
 
-- PromiseRejectionTrackingOptions 对象：
+- 配置 PromiseRejectionTrackingOptions 对象：
 
    ```ts
    {
@@ -97,7 +103,75 @@ Sentry.addBreadcrumb();
 
 >[参考 sentry-RN 示例代码](https://github.com/getsentry/sentry-react-native/blob/main/sample/src/screens/HomeScreen.tsx)
 
-## 参考
+## 性能收集
+
+Sentry 主要收集的性能包括：App 启动耗时；页面跳转耗时；请求耗时。
+
+![RN-performance](https://static001.geekbang.org/resource/image/3f/74/3f1bc89707321d9912b7f638f06f1c74.png?wh=1211x431)
+
+### App 启动耗时
+
+Android 上就是 Fragment 所在的 Activity 启动完成后的 `onActivityCreated` 回调发生的时间点。
+App 启动的结束时间点是在 React/React Native 应用的生命周期里，也就是组件挂载完成 componentDidMount 回调发生的时间点。
+
+>参考 [onActivityCreated](https://github.com/getsentry/sentry-java/blob/main/sentry-android-core/src/main/java/io/sentry/android/core/ActivityLifecycleIntegration.java#L242)  
+>参考 [componentDidMount @ReactNativeProfiler](https://github.com/getsentry/sentry-react-native/blob/main/src/js/tracing/reactnativeprofiler.tsx)
+
+### 页面跳转耗时
+
+如果使用的是 React Navigation，那在每次页面跳转之前都需要下达跳转命令，在下达跳转命令的时候会触发 `__unsafe_action__` 事件。因此，可以在 `__unsafe_action__` 事件的回调中添加页面跳转耗时的开始时间点。在页面跳转完成后，页面的状态会发生改变，此时会触发 state 改变事件，此时添加结束时间点。
+
+示例代码
+
+```ts
+function App({navigation}) {
+  useEffect(()=>{
+    let startTime = 0
+    navigation.addListener('__unsafe_action__', (e) => {
+      startTime = Date.now()
+    });
+
+    navigation.addListener('state', (e) => {
+      const totalTime = Date.now() - startTime
+      console.log(`totalTime:${totalTime}`)
+    });
+  },[])
+
+  return <></>
+}
+```
+
+>参考 [ReactNavigationInstrumentation](https://github.com/getsentry/sentry-react-native/blob/main/src/js/tracing/reactnavigation.ts)
+
+### 请求耗时
+
+在 RN 中的 fetch 或 axios 请求都是基于 XMLHttpRequest 包装的。因此，统计请求耗时，就要监听 [XMLHttpRequest](https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest) 的 open 事件，以及其实例 xhr 的 onreadystatechange 事件。在 open 事件中，记录请求开始的时间点，在 onreadystatechange 事件触发时且 xhr.readyState === 4 时记录请求的结束时间点。
+
+示例代码
+```ts
+let startTime = 0
+const originalOpen = XMLHttpRequest.prototype.open
+
+XMLHttpRequest.prototype.open(function(...args){
+  startTime = Date.now()
+  const xhr = this;
+  const originalOnready = xhr.prototype.onreadystatechange
+
+  xhr.prototype.onreadystatechange = function(...readyStateArgs) {
+    if (xhr.readyState === 4) {
+      const totalTime = Date.now() - startTime
+      console.log(`totalTime:${totalTime}`)
+    }
+    originalOnready(...readyStateArgs)
+  }
+
+  originalOpen.apply(xhr, args)
+})
+```
+
+>参考 [sentry/tracing request 源代码](https://github.com/getsentry/sentry-javascript/blob/master/packages/tracing/src/browser/request.ts)
+
+## Reference & Further Reading
 
 - [sentry 事件对象示例](sentry-event.json)
 - [Error Boundaries](https://reactjs.org/docs/error-boundaries.html)
