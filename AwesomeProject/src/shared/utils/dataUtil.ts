@@ -7,6 +7,10 @@ interface Item {
   id: number;
   title: string;
 }
+interface DogApiRes {
+  message: string[];
+  status: string;
+}
 
 export function generateArrayData(startIndex: number, count: number): Item[] {
   return new Array(count).fill(0).map((_, index) => ({
@@ -28,6 +32,10 @@ export function fetchData(index: number) {
   });
 }
 
+export async function reqApi<T>(url: string): Promise<T> {
+  return await fetch(url).then(res => res.json());
+}
+
 // API: https://dog.ceo/dog-api/
 export async function fetchDogs(index: number) {
   const apis = [
@@ -35,22 +43,42 @@ export async function fetchDogs(index: number) {
     'https://dog.ceo/api/breed/husky/images',
   ];
   const dogs: Array<string> = await Promise.all(
-    apis.map(it => fetch(it).then(res => res.json())),
-  ).then(data =>
-    data.filter(it => it.status === 'success').flatMap(it => it.message),
-  );
+    apis.map(it => reqApi<DogApiRes>(it)),
+  ).then((data: DogApiRes[]) => {
+    return data.filter(it => it.status === 'success').flatMap(it => it.message);
+  });
 
-  let result: string[] | null = null;
+  let result: string[] | null;
   if (index < FETCH_DATA_SIZE && index < dogs.length) {
     result = dogs.slice(index, Math.min(dogs.length, index + FETCH_BATCH_SIZE));
   }
 
   // return result;
   // specially slow down fetch
-  return new Promise(resolve => {
+  return new Promise<string[] | null>(resolve => {
     const waitingFor = 200 * Math.floor(((Math.random() * 100) % 10) + 1);
     setTimeout(() => {
       resolve(result);
     }, waitingFor);
   });
 }
+
+//#region mock
+// mock network error fetch
+export async function fetchWithNetworkError() {
+  const dogs = await reqApi<DogApiRes>(
+    'https://dog1.ceo/api/breed/husky/images',
+  );
+  if (dogs && dogs.status === 'success') {
+    return dogs.message;
+  } else {
+    return [];
+  }
+}
+// mock rejection fetch
+export async function fetchWithRejectionError() {
+  return new Promise((_, reject) => {
+    reject('something wrong with fetching');
+  });
+}
+//#endregion

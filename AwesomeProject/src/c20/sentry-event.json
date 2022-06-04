@@ -1,0 +1,202 @@
+{
+  "event_id": "c72468c7cdcb4959b72d766f3f6827fd",
+  "project": 6467184,
+  "release": "org.yl.test.AwesomeProject@1.0+1",
+  "dist": "1",
+  "platform": "node",
+  "message": "",
+  "datetime": "2022-06-03T14:46:53.964000Z",
+  "tags": [
+    ["app.device", "8a3d3cd9a8f0ecb643f844fe10a16b96a8ee145e"],
+    ["device", "iPhone14,5"],
+    ["device.family", "iOS"],
+    ["environment", "production"],
+    ["event.environment", "javascript"],
+    ["event.origin", "javascript"],
+    ["handled", "yes"],
+    ["level", "error"],
+    ["mechanism", "generic"],
+    ["os", "iOS 15.5"],
+    ["os.name", "iOS"],
+    ["os.rooted", "no"],
+    ["dist", "1"],
+    ["release", "org.yl.test.AwesomeProject@1.0+1"],
+    ["user", "id:692AE2B5-9928-4BF6-9934-034E45386F1E"]
+  ],
+  "_metrics": {"bytes.ingested.event": 2721, "bytes.stored.event": 5465},
+  "breadcrumbs": {
+    "values": [
+      {
+        "timestamp": 1654267613.838,
+        "type": "http",
+        "category": "xhr",
+        "level": "info",
+        "data": {
+          "method": "GET",
+          "status_code": 200,
+          "url": "https://dog.ceo/api/breed/shiba/images"
+        }
+      },
+      {
+        "timestamp": 1654267613.842,
+        "type": "http",
+        "category": "xhr",
+        "level": "info",
+        "data": {
+          "method": "GET",
+          "status_code": 0,
+          "url": "https://dog.ceo1/api/breed/husky/images"
+        }
+      }
+    ]
+  },
+  "contexts": {
+    "app": {
+      "app_start_time": "2022-06-03T08:59:57Z",
+      "device_app_hash": "8a3d3cd9a8f0ecb643f844fe10a16b96a8ee145e",
+      "build_type": "simulator",
+      "app_identifier": "org.yl.test.AwesomeProject",
+      "app_name": "AwesomeProject",
+      "app_version": "1.0",
+      "app_build": "1",
+      "app_id": "5195FDB2-CB4E-3D2D-AE38-EA67CD527A0C",
+      "type": "app"
+    },
+    "device": {
+      "family": "iOS",
+      "model": "iPhone14,5",
+      "model_id": "simulator",
+      "arch": "x86",
+      "simulator": true,
+      "memory_size": 34359738368,
+      "free_memory": 10472271872,
+      "usable_memory": 31906435072,
+      "storage_size": 349963173888,
+      "boot_time": "2022-05-26T01:54:07Z",
+      "timezone": "GMT+8",
+      "locale": "en_US",
+      "type": "device"
+    },
+    "os": {
+      "name": "iOS",
+      "version": "15.5",
+      "build": "21F79",
+      "kernel_version": "Darwin Kernel Version 21.5.0: Tue Apr 26 21:08:22 PDT 2022; root:xnu-8020.121.3~4/RELEASE_X86_64",
+      "rooted": false,
+      "type": "os"
+    }
+  },
+  "culprit": "setTimeout$argument_0(fetch.umd)",
+  "environment": "production",
+  "exception": {
+    "values": [
+      {
+        "type": "TypeError",
+        "value": "Network request failed",
+        "stacktrace": {
+          "frames": [
+            {
+              "function": "callFunctionReturnFlushedQueue",
+              "filename": "[native code]",
+              "abs_path": "[native code]",
+              "platform": "node",
+              "in_app": false
+            },
+            {
+              "function": "callTimers",
+              "module": "JSTimers",
+              "filename": "app:///JSTimers.js",
+              "abs_path": "app:///JSTimers.js",
+              "colno": 16,
+              "platform": "node",
+              "in_app": false
+            },
+            {
+              "function": "_callTimer",
+              "module": "JSTimers",
+              "filename": "app:///JSTimers.js",
+              "abs_path": "app:///JSTimers.js",
+              "colno": 14,
+              "platform": "node",
+              "in_app": false
+            },
+            {
+              "function": "_allocateCallback$argument_0",
+              "module": "JSTimers",
+              "filename": "app:///JSTimers.js",
+              "abs_path": "app:///JSTimers.js",
+              "colno": 12,
+              "platform": "node",
+              "in_app": false
+            },
+            {
+              "function": "setTimeout$argument_0",
+              "module": "fetch.umd",
+              "filename": "app:///fetch.umd.js",
+              "abs_path": "app:///fetch.umd.js",
+              "colno": 17,
+              "platform": "node",
+              "in_app": false
+            }
+          ]
+        },
+        "mechanism": {"type": "generic", "handled": true}
+      }
+    ]
+  },
+  "extra": {"componentStack": "[undefined]", "jsEngine": "[undefined]"},
+  "fingerprint": ["{{ default }}"],
+  "grouping_config": {
+    "enhancements": "eJybzDRxY3J-bm5-npWRgaGlroGxrpHxBABcYgcZ",
+    "id": "newstyle:2019-10-29"
+  },
+  "hashes": ["d5ba146cbd16d3a437071ad166a59261"],
+  "ingest_path": [
+    {
+      "version": "22.5.0",
+      "public_key": "XE7QiyuNlja9PZ7I9qJlwQotzecWrUIN91BAO7Q5R38"
+    }
+  ],
+  "key_id": "2270957",
+  "level": "error",
+  "location": "app:///fetch.umd.js",
+  "logger": "",
+  "metadata": {
+    "display_title_with_tree_label": false,
+    "filename": "app:///fetch.umd.js",
+    "function": "setTimeout$argument_0",
+    "type": "TypeError",
+    "value": "Network request failed"
+  },
+  "nodestore_insert": 1654267616.855953,
+  "received": 1654267614.219412,
+  "sdk": {
+    "name": "sentry.javascript.react-native",
+    "version": "3.4.3",
+    "integrations": [
+      "ReactNativeErrorHandlers",
+      "Release",
+      "InboundFilters",
+      "FunctionToString",
+      "Breadcrumbs",
+      "LinkedErrors",
+      "Dedupe",
+      "UserAgent",
+      "EventOrigin",
+      "SdkInfo",
+      "DebugSymbolicator",
+      "RewriteFrames",
+      "DeviceContext",
+      "ReactNativeTracing"
+    ],
+    "packages": [
+      {"name": "sentry.cocoa", "version": "7.11.0"},
+      {"name": "npm:@sentry/react-native", "version": "3.4.3"}
+    ]
+  },
+  "timestamp": 1654267613.964,
+  "title": "TypeError: Network request failed",
+  "type": "error",
+  "user": {"id": "692AE2B5-9928-4BF6-9934-034E45386F1E"},
+  "version": "7"
+}
