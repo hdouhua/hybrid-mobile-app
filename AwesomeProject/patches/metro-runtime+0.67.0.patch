@@ -1,25 +1,24 @@
 diff --git a/node_modules/metro-runtime/src/polyfills/require.js b/node_modules/metro-runtime/src/polyfills/require.js
-index e7e1e25..c41fc7b 100644
+index e7e1e25..38ed649 100644
 --- a/node_modules/metro-runtime/src/polyfills/require.js
 +++ b/node_modules/metro-runtime/src/polyfills/require.js
-@@ -110,14 +110,21 @@ function metroRequire(moduleId) {
+@@ -110,14 +110,20 @@ function metroRequire(moduleId) {
      if (initializingIndex !== -1) {
        const cycle = initializingModuleIds
          .slice(initializingIndex)
 -        .map((id) => (modules[id] ? modules[id].verboseName : "[unknown]")); // We want to show A -> B -> A:
 +        .map((id) => (modules[id] ? modules[id].verboseName : "[unknown]"));
-         
+ 
 -      cycle.push(cycle[0]);
 -      console.warn(
 -        `Require cycle: ${cycle.join(" -> ")}\n\n` +
 -          "Require cycles are allowed, but can result in uninitialized values. " +
 -          "Consider refactoring to remove the need for a cycle."
 -      );
-+      var isExternalOnly = cycle.every(function (cycleWarning) {
-+        return cycleWarning.includes('node_modules');
++      // We want to show A -> B -> A: do this for our own code
++      const isExternalOnly = cycle.every(function (cycleWarning) {
++        return cycleWarning.includes("node_modules");
 +      });
-+      
-+      // We want to show A -> B -> A: do this for external only
 +      if (!isExternalOnly) {
 +        cycle.push(cycle[0]);
 +        console.warn(

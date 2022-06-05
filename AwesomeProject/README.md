@@ -54,7 +54,7 @@ A demo project made of React Native.
    ./gradlew assembleRelease
    ```
 
-## 构建问题
+## issues & tips
 
 1. Could not find node
 
@@ -62,16 +62,81 @@ A demo project made of React Native.
    Could not find node. Make sure it is in bash PATH or set the    NODE_BINARY environment variable.
    ```
 
-   修复如下，
+   to fix,
 
    ```
    sudo ln -s $(which node) /usr/local/bin/node
    ```
    
-   或者使用 .env file （ 0.69 或以上的版本），创建 .xcode.env 在 ios    文件夹下
+   from RN 0.69, may use .env file to set environment variables，for example, create .xcode.env in the folder ios
 
    ```shell
    export NODE_BINARY=$(command -v node)
+   ```
+
+2. Require cycle @`@sentry/react-native`
+
+   ```shell
+   Require cycle: node_modules/react-native/Libraries/Network/fetch.js -> node_modules/whatwg-fetch/dist/fetch.umd.js -> node_modules/react-native/Libraries/Network/fetch.js
+   
+   Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+   ```
+   
+   >for issue details, please refer to https://github.com/getsentry/sentry-react-native/issues/2080
+   
+   >to find all cycling dependencies, please use madge with Graphviz
+   >
+   >```shell
+   >npm -g install madge
+   >
+   >madge . --extensions ts,tsx -c --warning
+   >```
+   
+   after researching find out the relevant code [here](https://github.com/facebook/metro/blob/main/packages/metro-runtime/src/polyfills/require.js#L170)
+   
+   **solution1** from [this](https://github.com/facebook/metro/issues/287#issuecomment-779469905), trying to replace console warning message with empty string.
+   
+   ```js
+   const fs = require('fs');
+   const codeToObscure = /console.warn\(\s*(?=["`]Require cycle:)/;
+   const problemFilePath = './node_modules/metro-runtime/src/lib/polyfills/require.js';
+   const problemFileContent = fs.readFileSync(problemFilePath,'utf8');
+   fs.writeFileSync(problemFilePath,problemFileContent.replace(codeToObscure,'const noConsoleWarn = ('),'utf8');
+   ```
+   
+   **solution2** from [this](https://github.com/facebook/metro/issues/287#issuecomment-436504616), trying to show warning message 'require cycle' for our own code only
+   
+   ```js
+   // We want to show A -> B -> A: do this for our own code
+   const isExternalOnly = cycle.every(function (cycleWarning) {
+      return cycleWarning.includes("node_modules");
+   });
+   if (!isExternalOnly) {
+      cycle.push(cycle[0]);
+      console.warn(
+         `Require cycle: ${cycle.join(" -> ")}\n\n` +
+         "Require cycles are allowed, but can result in uninitialized values. " +
+         "Consider refactoring to remove the need for a cycle."
+      );
+   }
+   ```
+
+3. list `$env`
+
+   ```
+   node -v && npm -v && npm ls --prod --depth=0
+   
+   v14.19.1
+   8.3.1
+   awesomeproject@0.0.1
+   ├── @faker-js/faker@6.3.1
+   ├── @react-native-seoul/masonry-list@1.3.0
+   ├── @sentry/react-native@3.4.3
+   ├── react-native-reanimated@2.8.0
+   ├── react-native@0.68.2
+   ├── react-query@3.39.0
+   ├── react@17.0.2
+   └── recyclerlistview@3.0.5
    ```
 
 ## 测试
