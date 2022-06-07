@@ -18,5 +18,5 @@ export interface NFTType {
 
 export interface NFTPagingType {
   items: NFTType[];
-  nextPageIndex: number;
+  nextPageIndex: number | undefined;
 }

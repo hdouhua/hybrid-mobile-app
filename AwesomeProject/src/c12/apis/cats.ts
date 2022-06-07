@@ -1,54 +1,36 @@
 import {faker} from '@faker-js/faker';
-import {IconType, NFTPagingType, NFTType} from './PetApiTypes';
+import {fetchRandomImages, fetchPetsByPaging} from '@shared/apis/catApi';
+import {PetType} from '@shared/apis/pet-store';
+import {IconType, NFTPagingType, NFTType} from './NFTApiTypes';
 
-interface CatSearchItem {
-  id: string;
-  url: string;
-  width: number;
-  height: number;
-}
-type CatSearchResponse = CatSearchItem[];
-
-const CatsUrl = 'https://api.thecatapi.com/v1/images/search';
+const IconsPageSize = 25;
+const NftsPageSize = 20;
 
 export async function queryIcons(): Promise<IconType[]> {
-  const url = `${CatsUrl}?${new URLSearchParams({
-    limit: '25',
-    page: '1',
-    order: 'asc',
-  })}`;
-  console.debug(url);
-
-  const data: CatSearchResponse = await fetch(url).then(res => res.json());
+  const data = await fetchRandomImages(IconsPageSize);
 
   return data.map(
     it =>
       ({
-        id: it.id,
+        id: faker.datatype.uuid(),
         title: faker.animal.cat(),
-        image: it.url,
+        image: it,
       } as IconType),
   );
 }
 
 export async function queryNfts({pageParam = 0}): Promise<NFTPagingType> {
-  const url = `${CatsUrl}?${new URLSearchParams({
-    limit: '20',
-    page: pageParam.toString(),
-    order: 'desc',
-  })}`;
-  console.debug(url);
-
-  const data: CatSearchResponse = await fetch(url).then(res => res.json());
-  const items: NFTType[] = data.map((it: CatSearchItem, index: number) => {
+  const pagingData = await fetchPetsByPaging({
+    pageIndex: pageParam,
+    pageSize: NftsPageSize,
+  });
+  const items: NFTType[] = pagingData.items.map((it: PetType) => {
     return {
-      id: `${it.id}_${pageParam.toString()}_${index.toString()}`,
-      image: it.url,
-      name: faker.animal.cat(),
+      ...it,
       motto: faker.lorem.lines(1),
-      liked: it.width,
+      liked: faker.datatype.number({min: 100, max: 10000}),
     };
   });
 
-  return {nextPageIndex: pageParam + 1, items};
+  return {nextPageIndex: pagingData.nextPageIndex, items};
 }

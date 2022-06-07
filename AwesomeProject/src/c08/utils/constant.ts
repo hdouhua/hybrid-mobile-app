@@ -2,9 +2,9 @@
  *
  */
 
-import {generateArrayData} from '@shared/utils/dataUtil';
+import {generateMockData} from '@shared/utils/dataUtil';
 
-export const DATA = generateArrayData(0, 100);
+export const DATA = generateMockData(0, 100);
 
 export const ITEM_HEIGHT = 100;
 

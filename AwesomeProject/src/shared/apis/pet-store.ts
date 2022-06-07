@@ -1,3 +1,14 @@
+export interface PetType {
+  id: string;
+  name: string;
+  image: string;
+}
+
+export interface PagingPetType {
+  nextPageIndex: number | undefined;
+  items: PetType[];
+}
+
 export const dogStore = [
   'https://images.dog.ceo/breeds/waterdog-spanish/20180706_194432.jpg',
   'https://images.dog.ceo/breeds/waterdog-spanish/20180714_201544.jpg',

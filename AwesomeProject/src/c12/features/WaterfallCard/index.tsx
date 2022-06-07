@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {FetchInfiniteQueryOptions} from 'react-query';
 
-import {NFTType, NFTPagingType} from '../../apis/PetApiTypes';
+import {NFTType, NFTPagingType} from '../../apis/NFTApiTypes';
 import {queryNfts} from '../../apis/cats';
 import {styles} from './Styles';
 
@@ -54,7 +54,7 @@ const WaterFallCard: React.FC<WaterFallProps> = ({item}) => {
 
 export const recyclerQueryOption: FetchInfiniteQueryOptions<RecyclerNFTs> = {
   getNextPageParam: lastPage => {
-    if (lastPage.nextPageIndex > 3) {
+    if (lastPage.nextPageIndex && lastPage.nextPageIndex > 3) {
       // mock no-more-data
       return undefined;
     }

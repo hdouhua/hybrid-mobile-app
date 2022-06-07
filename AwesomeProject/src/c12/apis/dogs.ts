@@ -1,24 +1,13 @@
 import {faker} from '@faker-js/faker';
-import {dogStore} from './pet-store';
-import {IconType, NFTPagingType, NFTType} from './PetApiTypes';
+import {fetchRandomImages, fetchPetsByPaging} from '@shared/apis/dogApi';
+import {PetType} from '@shared/apis/pet-store';
+import {IconType, NFTPagingType, NFTType} from './NFTApiTypes';
 
 const IconsPageSize = 25;
 const NftsPageSize = 20;
 
-const TotalCount = dogStore.length;
-
 export async function queryIcons(): Promise<IconType[]> {
-  const startIndex = Math.floor(Math.random() * 1000) % TotalCount;
-  if (startIndex > TotalCount) {
-    return [];
-  }
-
-  const data = await new Promise<string[]>(resolve => {
-    const waitFor = (Math.floor(Math.random() * 100) % 5) * 200;
-    setTimeout(() => {
-      resolve(dogStore.slice(startIndex, startIndex + IconsPageSize));
-    }, waitFor);
-  });
+  const data = await fetchRandomImages(IconsPageSize);
 
   return data.map(
     it =>
@@ -31,28 +20,17 @@ export async function queryIcons(): Promise<IconType[]> {
 }
 
 export async function queryNfts({pageParam = 0}): Promise<NFTPagingType> {
-  const startIndex =
-    (Math.floor(Math.random() * 1000) % TotalCount) + pageParam * NftsPageSize;
-  if (startIndex > TotalCount) {
-    return {nextPageIndex: undefined, items: []};
-  }
-
-  const data = await new Promise<string[]>(resolve => {
-    const waitFor = (Math.floor(Math.random() * 100) % 5) * 200;
-    setTimeout(() => {
-      resolve(dogStore.slice(startIndex, startIndex + NftsPageSize));
-    }, waitFor);
+  const pagingData = await fetchPetsByPaging({
+    pageIndex: pageParam,
+    pageSize: NftsPageSize,
   });
-
-  const items: NFTType[] = data.map((it: string, index: number) => {
+  const items: NFTType[] = pagingData.items.map((it: PetType) => {
     return {
-      id: faker.datatype.uuid(),
-      image: it,
-      name: faker.animal.dog(),
+      ...it,
       motto: faker.lorem.lines(1),
-      liked: index * Math.round(Math.random() * 1000),
+      liked: faker.datatype.number({min: 100, max: 10000}),
     };
   });
 
-  return {nextPageIndex: pageParam + 1, items};
+  return {nextPageIndex: pagingData.nextPageIndex, items};
 }

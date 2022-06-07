@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {ScrollView, Dimensions, View} from 'react-native';
+import {
+  ScrollView,
+  Dimensions,
+  View,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from 'react-native';
 
 import {styles} from './Styles';
 import Grid from '../../components/Grid';
@@ -36,7 +42,9 @@ const Banner: React.FC<BannerProps> = ({data, row = 2, column = 5}) => {
   const innerHeight = height - 5 * 2 - 10;
   const pageCount = Math.ceil(icons.length / (row * column));
 
-  const scrollEndHandler = ({nativeEvent}) => {
+  const scrollEndHandler = ({
+    nativeEvent,
+  }: NativeSyntheticEvent<NativeScrollEvent>) => {
     console.debug('ScrollEnd', nativeEvent.contentOffset.x, indicator, width);
     const newIndicator = Math.floor(
       Math.round(nativeEvent.contentOffset.x) / Math.round(width),

@@ -3,7 +3,8 @@ import {RefreshControl} from 'react-native';
 import {RecyclerListView, DataProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {fetchDogs} from '@shared/utils/dataUtil';
+import {FETCH_BATCH_SIZE, FETCH_DATA_SIZE} from '@shared/utils/constant';
+import {fetchRandomImages} from '@shared/apis/catApi';
 import LoadingLayer from '@shared/components/Loading';
 import {getLayoutProvider} from './utils/layoutUtil';
 import ListImageItem from './components/ListImageItem';
@@ -33,8 +34,12 @@ export default function RecyclerList() {
       console.debug('fetching ...');
       setLoading(true);
 
-      let newData = await fetchDogs(dataProvider.getSize());
-      if (newData && newData.length > 0) {
+      let newData = await fetchRandomImages(FETCH_BATCH_SIZE);
+      if (
+        newData &&
+        newData.length > 0 &&
+        dataProvider.getSize() < FETCH_DATA_SIZE
+      ) {
         dataRef.current = dataRef.current.concat(newData);
         setDataProvider(dp => dp.cloneWithRows(dataRef.current));
       } else {

@@ -3,7 +3,13 @@ import {View, ActivityIndicator, Text} from 'react-native';
 
 import {Styles} from '../Styles';
 
-export function LoadingIndicator({loading, noMore}) {
+export function LoadingIndicator({
+  loading,
+  noMore,
+}: {
+  loading: boolean;
+  noMore: boolean;
+}) {
   const footer = useMemo(() => {
     console.debug('in footer rendering');
     return (

@@ -3,7 +3,7 @@ import {Image, View} from 'react-native';
 
 import {Styles} from '../Styles';
 
-function ImageRender({imageUri}) {
+function ImageRender({imageUri}: {imageUri: string}) {
   console.debug('render item');
   return (
     <View style={Styles.itemWrapper}>
