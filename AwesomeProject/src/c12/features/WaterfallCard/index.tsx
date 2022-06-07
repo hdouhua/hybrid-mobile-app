@@ -53,7 +53,7 @@ const WaterFallCard: React.FC<WaterFallProps> = ({item}) => {
 };
 
 export const recyclerQueryOption: FetchInfiniteQueryOptions<RecyclerNFTs> = {
-  getNextPageParam: (lastPage, _) => {
+  getNextPageParam: lastPage => {
     if (lastPage.nextPageIndex > 3) {
       // mock no-more-data
       return undefined;

@@ -3,7 +3,7 @@ import {View, Text, Image, Alert} from 'react-native';
 import {Styles} from './Styles';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const cat = require('../shared/assets/cat_cute.jpeg');
+const cat = require('@asset/cat_cute.jpg');
 
 export default function StaticImage() {
   //可以通过 Image.resolveAssetSource 方法来获取图片信息

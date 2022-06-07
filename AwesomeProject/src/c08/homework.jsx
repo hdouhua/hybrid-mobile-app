@@ -3,8 +3,8 @@ import {RefreshControl} from 'react-native';
 import {RecyclerListView, DataProvider} from 'recyclerlistview';
 
 import {Styles} from './Styles';
-import {fetchData} from '../shared/utils/dataUtil';
-import LoadingLayer from '../shared/components/Loading';
+import {fetchData} from '@shared/utils/dataUtil';
+import LoadingLayer from '@shared/components/Loading';
 import {getLayoutProvider} from './utils/layoutUtil';
 import ListItem from './components/ListItem';
 import {LoadingIndicator as ListFooter} from './components/ListFooter';

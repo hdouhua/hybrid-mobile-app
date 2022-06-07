@@ -3,8 +3,8 @@ import {View, Text, StyleSheet} from 'react-native';
 import MasonryList from '@react-native-seoul/masonry-list';
 import {useQuery, useInfiniteQuery} from 'react-query';
 
-import Loading from '../../../shared/components/Loading';
-import NoData from '../../../shared/components/NoData';
+import Loading from '@shared/components/Loading';
+import NoData from '@shared/components/NoData';
 import Banner, {queryRecyclerIcons, RecyclerIcons} from '../Banner';
 import WaterFallCard, {
   queryRecyclerNfts,
@@ -13,7 +13,7 @@ import WaterFallCard, {
   recyclerQueryOption,
 } from '../WaterfallCard';
 
-const App: React.FC = () => {
+const List = () => {
   const {
     data: recyclerIcons,
     isLoading,
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default List;

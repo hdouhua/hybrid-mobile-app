@@ -2,7 +2,7 @@
  *
  */
 
-import {generateArrayData} from '../../shared/utils/dataUtil';
+import {generateArrayData} from '@shared/utils/dataUtil';
 
 export const DATA = generateArrayData(0, 100);
 

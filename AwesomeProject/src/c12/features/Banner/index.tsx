@@ -4,6 +4,7 @@ import {ScrollView, Dimensions, View} from 'react-native';
 import {styles} from './Styles';
 import Grid from '../../components/Grid';
 import {queryIcons} from '../../apis/dogs';
+import {useWhyDidYouUpdate} from '@shared/hooks/useWhyDidYouUpdate';
 
 export interface GridItemProps {
   id: string;
@@ -26,6 +27,7 @@ interface BannerProps {
 }
 
 const Banner: React.FC<BannerProps> = ({data, row = 2, column = 5}) => {
+  useWhyDidYouUpdate('Banner', {data, row, column});
   const [indicator, setIndicator] = useState(0);
 
   const {icons, height, width} = data;
@@ -52,7 +54,7 @@ const Banner: React.FC<BannerProps> = ({data, row = 2, column = 5}) => {
         horizontal={true}
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
-        // onContentSizeChange={() => console.log('size changed')}
+        // onContentSizeChange={() => console.debug('size changed')}
         onMomentumScrollEnd={scrollEndHandler}>
         <Grid
           data={icons}

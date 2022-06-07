@@ -14,7 +14,7 @@ interface NavItemProps {
   onPress: NavItemPressHandler;
 }
 
-const NavItem: React.FC<NavItemProps> = ({active, onPress, id, children}) => {
+const NavItem = ({active, onPress, id, children}: NavItemProps) => {
   return (
     <Pressable onPress={() => onPress(id)}>
       <Text style={[styles.title, active && styles.activeFont]}>
