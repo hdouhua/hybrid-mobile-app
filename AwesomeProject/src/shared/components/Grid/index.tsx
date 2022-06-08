@@ -12,22 +12,22 @@ import {
   ViewStyle,
 } from 'react-native';
 
-type GridProps = {
+export interface GridProps {
   data: Array<GridItemType>;
   /**
-   * number of rows in single screen, default is 2
+   * number of rows in single screen
    */
   row: number;
   /**
-   * number of columns in single screen, default is 4
+   * number of columns in single screen
    */
   column: number;
   /**
    * container's width, default is window's width
    */
-  width: number;
+  width?: number;
   /**
-   * container's height, default is 150
+   * container's height, default is 200
    */
   height: number;
   /**
@@ -54,31 +54,31 @@ type GridProps = {
     index: number,
     data: GridItemType[],
   ) => ReactNode;
-};
+}
 export interface GridItemType {
   id: string;
+  /**
+   * image uri
+   */
   icon: string;
   text: string;
-  onPress: (current: GridItemType, index: number) => void;
+  onPress?: (current: GridItemType, index: number) => void;
 }
 
 class Grid extends PureComponent<GridProps> {
   static defaultProps = {
     data: [],
-    row: 2,
-    column: 4,
     width: Dimensions.get('window').width,
-    height: 150,
+    height: 200,
   };
 
   private handleItemPress(current: GridItemType, index: number) {
-    return () => current.onPress(current, index);
+    return () => current.onPress && current.onPress(current, index);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   renderItem = (current: GridItemType, index: number, data: GridItemType[]) => {
     const {id, icon, text} = current;
-    console.debug('render Grid:', id);
     const {
       itemStyle,
       iconStyle,
@@ -88,9 +88,11 @@ class Grid extends PureComponent<GridProps> {
       width: containerWidth,
       height: containerHeight,
     } = this.props;
-    const width = Math.floor(containerWidth / column);
+
+    const width = Math.floor((containerWidth ?? 0) / column);
     const height = containerHeight / row;
 
+    console.debug('render Grid:', id);
     return (
       <TouchableHighlight
         key={id}
