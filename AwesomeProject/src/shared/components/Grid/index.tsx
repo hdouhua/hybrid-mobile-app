@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, ReactNode} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,61 +6,63 @@ import {
   TouchableHighlight,
   Text,
   Dimensions,
+  ImageStyle,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
 } from 'react-native';
-import PropTypes from 'prop-types';
-import {ViewPropTypes} from 'deprecated-react-native-prop-types';
 
-class Grid extends PureComponent {
-  static propTypes = {
-    /**
-     * 传入的数据，包括 icon、文字、点击回调函数
-     */
-    data: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        icon: PropTypes.string,
-        text: PropTypes.string,
-        onPress: PropTypes.func,
-      }),
-    ),
-    /**
-     * 单屏 grid 的行数，默认是 2
-     */
-    row: PropTypes.number,
-    /**
-     * 单屏 grid 的列数，默认是 4
-     */
-    column: PropTypes.number,
-    /**
-     * 外部容器的宽度，默认是屏幕的宽度
-     */
-    width: PropTypes.number,
-    /**
-     * 外部容器的高度，默认是 150
-     */
-    height: PropTypes.number,
-    /**
-     * 外部容器的样式
-     */
-    style: ViewPropTypes.style,
-    /**
-     * 每个格子的样式
-     */
-    itemStyle: ViewPropTypes.style,
-    /**
-     * 格子 icon 的样式
-     */
-    iconStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-    /**
-     * 格子 text 的样式
-     */
-    textStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-    /**
-     * 自定义渲染每个格子的内容
-     */
-    renderItem: PropTypes.func,
-  };
+type GridProps = {
+  data: Array<GridItemType>;
+  /**
+   * number of rows in single screen, default is 2
+   */
+  row: number;
+  /**
+   * number of columns in single screen, default is 4
+   */
+  column: number;
+  /**
+   * container's width, default is window's width
+   */
+  width: number;
+  /**
+   * container's height, default is 150
+   */
+  height: number;
+  /**
+   * style setting of container's
+   */
+  style?: StyleProp<ViewStyle>;
+  /**
+   * style setting of each item
+   */
+  itemStyle?: StyleProp<ViewStyle>;
+  /**
+   * style setting of icon in item
+   */
+  iconStyle?: StyleProp<ImageStyle>;
+  /**
+   * style setting of text in item
+   */
+  textStyle?: StyleProp<TextStyle>;
+  /**
+   * item render
+   */
+  renderItem?: (
+    current: GridItemType,
+    index: number,
+    data: GridItemType[],
+  ) => ReactNode;
+};
+export interface GridItemType {
+  id: string;
+  icon: string;
+  text: string;
+  onPress: (current: GridItemType, index: number) => void;
+}
 
+class Grid extends PureComponent<GridProps> {
   static defaultProps = {
     data: [],
     row: 2,
@@ -69,11 +71,13 @@ class Grid extends PureComponent {
     height: 150,
   };
 
-  handleItemPress({icon, text, onPress}, index, data) {
-    return () => onPress({icon, text}, index, data);
+  private handleItemPress(current: GridItemType, index: number) {
+    return () => current.onPress(current, index);
   }
 
-  renderItem = ({id, icon, text, onPress}, index, data) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  renderItem = (current: GridItemType, index: number, data: GridItemType[]) => {
+    const {id, icon, text} = current;
     console.debug('render Grid:', id);
     const {
       itemStyle,
@@ -92,7 +96,7 @@ class Grid extends PureComponent {
         key={id}
         activeOpacity={1}
         underlayColor={'#f5f5f5'}
-        onPress={this.handleItemPress({icon, text, onPress}, index, data)}>
+        onPress={this.handleItemPress(current, index)}>
         <View style={[styles.item, {width, height}, itemStyle]}>
           {icon && (
             <Image style={[styles.icon, iconStyle]} source={{uri: icon}} />
@@ -120,8 +124,8 @@ class Grid extends PureComponent {
 
     const chunks = [];
     for (let i = 0; i < data.length; i += row * column) {
-      let chunk = data.slice(i, i + row * column);
-      chunks.push(chunk.map(renderItem));
+      const chunk = data.slice(i, i + row * column);
+      chunks.push(chunk.map((it, index) => renderItem(it, i + index, data)));
     }
 
     return (

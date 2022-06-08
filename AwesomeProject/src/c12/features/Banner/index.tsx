@@ -8,19 +8,12 @@ import {
 } from 'react-native';
 
 import {styles} from './Styles';
-import Grid from '../../components/Grid';
 import {queryIcons} from '../../apis/dogs';
+import Grid, {GridItemType} from '@shared/components/Grid';
 import {useWhyDidYouUpdate} from '@shared/hooks/useWhyDidYouUpdate';
 
-export interface GridItemProps {
-  id: string;
-  icon: string;
-  text: string;
-  onPress: () => void;
-}
-
 export interface RecyclerIcons {
-  icons: GridItemProps[];
+  icons: GridItemType[];
   width: number;
   height: number;
   type: string;
@@ -91,12 +84,13 @@ const Banner: React.FC<BannerProps> = ({data, row = 2, column = 5}) => {
 
 export const queryRecyclerIcons = async (): Promise<RecyclerIcons> => {
   const data = await queryIcons();
-  const icons: GridItemProps[] = data?.map(icon => ({
+  const icons: GridItemType[] = data?.map(icon => ({
     id: icon.id,
     icon: icon.image,
     text: icon.title,
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onPress: () => {},
+    onPress: (_, index) => {
+      console.debug('click:', index);
+    },
   }));
 
   return {
