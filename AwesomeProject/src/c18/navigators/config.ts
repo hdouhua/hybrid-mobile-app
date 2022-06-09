@@ -2,22 +2,25 @@
  * configure of navigators
  */
 
-export interface DetailPageParams {
-  title: string;
-  image: string;
-}
+import {NftType} from '../apis/cats';
+
+// export interface DetailPageParams {
+//   name: string;
+//   image: string;
+// }
+
 export type NativeStackParamList = {
-  Detail: DetailPageParams;
+  ['Detail']: NftType;
 };
 
 // require("image file"): ImageSourcePropType
 // export const CutePets: DetailPageParams[] = [
 //   {
-//     title: '豆花小可爱',
+//     name: '豆花小可爱',
 //     image: require('@asset/01.jpg'),
 //   },
 //   {
-//     title: '豆豆旺财',
+//     name: '豆豆旺财',
 //     image: require('@asset/02.jpg'),
 //   },
 // ];

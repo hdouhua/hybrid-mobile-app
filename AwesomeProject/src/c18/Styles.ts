@@ -10,11 +10,25 @@ export const Styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'red',
   },
+  listContainer: {
+    flex: 1,
+    backgroundColor: 'wheat',
+  },
+  iconStyle: {
+    width: 300,
+    height: 150,
+    borderRadius: 10,
+  },
+  textStyle: {
+    fontSize: 12,
+    color: 'darkgray',
+  },
   detailContainer: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   detailImage: {
     width: width,
@@ -22,13 +36,19 @@ export const Styles = StyleSheet.create({
     marginVertical: 8,
     resizeMode: 'contain',
   },
-  iconStyle: {
-    width: 100,
-    height: 80,
-    borderRadius: 10,
+  detailDesc: {
+    alignSelf: 'flex-start',
+    marginHorizontal: 15,
   },
-  textStyle: {
-    fontSize: 12,
-    color: '#636363',
+  buyRect: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginRight: 50,
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+  },
+  price: {
+    fontSize: 16,
+    fontWeight: '600',
   },
 });

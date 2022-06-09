@@ -9,8 +9,6 @@ import {getLayoutProvider} from './utils/layoutUtil';
 import ListItem from './components/ListItem';
 import {LoadingIndicator as ListFooter} from './components/ListFooter';
 
-// // disalbe debug
-// console.debug = () => {};
 const BaseDataProvider = new DataProvider((r1, r2) => r1.id !== r2.id);
 
 export default function RecyclerList() {

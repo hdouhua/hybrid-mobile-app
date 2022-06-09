@@ -9,9 +9,30 @@ const Stack = createNativeStackNavigator();
 export function Application() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Discover">
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenListeners={{
+          state: e => {
+            // Do something with the state
+            console.debug('Stack.Navigator - state changed', e.data);
+          },
+        }}>
         <Stack.Screen name="Discover" component={Discover} />
-        <Stack.Screen name="Detail" component={Detail} />
+        <Stack.Screen
+          name="Detail"
+          initialParams={{symbol: '$'}}
+          options={{
+            // headerBackButtonMenuEnabled: false,
+            // headerBackTitle: 'my back',
+            // headerBackTitleVisible: false,
+            statusBarHidden: true,
+            headerShown: false,
+            // gestureEnabled: false,
+            animation: 'slide_from_bottom',
+            fullScreenGestureEnabled: true,
+          }}
+          component={Detail}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
