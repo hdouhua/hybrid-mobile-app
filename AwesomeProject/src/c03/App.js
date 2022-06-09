@@ -9,7 +9,7 @@ import Homework from './homework';
 
 export default function App() {
   return (
-    <SafeAreaView style={{marginHorizontal: 30}}>
+    <SafeAreaView style={{marginHorizontal: 5}}>
       <ScrollView>
         <FlexColumn />
         <FlexRow />

@@ -14,10 +14,10 @@ export type NativeStackParamList = {
 // export const CutePets: DetailPageParams[] = [
 //   {
 //     title: '豆花小可爱',
-//     image: require('@asset/cat_colorful_eyes.jpg'),
+//     image: require('@asset/01.jpg'),
 //   },
 //   {
 //     title: '豆豆旺财',
-//     image: require('@asset/cat_cute.jpg'),
+//     image: require('@asset/02.jpg'),
 //   },
 // ];

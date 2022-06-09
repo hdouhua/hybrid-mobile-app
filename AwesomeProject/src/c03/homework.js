@@ -1,35 +1,22 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import {View, Image, Text, StyleSheet, Dimensions} from 'react-native';
 
 const images = [
-  'http://cdn.shopify.com/s/files/1/0550/4765/1389/articles/Cat_Yowling.jpg',
-  'https://s36537.pcdn.co/wp-content/uploads/2017/12/A-cat-yowling-or-making-a-sound-with-mouth-open.jpg.optimal.jpg',
-  'https://cdn.shopify.com/s/files/1/1788/4235/files/PPF-BlogUpdate-Thumbs_0041_42_Cat-Stages.jpg',
-  'https://dogshome.com/wp-content/uploads/2016/07/LDH-reasons-to-adopt-a-cat-1013425-Beatrix-featured.jpg',
-  'https://www.purina.co.uk/sites/default/files/2020-12/Understanding%20Your%20Cat%27s%20Body%20LanguageHERO.jpg',
-  'https://static.scientificamerican.com/sciam/cache/file/9CAE9C60-8BC5-4CA3-95C180EFACDD99FD_source.jpg',
-  'https://d2zp5xs5cp8zlg.cloudfront.net/image-30938-800.jpg',
+  require('@asset/cat_01.jpg'),
+  require('@asset/cat_02.jpg'),
+  require('@asset/cat_03.jpg'),
+  require('@asset/cat_04.webp'),
+  require('@asset/cat_05.webp'),
+  require('@asset/cat_06.webp'),
+  require('@asset/cat_07.jpg'),
+  require('@asset/cat_08.webp'),
 ];
 
 function Item({uri, height}) {
-  if (height) {
-    return (
-      <View
-        style={{
-          width: '45%',
-          height: height,
-          alignSelf: 'flex-start',
-          borderWidth: 1,
-          borderColor: 'red',
-        }}>
-        <Image style={styles.img} source={{uri: uri}} />
-        <Text style={styles.txt}>kitty</Text>
-      </View>
-    );
-  }
+  let computedStyle = [styles.img, height ? {height} : {}];
   return (
     <View style={styles.item}>
-      <Image style={styles.img} source={{uri: uri}} />
+      <Image style={[styles.img, computedStyle]} source={uri} />
       <Text style={styles.txt}>kitty</Text>
     </View>
   );
@@ -39,7 +26,7 @@ export default function Homework() {
   return (
     <View style={styles.container}>
       {images.map((value, index) => (
-        <Item uri={value} key={`cat_${index}`} />
+        <Item uri={value} key={index} />
       ))}
       <Item uri={images[0]} height={100} />
       <Item uri={images[1]} height={120} />
@@ -51,6 +38,9 @@ export default function Homework() {
   );
 }
 
+const winWidth = Dimensions.get('window').width;
+const imgWidth = winWidth / 2 - 30;
+
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
@@ -60,15 +50,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   item: {
-    width: '45%',
-    alignSelf: 'flex-start',
+    width: winWidth * 0.45,
+    alignItems: 'center',
+    marginBottom: 5,
     borderWidth: 1,
     borderColor: 'red',
+    borderRadius: 5,
   },
   img: {
-    aspectRatio: 640 / 480,
+    // aspectRatio: 640 / 480,
+    width: imgWidth,
+    height: (imgWidth * 3) / 4,
+    resizeMode: 'contain',
   },
   txt: {
-    textAlign: 'center',
+    fontSize: 16,
   },
 });
