@@ -318,6 +318,15 @@ def isNewArchitectureEnabled() {
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
 
+
+// vector-icons
+// https://github.com/oblador/react-native-vector-icons#option-with-gradle-recommended 
+project.ext.vectoricons = [
+    iconFontNames: [ 'MaterialIcons.ttf' ]
+]
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+
 // gradlew tasks --all
 task printTasks {
     doLast {
