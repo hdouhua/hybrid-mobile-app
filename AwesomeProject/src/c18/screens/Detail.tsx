@@ -2,6 +2,7 @@
 import React, {useEffect, useLayoutEffect} from 'react';
 import {View, Text, Image, Button} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
 import {NativeStackParamList} from '../navigators/config';
 import {Styles} from '../Styles';
 
@@ -52,8 +53,8 @@ export function Detail({
       {/* <Button onPress={changeHeaderHandler} title="Change Header" /> */}
       <Image source={{uri: image}} style={Styles.detailImage} />
       <Text style={Styles.detailDesc}>{description}</Text>
-      <View style={Styles.buyRect}>
-        <Text style={Styles.price}>
+      <View style={Styles.detailBuyRect}>
+        <Text style={Styles.detailPrice}>
           {symbol}
           {price}
         </Text>

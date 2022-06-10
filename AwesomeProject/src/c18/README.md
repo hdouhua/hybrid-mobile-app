@@ -1,13 +1,41 @@
 # 页面导航
 
+<p>
+<img src="../../docs/c18_1.jpg" width="23%" />
+<img src="../../docs/c18_2.jpg" width="23%" />
+<img src="../../docs/c18_3.jpg" width="23%" />
+<img src="../../docs/c18_4.jpg" width="23%" />
+<img src="../../docs/c18_5.jpg" width="23%" />
+<img src="../../docs/c18_6.jpg" width="23%" />
+<img src="../../docs/c18_7.jpg" width="23%" />
+<img src="../../docs/c18_8.jpg" width="23%" />
+</p>
+
 尽管导航是开发 RN App 必不可少的工具之一，但官方框架并未将其内置，目前主流导航是 [React Navigation](https://reactnavigation.org/docs/getting-started/) 。
 
 ```shell
 npm i @react-navigation/native 
+
 # to use native stack navigator
 npm i @react-navigation/native-stack
 # dependencies
 npm i react-native-screens react-native-safe-area-context
+
+# stack navigator
+npm install @react-navigation/stack
+
+# bottom tab
+npm install @react-navigation/bottom-tabs
+
+# materials bottom tab
+npm install @react-navigation/material-bottom-tabs react-native-paper react-native-vector-icons
+
+# materials top tab
+npm install @react-navigation/material-top-tabs react-native-tab-view
+
+# drawer
+npm install @react-navigation/drawer 
+npm install react-native-gesture-handler react-native-reanimated
 ```
 
 用好 React Navigator 的关键是，理解它的**两个配置项**和**导航路由对象**。
@@ -117,11 +145,28 @@ function Detail({ navigation}) {
 在页面使用 `route.params` 接收参数
 
 ```jsx
-export function Detail({
+import type {ParamListBase} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
+interface DetailPageParams {
+  title: string;
+  image: string;
+}
+type NativeStackParamList = {
+  ['Detail']: DetailPageParams;
+};
+
+// 接收参数
+function Detail({
   route,
   navigation,
 }: NativeStackScreenProps<NativeStackParamList, 'Detail'>) {
   const {title, image} = route.params;
+}
+
+// 不接收参数
+function Detail({navigation}: NativeStackScreenProps<ParamListBase>) {
+  // ...
 }
 ```
 
@@ -146,15 +191,20 @@ export function Detail({
     - My(标签页面)
   - Page1(堆栈页面)
   - Page2(堆栈页面)
-  - ...(堆栈页面)
+  - ...  (堆栈页面)
 ```
 
 ```
 - App("Tab 导航地图")
   - Home("Stack 导航地图")
-        - Page1
-      - Page2
+    - Page1
+    - Page2
   - Message("Stack 导航地图")
-      - Page3
-      - Page4
+    - Page3
+    - Page4
 ```
+
+## further more and reference
+
+- install vector icons for [iOS](https://github.com/oblador/react-native-vector-icons#option-manually) and [Android](https://github.com/oblador/react-native-vector-icons#option-with-gradle-recommended)
+- [Material Icons Search](https://fonts.google.com/icons?selected=Material+Icons)

@@ -2,19 +2,27 @@
  * configure of navigators
  */
 
+import {DefaultTheme} from '@react-navigation/native';
+
 import {NftType} from '../apis/cats';
 
-// export interface DetailPageParams {
+// export interface DetailScreenParams {
 //   name: string;
 //   image: string;
 // }
 
+export type DialogScreenParams = {
+  title?: string;
+  content?: string;
+};
+
 export type NativeStackParamList = {
   ['Detail']: NftType;
+  ['MyDialog']: DialogScreenParams;
 };
 
 // require("image file"): ImageSourcePropType
-// export const CutePets: DetailPageParams[] = [
+// export const CutePets: DetailScreenParams[] = [
 //   {
 //     name: '豆花小可爱',
 //     image: require('@asset/01.jpg'),
@@ -24,3 +32,14 @@ export type NativeStackParamList = {
 //     image: require('@asset/02.jpg'),
 //   },
 // ];
+
+// https://reactnavigation.org/docs/themes
+export const MyTheme = {
+  // dark: false,
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'rgb(255, 45, 85)',
+    // more colors ...
+  },
+};
