@@ -4,7 +4,7 @@
 import {FETCH_BATCH_SIZE, FETCH_DATA_SIZE} from './constant';
 import {waitForRandom} from './util';
 
-interface Item {
+export interface Item {
   id: number;
   title: string;
 }
@@ -36,8 +36,9 @@ export async function fetchWithNetworkError() {
 }
 // mock rejection fetch
 export async function fetchWithRejectionError() {
-  return new Promise((_, reject) => {
-    reject('something wrong with fetching');
+  return new Promise(() => {
+    // reject('something wrong with fetching');
+    throw new Error('something wrong with fetching');
   });
 }
 //#endregion

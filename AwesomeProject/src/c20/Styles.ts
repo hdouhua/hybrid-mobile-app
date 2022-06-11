@@ -14,4 +14,10 @@ export const Styles = StyleSheet.create({
     paddingVertical: 15,
     marginVertical: 5,
   },
+  resetButton: {
+    padding: 15,
+    marginTop: 10,
+    backgroundColor: 'pink',
+    alignItems: 'center',
+  },
 });
