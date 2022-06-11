@@ -11,7 +11,7 @@ export function Page({
 }: NativeStackScreenProps<ParamListBase>) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>I'm the Page [{route.name}]</Text>
+      <Text style={styles.text}>This is the Page [{route.name}]</Text>
       <Button
         title="Goto [Next] Page"
         onPress={() => {
@@ -21,7 +21,7 @@ export function Page({
       <Button
         title="Open a Dialog"
         onPress={() => {
-          navigation.push('Modal', {
+          navigation.push('MyDialog', {
             title: 'testing title',
             content: 'this is dialog testing content.',
           });

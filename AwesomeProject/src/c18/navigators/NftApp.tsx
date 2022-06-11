@@ -4,7 +4,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import {DialogScreen} from '../screens/ModalSamplePages';
 import {Page} from '../screens/Page';
 
 const Stack = createNativeStackNavigator();
@@ -22,15 +21,6 @@ export default function NftAppNavigator() {
         component={BottomTabHome}
       />
       <Stack.Screen name="Page" component={Page} />
-      <Stack.Screen
-        options={{
-          animation: 'fade',
-          headerShown: false,
-          presentation: 'transparentModal',
-        }}
-        name="Modal"
-        component={DialogScreen}
-      />
     </Stack.Navigator>
   );
 }

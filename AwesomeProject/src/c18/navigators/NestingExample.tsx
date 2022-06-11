@@ -7,7 +7,7 @@ import {
   HomeScreen,
   DetailsScreen,
   SettingsScreen,
-} from '../screens/NestingSamplePages';
+} from '../screens/NestingExamplePages';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

@@ -204,6 +204,28 @@ function Detail({navigation}: NativeStackScreenProps<ParamListBase>) {
     - Page4
 ```
 
+## 自定义
+
+### drawer icon & position
+
+```jsx
+<Drawer.Navigator
+  screenOptions={({navigation}) => ({
+    drawerPosition: 'right',
+    headerShown: true,
+    headerLeft: () => null,
+    headerRight: ({tintColor}) => (
+      <MaterialIcons
+        name="menu"
+        color={tintColor}
+        size={24}
+        style={{marginRight: 10}}
+        onPress={() => navigation.toggleDrawer()}
+      />
+    ),
+  })}>
+</Drawer.Navigator>
+```
 ## further more and reference
 
 - install vector icons for [iOS](https://github.com/oblador/react-native-vector-icons#option-manually) and [Android](https://github.com/oblador/react-native-vector-icons#option-with-gradle-recommended)

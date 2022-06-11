@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Button, Pressable} from 'react-native';
 import {ParamListBase} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
 import {NativeStackParamList} from '../navigators/config';
 import {Styles as styles} from '../Styles';
 
