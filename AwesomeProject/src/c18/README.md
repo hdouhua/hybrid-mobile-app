@@ -1,4 +1,4 @@
-# 页面导航
+# 页面导航 Navigation
 
 <p>
 <img src="../../docs/c18_1.jpg" width="23%" />
@@ -38,11 +38,9 @@ npm install @react-navigation/drawer
 npm install react-native-gesture-handler react-native-reanimated
 ```
 
-用好 React Navigator 的关键是，理解它的**两个配置项**和**导航路由对象**。
-
 ## 实现一个基础导航的三步
 
-### 1. 创建“导航地图”
+### 1. 创建“导航地图” Navigator
 
 所谓的“导航地图”是指页面与页面间的连接。
 
@@ -54,17 +52,20 @@ npm install react-native-gesture-handler react-native-reanimated
 
 ### 2. 携带参数跳转页面
 
-实现页面之间跳转，最常用的方法就是使用 `navigation.navigate` 。
+>参考 [页面跳转](https://reactnavigation.org/docs/navigating) 和 [参数传递](https://reactnavigation.org/docs/params)
+
+实现页面之间跳转，最常用的方法就是使用 `navigation.navigate` 和 `navigation.goBack` ，还有 push , popToTop 等。
 函数组件只有通过 `Stack.Screen` 生成页面时，才会有 `navigation` 对象。如下，
 
 ```jsx
 <Stack.Screen name="Detail" initialParams={obj} component={Detail} />
 ```
 
-`navigation.navigate` 跳转页面的默认参数由 `initialParams` 指定的，也可传入携带参数，传入参数会与默认参数合并。还可以调用 `navigation.setParams` 设置参数。
+`navigation.navigate` 跳转页面的默认参数由 `initialParams` 指定的，也可传入参数，传入参数会与默认参数合并。还可以调用 `navigation.setParams` 直接设置参数。
 （ initialParams 对象 和 params 对象 会进行**对象合并**，而不是覆盖 ）
 
 ```jsx
+navigation.navigate('RouteName', { /* params go here */ })
 // 携带 Params
 navigation.navigate('Detail', <T>obj);
 // 不携带 Params，使用默认的 initialParams
@@ -90,17 +91,18 @@ navigation.setParams({
 常用的配置项
 
 - header 类：
-   - title：它是字符串，用于设置导航标题；
-   - headerBackTitleVisible：它是布尔值，用于决定返回按钮是否显示回退页面的名字。默认是 true 显示，大多数应用是不显示，因此最好设置为 false（iOS 专属）；
-   - headerShown：它是布尔值，用于决定是否隐藏导航头部标题栏；header：它接收一个返回 React 元素的函数作为参数，返回的 React 元素就是新的导航标题栏。
+   - title ：它是字符串，用于设置导航标题；
+   - headerBackTitleVisible ：它是布尔值，用于决定返回按钮是否显示回退页面的名字。默认是 true 显示，大多数应用是不显示，因此最好设置为 false（iOS 专属）；
+   - headerShown ：它是布尔值，用于决定是否隐藏导航头部标题栏；
+   - header ：它接收一个返回 React 元素的函数作为参数，返回的 React 元素就是新的导航标题栏。
 - status 类：控制屏幕顶部状态栏用的，也可使用 React Native 框架提供的 <StatusBar /> 组件进行代替。
-   - statusBarHidden：它是布尔值，它决定了屏幕顶部状态栏是否隐藏。
+   - statusBarHidden ：它是布尔值，它决定了屏幕顶部状态栏是否隐藏。
 
-- 手势动画类：
-   - gestureEnabled：它是布尔值，它决定了是否可用侧滑手势关闭当前页面（iOS 专属）；
-   - fullScreenGestureEnabled：它是布尔值，它决定了是否使用全屏滑动手势关闭当前页面（iOS 专属）；
-   - animation：它是字符串枚举值，它控制了打开或关闭 Stack 页面的动画形式，默认“default”是页面从右到左地推入动画，也可以设置成其他类型的动画，比如“slide_from_bottom”是页面从下到上的推入动画和从上到下的推出动画；
-   - presentation：它是字符串枚举值，它控制了页面的展现形式，其主要作用是设置页面弹窗。常用的配置值是 “transparentModal”  它会将页面展示为一个透明弹窗。
+- gesture 类：
+   - gestureEnabled ：它是布尔值，它决定了是否可用侧滑手势关闭当前页面（iOS 专属）；
+   - fullScreenGestureEnabled ：它是布尔值，它决定了是否使用全屏滑动手势关闭当前页面（iOS 专属）；
+   - animation ：它是字符串枚举值，它控制了打开或关闭 Stack 页面的动画形式，默认是页面从右到左地推入动画，也可以设置成其他类型的动画，比如 `slide_from_bottom` 是页面从下到上的推入动画和从上到下的推出动画；
+   - presentation ：它是字符串枚举值，它控制了页面的展现形式，其主要作用是设置页面弹窗。常用的配置值是 `transparentModal` 它会将页面展示为一个透明弹窗。
 
 ```jsx
 <Stack.Screen name="Detail" component={Detail} options={{
@@ -109,13 +111,14 @@ navigation.setParams({
 }} />
 ```
 
-重置 options 参数用的方法就是 `navigation.setOptions` 。
+#### 重置 options ： `navigation.setOptions`
+
 在初始化时，为了页面不抖动，必须使用同步的方法渲染页面。比如要隐藏头部和设置全局返回手势，
-如果使用 React.useEffect() 异步副作用回调，执行 setOptions 会导致闪屏。
 
-React 提供了同步执行的副作用函数 React.useLayoutEffect，把 navigation.setOptions 放在这里面执行，页面初始化的时候会同步地把头部隐藏起来，这样就不会出现页面抖动的现象了。
+- 如果使用 `React.useEffect()` 异步副作用回调，执行 setOptions 会导致闪屏。
+- 如果使用同步执行的副作用函数 `React.useLayoutEffect`，在页面初始化的时候会同步地把头部隐藏起来，这样就不会出现页面抖动的现象了。
 
-而异步设置 options 参数的场景，多用在有交互的场景，比如点击某个按钮，改变标题的文案。
+异步设置 options 参数的场景，多用在有交互的场景，比如点击某个按钮，改变标题的文案。
 
 ```jsx
 function Detail({ navigation}) {
@@ -127,7 +130,7 @@ function Detail({ navigation}) {
     });
   }, [navigation])
 
-  // 点击按钮后，异步设置
+  // 异步设置
   const handlePress = () => {
     navigation.setOptions({
       title: '新标题',
@@ -142,7 +145,7 @@ function Detail({ navigation}) {
 
 ### 3. 页面接收和解析参数
 
-在页面使用 `route.params` 接收参数
+在页面 Screen 中使用 `route.params` 接收参数，如下代码示例
 
 ```jsx
 import type {ParamListBase} from '@react-navigation/native';
@@ -170,7 +173,7 @@ function Detail({navigation}: NativeStackScreenProps<ParamListBase>) {
 }
 ```
 
-## 各类导航
+## 各类导航 Navigator
 
 - [堆栈导航 - Stack Navigator](https://reactnavigation.org/docs/stack-navigator/)
 - [抽屉导航 - Drawer Navigator](https://reactnavigation.org/docs/drawer-navigator/)
@@ -178,8 +181,11 @@ function Detail({navigation}: NativeStackScreenProps<ParamListBase>) {
 - [Material Bottom Tabs Navigator](https://reactnavigation.org/docs/material-bottom-tab-navigator)
 - [顶部标签导航 - Material Top Tabs Navigator](https://reactnavigation.org/docs/material-top-tab-navigator)
 
-在 React Navigator 之中，最常用的导航是原生堆栈导航 Native Stack Navigator，使用它作为最外层的导航，来包裹其他的底部标签导航和顶部标签导航，实现常见 App 的多标签导航效果。
+## 最佳实践
 
+在 React Navigator 之中，最常用的导航是原生堆栈导航 Native Stack Navigator，使用它作为最外层的导航，来包裹其他的底部标签导航和顶部标签导航等，实现常见 App 的多标签导航效果。
+
+>参考[嵌套导航的最佳实践](https://reactnavigation.org/docs/nesting-navigators#best-practices-when-nesting)
 
 **比较导航下面两种导航的实现方式**
 
@@ -226,7 +232,12 @@ function Detail({navigation}: NativeStackScreenProps<ParamListBase>) {
   })}>
 </Drawer.Navigator>
 ```
-## further more and reference
+
+### drawer content
+
+TBD
+
+## Reference & Further Reading
 
 - install vector icons for [iOS](https://github.com/oblador/react-native-vector-icons#option-manually) and [Android](https://github.com/oblador/react-native-vector-icons#option-with-gradle-recommended)
 - [Material Icons Search](https://fonts.google.com/icons?selected=Material+Icons)

@@ -23,7 +23,7 @@ export function Page({
         onPress={() => {
           navigation.push('MyDialog', {
             title: 'testing title',
-            content: 'this is dialog testing content.',
+            content: `this is dialog testing content from [${route.name}].`,
           });
         }}
       />

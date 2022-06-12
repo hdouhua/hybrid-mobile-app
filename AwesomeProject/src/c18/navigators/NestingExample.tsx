@@ -12,7 +12,7 @@ import {
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function HomeStackScreen() {
+function HomeStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
@@ -20,7 +20,7 @@ function HomeStackScreen() {
     </Stack.Navigator>
   );
 }
-function SettingsStackScreen() {
+function SettingsStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Settings" component={SettingsScreen} />
@@ -38,7 +38,7 @@ export default function NestingSampleNavigator() {
       }}>
       <Tab.Screen
         name="HomeTab"
-        component={HomeStackScreen}
+        component={HomeStack}
         options={{
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="home" color={color} size={size} />
@@ -47,7 +47,7 @@ export default function NestingSampleNavigator() {
       />
       <Tab.Screen
         name="SettingTab"
-        component={SettingsStackScreen}
+        component={SettingsStack}
         options={{
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="settings" color={color} size={size} />

@@ -12,20 +12,20 @@ const TopTab = createMaterialTopTabNavigator();
 
 export default function NftAppNavigator() {
   return (
-    <Stack.Navigator initialRouteName="BottomTabHome">
+    <Stack.Navigator initialRouteName="HomeBottomTab">
       <Stack.Screen
         options={{
           headerShown: false,
         }}
-        name="BottomTabHome"
-        component={BottomTabHome}
+        name="HomeBottomTab"
+        component={HomeBottomTab}
       />
       <Stack.Screen name="Page" component={Page} />
     </Stack.Navigator>
   );
 }
 
-function BottomTabHome() {
+function HomeBottomTab() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -34,7 +34,7 @@ function BottomTabHome() {
       }}>
       <Tab.Screen
         name="Home"
-        component={TopTabHome}
+        component={HomeTopTab}
         options={{
           title: '首页',
           tabBarIcon: ({color, size}) => (
@@ -66,13 +66,17 @@ function BottomTabHome() {
   );
 }
 
-function TopTabHome() {
+function HomeTopTab() {
   return (
-    <TopTab.Navigator initialRouteName="TopTabDiscover">
-      <TopTab.Screen name="Follow" component={Page} options={{title: '关注'}} />
+    <TopTab.Navigator initialRouteName="DiscoveryTopTab">
       <TopTab.Screen
-        name="TopTabDiscover"
-        component={TopTabDiscover}
+        name="Following"
+        component={Page}
+        options={{title: '关注'}}
+      />
+      <TopTab.Screen
+        name="DiscoveryTopTab"
+        component={DiscoveryTopTab}
         options={{title: '发现'}}
       />
       <TopTab.Screen
@@ -84,11 +88,11 @@ function TopTabHome() {
   );
 }
 
-function TopTabDiscover() {
+function DiscoveryTopTab() {
   return (
-    <TopTab.Navigator initialRouteName="Recommend">
+    <TopTab.Navigator initialRouteName="Recommendation">
       <TopTab.Screen
-        name="Recommend"
+        name="Recommendation"
         component={Page}
         options={{title: '推荐'}}
       />
