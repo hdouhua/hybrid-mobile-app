@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import * as Sentry from '@sentry/react-native';
-import {Styles} from './Styles';
+import {mockNativeCrash} from '@shared/utils/monitoring';
+import {Styles} from '../Styles';
 
 export default function SimpleExample(): React.ReactElement {
   return (
@@ -16,7 +16,7 @@ export default function SimpleExample(): React.ReactElement {
       <Text
         style={Styles.textButton}
         onPress={() => {
-          Sentry.nativeCrash();
+          mockNativeCrash();
         }}>
         throw a Native error
       </Text>

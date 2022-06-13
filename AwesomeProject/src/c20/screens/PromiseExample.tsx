@@ -4,7 +4,7 @@ import {
   fetchWithNetworkError,
   fetchWithRejectionError,
 } from '@shared/utils/dataUtil';
-import {Styles} from './Styles';
+import {Styles} from '../Styles';
 
 export default function SimpleExample(): React.ReactElement {
   return (
