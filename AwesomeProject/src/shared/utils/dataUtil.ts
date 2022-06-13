@@ -3,6 +3,7 @@
  */
 import {FETCH_BATCH_SIZE, FETCH_DATA_SIZE} from './constant';
 import {waitForRandom} from './util';
+import {startTransaction} from '@shared/utils/monitoring';
 
 export interface Item {
   id: number;
@@ -27,6 +28,29 @@ export async function fetchMockData(index: number) {
 
 export async function reqApi<T>(url: string): Promise<T> {
   return await fetch(url).then(res => res.json());
+}
+
+/**
+ * xhr perf demo api
+ * @param url {String}
+ * @returns object {T}
+ */
+export async function reqApiPerf<T>(url: string): Promise<T> {
+  const transaction = startTransaction({name: 'perf-test'});
+  const span = transaction.startChild({
+    op: 'http',
+    description: `GET ${url}`,
+  });
+
+  return await fetch(url).then(async res => {
+    const data = await res.text();
+    const length = data.length;
+    span.setTag('http.status_code', res.status);
+    span.setTag('http.content_length', length);
+    span.finish();
+    transaction.finish();
+    return JSON.parse(data);
+  });
 }
 
 //#region mock

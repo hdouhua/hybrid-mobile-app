@@ -8,10 +8,12 @@
     "baseUrl": ".",
     "paths": {
       "*": ["./src/*"],
+      "@app/*": ["./*"],
       "@shared/*": ["./src/shared/*"]
     },
     // "typeRoots": ["./node_modules/@types", "./src/types"],
     // "types": ["./src/types"],
+    "resolveJsonModule": true,
 
     "allowJs": true,
 

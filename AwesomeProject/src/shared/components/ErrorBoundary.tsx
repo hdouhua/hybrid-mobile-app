@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {ErrorInfo} from 'react';
 import {Text, View, Button} from 'react-native';
-import * as Sentry from '@sentry/react-native';
+import {captureException} from '../utils/monitoring';
 
 export interface FallbackProps {
   error: Error;
@@ -41,7 +41,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can also log the error to an error reporting service
-    const eventId = Sentry.captureException(error);
+    const eventId = captureException(error);
     this.setState({error, eventId});
   }
 

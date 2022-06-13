@@ -83,6 +83,13 @@ Sentry.captureException(new Error('Oops!'))
 Sentry.Native.captureException(new Error('Oops!'))
 # 普通信息
 Sentry.captureMessage('Test Message');
+
+// with scope
+Sentry.withScope(scope => {
+  scope.setExtra('fireman', 'dao');
+  errorInfo && scope.setExtras(errorInfo);
+  Sentry.captureException(error);
+});
 ```
 
 **上报更多信息**
@@ -171,8 +178,26 @@ XMLHttpRequest.prototype.open(function(...args){
 
 >参考 [sentry/tracing request 源代码](https://github.com/getsentry/sentry-javascript/blob/master/packages/tracing/src/browser/request.ts)
 
+## 注意点
+
+- Minified Names in Production
+
+When bundling for production, React Native will minify class and function names to reduce the bundle size. This means that you won't get the full original component names in your Profiler spans and instead you will see minified names.
+
+A way to work around this is to set the displayName on all the components you want to track with touch events or to pass the name prop to the Profiler components.
+
+The React Profiler currently generates spans with three different kinds of op-codes: ui.react.mount, ui.react.render, and ui.react.update.
+
+```jsx
+export default withProfiler(Detail, {name: 'Detail'});
+```
+
+>reference [this](https://docs.sentry.io/platforms/react-native/troubleshooting/#minified-names-in-production) and [this](https://docs.sentry.io/platforms/javascript/guides/react/components/profiler/)
+
 ## Reference & Further Reading
 
+- [Automatic Instrumentation](https://docs.sentry.io/platforms/react-native/performance/instrumentation/automatic-instrumentation)
 - [sentry 事件对象示例](sentry-event.json)
 - [Error Boundaries](https://reactjs.org/docs/error-boundaries.html)
+- [sentry for expo](https://github.com/expo/sentry-expo)
 - [iPhone identifiers](https://github.com/SeparateRecords/apple_device_identifiers/blob/main/devices/iPhone.json)

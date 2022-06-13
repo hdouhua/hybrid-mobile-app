@@ -1,4 +1,5 @@
 {
   "name": "AwesomeProject",
-  "displayName": "AwesomeProject"
+  "displayName": "Awesome Hybrid",
+  "sentryDsn": "https://72635cdb6936414e8186fc7a77114fa3@o965846.ingest.sentry.io/6467184"
 }
