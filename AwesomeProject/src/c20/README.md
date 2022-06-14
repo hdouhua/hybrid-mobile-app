@@ -1,9 +1,11 @@
 # Sentry
 
 <p>
-<img src="../../docs/c20-1.jpg" width="30%" />
-<img src="../../docs/c20-2.jpg" width="30%" />
-<img src="../../docs/c20-3.jpg" width="30%" />
+<img src="../../docs/c20_1.jpg" width="19%" />
+<img src="../../docs/c20_2.jpg" width="19%" />
+<img src="../../docs/c20_3.jpg" width="19%" />
+<img src="../../docs/c20_4.jpg" width="19%" />
+<img src="../../docs/c20_5.jpg" width="19%" />
 </p>
 
 ## 用户信息
@@ -178,6 +180,53 @@ XMLHttpRequest.prototype.open(function(...args){
 
 >参考 [sentry/tracing request 源代码](https://github.com/getsentry/sentry-javascript/blob/master/packages/tracing/src/browser/request.ts)
 
+## Instrumentation
+
+### Automatic Instrumentation
+- Wrap Your Root Component
+- Enable Routing Instrumentation
+
+### Manual Instrumentation
+
+- withProfile
+- transaction & span
+
+```jsx
+// create/get transaction
+const transaction = Sentry.getCurrentHub()
+  .getScope()
+  .getTransaction();
+
+const transaction = Sentry.startTransaction({ name: "test-transaction" });
+
+// create Span and use it
+const span = transaction.startChild({ op: "functionX" });// This function returns a Span
+// functionCallX ...
+span.finish(); // Remember that only finished spans will be sent with the transaction
+transaction.finish(); // Finishing the transaction will send it to Sentry
+```
+
+也可以为整个 页面 Screen 创建一个 transaction
+
+```tsx
+const transaction = useRef<Transaction>();
+useFocusEffect(
+  useCallback(() => {
+    transaction.current = startTransaction({
+      name: 'manual-tracker',
+      op: 'navigation',
+    });
+
+    return () => {
+      transaction.current?.finish();
+      configureScope(scope => {
+        scope.setSpan(undefined);
+      });
+    };
+  }, []),
+);
+```
+
 ## 注意点
 
 - Minified Names in Production
@@ -196,8 +245,11 @@ export default withProfiler(Detail, {name: 'Detail'});
 
 ## Reference & Further Reading
 
-- [Automatic Instrumentation](https://docs.sentry.io/platforms/react-native/performance/instrumentation/automatic-instrumentation)
 - [sentry 事件对象示例](sentry-event.json)
+- [Automatic Instrumentation](https://docs.sentry.io/platforms/react-native/performance/instrumentation/automatic-instrumentation)
+- [Redux Integration](https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/redux/)
 - [Error Boundaries](https://reactjs.org/docs/error-boundaries.html)
+- 合理化 sentry 收集的数据量，参考 [Sampling](https://docs.sentry.io/platforms/react-native/configuration/sampling/) 和 [sentry Filtering](https://docs.sentry.io/platforms/react-native/configuration/filtering/)
+- 调试信息，参考 [Source Maps](https://docs.sentry.io/platforms/react-native/sourcemaps/) 和 [Debug Symbols](https://docs.sentry.io/platforms/react-native/upload-debug/)
 - [sentry for expo](https://github.com/expo/sentry-expo)
 - [iPhone identifiers](https://github.com/SeparateRecords/apple_device_identifiers/blob/main/devices/iPhone.json)
