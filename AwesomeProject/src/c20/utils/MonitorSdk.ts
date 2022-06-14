@@ -10,7 +10,8 @@ import {sentryDsn} from '@app/app.json';
 export const routingInstrumentation = new ReactNavigationInstrumentation();
 
 /**
- * this is deprecated, please try to use it under @shared/utils/monitoring
+ * Initialize Sentry SDK
+ * @deprecated use it under \@shared/utils/monitoring
  */
 export function SentryInit() {
   init({

@@ -15,18 +15,21 @@ import {Lazy} from '../Lazy';
 
 // https://github.com/getsentry/sentry-react-native/blob/main/src/js/sdk.tsx#L28
 // https://github.com/getsentry/sentry-react-native/blob/main/src/js/options.ts#L9
-const DEFAULT_OPTIONS = {
+const DEFAULT_OPTIONS: MySentryOptions = {
   debug: false,
   tracesSampleRate: 1.0,
   maxBreadcrumbs: 10,
+  attachStacktrace: true,
+
   enableCustomizedErrorHandler: true,
 
   // Opt In/Out automatic instrumentation
   enableAutoPerformanceTracking: true,
 
+  // Release Health Session
   enableAutoSessionTracking: true,
-  sessionTrackingIntervalMillis: 5000,
-  attachStacktrace: true,
+  // Sessions close after app is 10 seconds in the background
+  sessionTrackingIntervalMillis: 10000,
 
   beforeBreadcrumb(breadcrumb: Breadcrumb) {
     // filter out console from breadcrumb
@@ -42,6 +45,10 @@ export const routingInstrumentation = new Lazy<ReactNavigationInstrumentation>(
 
 // https://github.com/expo/sentry-expo/blob/master/src/sentry.ts#L43
 // https://github.com/getsentry/sentry-react-native/blob/main/src/js/sdk.tsx#L41
+/**
+ * Initialize Sentry SDK
+ * @param options - configuration options
+ */
 export function SentryInit(options: MySentryOptions = {}) {
   const nativeOptions = {
     ...DEFAULT_OPTIONS,
@@ -59,6 +66,7 @@ export function SentryInit(options: MySentryOptions = {}) {
       }),
     );
   }
+
   if (nativeOptions.enableAutoPerformanceTracking) {
     // to use our own ReactNativeTracing
     if (nativeOptions.routeChangeTimeoutMs) {
@@ -74,6 +82,7 @@ export function SentryInit(options: MySentryOptions = {}) {
       }),
     );
   }
+
   nativeOptions.integrations = getIntegrations({
     defaultIntegrations,
     userIntegrations: nativeOptions.integrations ?? [],

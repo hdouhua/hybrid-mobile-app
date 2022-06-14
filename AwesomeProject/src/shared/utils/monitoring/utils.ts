@@ -5,6 +5,9 @@ import type {ReactNativeOptions} from '@sentry/react-native';
 // import DeviceInfo from 'react-native-device-info';
 
 export interface MySentryOptions extends ReactNativeOptions {
+  /**
+   * Enable customized ErrorHandler: global error handler & unhandled Promise rejection handler. Enabled by default
+   */
   enableCustomizedErrorHandler?: boolean;
   /**
    * The time the transaction will wait for route to mount before it is discarded.
