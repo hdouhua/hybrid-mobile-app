@@ -7,10 +7,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {routingInstrumentation} from '@shared/utils/monitoring';
-import SimpleExample from '../screens/SimpleExample';
-import PromiseExample from '../screens/PromiseExample';
-import RenderExample from '../screens/RenderExample';
-import NftApp from '../screens/NftApp';
+import ErrorTracker from './ErrorTracker';
+import ReduxTracker from '../screens/ReduxTracker';
+import PerfTracker from '../screens/PerfTracker';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,52 +20,45 @@ export default function AppNavigation() {
   return (
     <NavigationContainer
       ref={navigation}
+      // onStateChange={state => {
+      //   console.debug('New state is', state);
+      // }}
       onReady={() => {
         // Register the navigation container with the instrumentation
         routingInstrumentation.value.registerNavigationContainer(navigation);
       }}>
       <Tab.Navigator
-        initialRouteName="SimpleExample"
+        initialRouteName="ErrorTracker"
         screenOptions={{
           headerShown: false,
         }}>
         <Tab.Screen
-          name="SimpleExample"
-          component={SimpleExample}
+          name="ErrorTracker"
+          component={ErrorTracker}
           options={{
-            title: 'Simple Err',
+            title: 'Error Tracker',
             tabBarIcon: ({color, size}) => (
               <MaterialIcons name="error" color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name="PromiseExample"
-          component={PromiseExample}
+          name="ReduxTracker"
+          component={ReduxTracker}
           options={{
-            title: 'Promise Err',
-            tabBarIcon: ({color, size}) => (
-              <MaterialIcons name="error-outline" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="RenderExample"
-          component={RenderExample}
-          options={{
-            title: 'Render Err',
-            tabBarIcon: ({color, size}) => (
-              <MaterialIcons name="report-problem" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="NftApp"
-          component={NftApp}
-          options={{
-            title: 'Perf',
+            title: 'Redux Tracker',
             tabBarIcon: ({color, size}) => (
               <MaterialIcons name="analytics" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="PerfTracker"
+          component={PerfTracker}
+          options={{
+            title: 'Perf Tracker',
+            tabBarIcon: ({color, size}) => (
+              <MaterialIcons name="insights" color={color} size={size} />
             ),
           }}
         />

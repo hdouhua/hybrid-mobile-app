@@ -18,10 +18,11 @@ export const Styles = StyleSheet.create({
     paddingVertical: 15,
     marginVertical: 5,
   },
-  resetButton: {
+  text: {
     padding: 15,
     marginTop: 10,
-    backgroundColor: 'pink',
-    alignItems: 'center',
+    fontSize: 20,
+    fontWeight: '800',
+    alignSelf: 'center',
   },
 });
