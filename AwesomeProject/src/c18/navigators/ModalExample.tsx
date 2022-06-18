@@ -10,8 +10,6 @@ import {
 
 const Stack = createNativeStackNavigator();
 
-// https://reactnavigation.org/docs/native-stack-navigator/#presentation
-// https://reactnavigation.org/docs/native-stack-navigator/#animation
 export default function ModalSampleNavigator() {
   return (
     <Stack.Navigator>

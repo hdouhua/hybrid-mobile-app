@@ -13,7 +13,7 @@ export default function ErrorTracker() {
     <Stack.Navigator
       initialRouteName="ErrorTrackerHome"
       screenOptions={{
-        headerBackTitle: 'Back',
+        headerBackTitleVisible: false,
       }}>
       <Stack.Screen
         name="ErrorTrackerHome"

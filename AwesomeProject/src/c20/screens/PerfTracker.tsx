@@ -75,7 +75,7 @@ const PerfTrackerScreen = () => {
       // Initialize the transaction for the screen.
       transaction.current = startTransaction({
         name: 'manual-tracker',
-        op: 'navigation',
+        op: 'screen',
       });
 
       return () => {

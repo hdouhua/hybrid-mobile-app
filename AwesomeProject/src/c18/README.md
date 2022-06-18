@@ -86,7 +86,7 @@ navigation.setParams({
 
 如果“导航地图”的 Screen 接收“导航地图”作为 component 参数，就是实现导航嵌套的方法。
 
-#### 导航配置 options
+#### 导航配置 [options](https://reactnavigation.org/docs/native-stack-navigator/#options)
 
 常用的配置项
 
@@ -210,9 +210,9 @@ function Detail({navigation}: NativeStackScreenProps<ParamListBase>) {
     - Page4
 ```
 
-## 自定义
+## 扩展
 
-### drawer icon & position
+### 自定义 drawer icon & position
 
 ```jsx
 <Drawer.Navigator
@@ -236,6 +236,14 @@ function Detail({navigation}: NativeStackScreenProps<ParamListBase>) {
 ### drawer content
 
 TBD
+
+### 副作用
+
+有时我们想在 Screen 页面 聚焦时，运行一些 副作用 但 useEffect 可能不能很好的执行，该怎么办？
+
+>Sometimes we want to run side-effects when a screen is focused. A side effect may involve things like adding an event listener, fetching data, updating document title, etc. While this can be achieved using focus and blur events, it's not very ergonomic.
+
+>参考 [useFocusEffect](https://reactnavigation.org/docs/use-focus-effect/)
 
 ## Reference & Further Reading
 

@@ -13,16 +13,17 @@ import Grid, {GridProps} from '../Grid';
 
 interface GridWithIndicatorProps extends GridProps {
   containerStyle?: StyleProp<ViewStyle>;
-  inactiveIndicatorStyle?: StyleProp<ViewStyle>;
-  activeIndicatorStyle?: StyleProp<ViewStyle>;
+  indicatorStyles?: [
+    indicatorStyle: StyleProp<ViewStyle>,
+    activeIndicatorStyle: StyleProp<ViewStyle>,
+  ];
 }
 
 const NewGrid = ({
   width = Dimensions.get('window').width,
   height = 200,
   containerStyle,
-  inactiveIndicatorStyle,
-  activeIndicatorStyle,
+  indicatorStyles,
   ...props
 }: GridWithIndicatorProps) => {
   const [indicator, setIndicator] = useState(0);
@@ -35,16 +36,17 @@ const NewGrid = ({
     throw new Error('must set row && column');
   }
 
-  const indicatorStyle = [Styles.indicator, inactiveIndicatorStyle];
-  const indicatorStyle2 = [
+  const indicatorStyle = [Styles.indicator, indicatorStyles?.[0]];
+  const activeIndicatorStyle = [
     Styles.indicator,
     Styles.activeIndicator,
-    activeIndicatorStyle,
+    indicatorStyles?.[1],
   ];
 
-  // container height - 2 * padding - indicator height
-  const innerHeight = height - 5 * 2 - 10;
   const pageCount = Math.ceil(props.data.length / (props.row * props.column));
+  const pagingEnabled = pageCount > 1;
+  // container height - 2 * padding - indicator height
+  const innerHeight = height - 5 * 2 - 10 * (pagingEnabled ? 1 : 0);
 
   const computedProps = {
     ...props,
@@ -70,19 +72,23 @@ const NewGrid = ({
       <ScrollView
         contentContainerStyle={Styles.scrollViewStyle}
         horizontal={true}
-        pagingEnabled={true}
+        pagingEnabled={pagingEnabled}
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={scrollEndHandler}>
         <Grid {...computedProps} />
       </ScrollView>
-      <View style={Styles.indicatorBox}>
-        {[...Array(pageCount)].map((_, index) => (
-          <View
-            key={index}
-            style={indicator === index ? indicatorStyle2 : indicatorStyle}
-          />
-        ))}
-      </View>
+      {pagingEnabled && (
+        <View style={Styles.indicatorBox}>
+          {[...Array(pageCount)].map((_, index) => (
+            <View
+              key={index}
+              style={
+                indicator === index ? activeIndicatorStyle : indicatorStyle
+              }
+            />
+          ))}
+        </View>
+      )}
     </View>
   );
 };

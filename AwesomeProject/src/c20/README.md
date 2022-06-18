@@ -73,6 +73,12 @@
 
 组件 render 报错了，那么会触发 getDerivedStateFromError 回调，在 getDerivedStateFromError 回调中将控制是否有报错的开关状态 hasError 打开，并重新执行 render 渲染降级后的页面 (fallback UI)，同时还会触发 componentDidCatch 回调。可以在 componentDidCatch 回调中将组件的 render 错误上报。
 
+>Note
+>both getDerivedStateFromError() and componentDidCatch() are invoked after an error has been thrown by a descendant component.
+>- getDerivedStateFromError() is called during the “render” phase, so side-effects are not permitted.
+>- componentDidCatch() is called during the “commit” phase, so side-effects are permitted. 
+>please refer to https://reactjs.org/docs/react-component.html#static-getderivedstatefromerror
+
 ErrorBoundary 可以作为顶层组件，全局捕获所有子组件的 render 错误。也可以使用 ErrorBoundary 包裹局部组件，当某个局部组件出现错误时，使用 fallback UI 替换。
 
 >[参考 sentry 源代码](https://github.com/getsentry/sentry-javascript/blob/master/packages/react/src/errorboundary.tsx)

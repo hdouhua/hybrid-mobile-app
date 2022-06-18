@@ -26,10 +26,9 @@ const INITIAL_STATE: State = {
 export class ErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.state = INITIAL_STATE;
     this.resetState = this.resetState.bind(this);
   }
-
-  state: State = INITIAL_STATE;
 
   resetState() {
     const {onReset} = this.props;
