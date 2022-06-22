@@ -74,7 +74,7 @@ NFT 商城首页，高大上的 NFT (non-fungible token) 不可代替币。就�
 
    - [dogs](https://dog.ceo/dog-api/documentation/)
    - [cats](https://docs.thecatapi.com/)
-   
+
       例如，获取公开的宠物猫图片 https://api.thecatapi.com/v1/images/search?limit=5&page=1&order=desc
 
 3. 辅助 [faker-js](https://fakerjs.dev/guide/)
@@ -86,5 +86,7 @@ NFT 商城首页，高大上的 NFT (non-fungible token) 不可代替币。就�
 
 - [Infinite Queries @React-Query](https://react-query.tanstack.com/guides/infinite-queries)
 - [An efficient way to structure React Native projects](https://cheesecakelabs.com/blog/efficient-way-structure-react-native-projects/)
+- [Best Folder Structure for React Native Project](https://learn.habilelabs.io/best-folder-structure-for-react-native-project-a46405bdba7)
+- [4 folder structures to organize your React & React Native project](https://reboot.studio/blog/folder-structures-to-organize-react-project/)
 - [UI Design Works for Inspiration](https://uxplanet.org/top-ui-ux-design-inspiration-2fb59111a784)
 - [4 ways to fake an API in frontend development](https://www.valentinog.com/blog/fake/)
