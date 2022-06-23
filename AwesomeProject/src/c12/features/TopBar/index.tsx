@@ -13,7 +13,7 @@ const NAVS: NavItemType[] = [
   },
 ];
 
-const TopBar: React.FC = () => {
+const TopBar = () => {
   const [selectedNav, setSelectedNav] = useState(NAVS[0].id);
 
   const handlePress: NavItemPressHandler = id => setSelectedNav(id);

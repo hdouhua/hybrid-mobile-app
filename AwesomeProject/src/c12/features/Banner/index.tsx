@@ -20,7 +20,7 @@ interface BannerProps {
   column?: number;
 }
 
-const Banner: React.FC<BannerProps> = ({data, row = 2, column = 5}) => {
+const Banner = ({data, row = 2, column = 5}: BannerProps) => {
   useWhyDidYouUpdate('Banner', {data, row, column});
   const {icons, height, width} = data;
 

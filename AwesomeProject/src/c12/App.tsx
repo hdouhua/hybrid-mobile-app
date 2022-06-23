@@ -9,7 +9,7 @@ const queryClient = new QueryClient({
   defaultOptions: {queries: {retry: 1}},
 });
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <QueryClientProvider client={queryClient}>
