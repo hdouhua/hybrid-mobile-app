@@ -17,9 +17,10 @@ import {Lazy} from '../Lazy';
 // https://github.com/getsentry/sentry-react-native/blob/main/src/js/options.ts#L9
 const DEFAULT_OPTIONS: MySentryOptions = {
   debug: false,
-  tracesSampleRate: 1.0,
+  sampleRate: __DEV__ ? 1.0 : 0.5,
+  tracesSampleRate: __DEV__ ? 1.0 : 0.5,
   maxBreadcrumbs: 10,
-  attachStacktrace: true,
+  attachStacktrace: false,
 
   enableCustomizedErrorHandler: true,
 

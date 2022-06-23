@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2016",
     "lib": ["esnext", "dom"],
     "jsx": "react-native",
 
@@ -17,13 +17,16 @@
 
     "allowJs": true,
 
+    "sourceMap": true,
     "noEmit": true,
 
     "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
+    // "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
 
     "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
 
     // "skipLibCheck": false,
   },
