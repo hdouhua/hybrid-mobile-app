@@ -5,6 +5,8 @@
 
 module.exports = {
   dependencies: {
+    // disable autolinking for the package
+    // https://github.com/react-native-community/cli/blob/master/docs/autolinking.md
     'react-native-vector-icons': {
       platforms: {
         ios: null,
