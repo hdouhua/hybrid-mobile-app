@@ -18,9 +18,10 @@ module.exports = {
           '.webp',
         ],
         alias: {
-          '@app': '.',
+          '@app-json': './app.json',
           '@asset': './src/assets',
           '@shared': './src/shared',
+          '@/*': './src/*',
         },
       },
     ],

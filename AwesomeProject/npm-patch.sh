@@ -8,6 +8,3 @@ npx patch-package recyclerlistview
 
 # patch package metro-runtime
 npx patch-package metro-runtime
-
-# patch package @sentry/react-native
-npx patch-package @sentry/react-native

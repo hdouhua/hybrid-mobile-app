@@ -1,5 +1,12 @@
 import React, {useRef} from 'react';
-import {View, TextInput, Text, Alert} from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  Alert,
+  NativeSyntheticEvent,
+  TextInputKeyPressEventData,
+} from 'react-native';
 
 import {Styles} from './Styles';
 
@@ -7,7 +14,7 @@ const CODE_LENGTH = 6;
 
 export default function CodeVerification() {
   const codesRef = useRef(new Array(CODE_LENGTH).fill(null));
-  const codeInputRef = useRef<TextInput[]>([null]);
+  const codeInputRef = useRef<TextInput[]>([]);
 
   const _setFocus = (i: number) => {
     if (i >= 0 && i < CODE_LENGTH) {
@@ -38,7 +45,9 @@ export default function CodeVerification() {
         _handleSubmit(it);
       }
     },
-    handleKeyPress: function (e) {
+    handleKeyPress: function (
+      e: NativeSyntheticEvent<TextInputKeyPressEventData>,
+    ) {
       if (e.nativeEvent.key === 'Backspace') {
         codesRef.current[it] = null;
         _setFocus(it - 1);
@@ -66,7 +75,11 @@ export default function CodeVerification() {
             return (
               <TextInput
                 key={it}
-                ref={el => (codeInputRef.current[it] = el)}
+                ref={el => {
+                  if (el) {
+                    codeInputRef.current[it] = el;
+                  }
+                }}
                 style={Styles.cvInputItem}
                 selectTextOnFocus={true}
                 blurOnSubmit={false}

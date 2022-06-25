@@ -3,7 +3,7 @@ import {View, ActivityIndicator, Pressable, Text} from 'react-native';
 
 import {Styles} from '../Styles';
 
-export function LoadMore({onRefetch}) {
+export function LoadMore({onRefetch}: {onRefetch: () => void}) {
   const footer = useMemo(() => {
     console.debug('in footer rendering');
     return (
@@ -18,7 +18,13 @@ export function LoadMore({onRefetch}) {
   return footer;
 }
 
-export function LoadingIndicator({loading, noMore}) {
+export function LoadingIndicator({
+  loading,
+  noMore,
+}: {
+  loading: boolean;
+  noMore: boolean;
+}) {
   const footer = useMemo(() => {
     console.debug('in footer rendering');
     return (

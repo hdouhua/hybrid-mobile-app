@@ -8,10 +8,12 @@
     "ios": "react-native run-ios",
     "ios:release": "react-native run-ios --configuration Release",
     "start": "react-native start",
+    "start:clean":"npm start -- --reset-cache",
     "test": "jest",
     "postinstall": "patch-package",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix ."
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
+    "type-check": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
     "@faker-js/faker": "^6.3.1",

@@ -5,7 +5,6 @@
 
 import {getCurrentHub} from '@sentry/core';
 import {Integration} from '@sentry/types';
-import {Severity} from '@sentry/react-native';
 
 declare const global: {
   HermesInternal: null | {
@@ -98,7 +97,7 @@ export class ReactNativeErrorHandlers implements Integration {
       // https://github.com/expo/sentry-expo/blob/master/src/integrations/managed.ts#L65
       getCurrentHub().withScope(scope => {
         if (isFatal) {
-          scope.setLevel(Severity.Fatal);
+          scope.setLevel('fatal');
         }
         getCurrentHub().captureException(error, {
           originalException: error,

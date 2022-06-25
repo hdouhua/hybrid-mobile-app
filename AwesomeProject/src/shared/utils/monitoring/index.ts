@@ -12,7 +12,6 @@ export {
   startTransaction,
   getCurrentHub,
   configureScope,
-  Severity,
 } from '@sentry/react-native';
 export * from '@sentry/types';
 export * from './sentry';

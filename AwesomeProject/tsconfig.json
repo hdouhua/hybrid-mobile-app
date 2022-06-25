@@ -7,9 +7,9 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "*": ["./src/*"],
-      "@app/*": ["./*"],
-      "@shared/*": ["./src/shared/*"]
+      "@app-json": ["app.json"],
+      "@shared/*": ["src/shared/*"],
+      "@/*": ["src/*"],
     },
     // "typeRoots": ["./node_modules/@types", "./src/types"],
     // "types": ["./src/types"],
@@ -28,12 +28,14 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
 
-    // "skipLibCheck": false,
+    "skipLibCheck": true,
   },
+  "include": ["src/**/*", "__tests__/**/*"],
   "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js"
+    "src/c11/lib/recyclerlistview/original/*"
+    // "node_modules/**/*",
+    // "babel.config.js",
+    // "metro.config.js",
+    // "jest.config.js"
   ]
 }

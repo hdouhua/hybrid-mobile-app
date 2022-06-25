@@ -3,6 +3,7 @@ import {View, Text, Button, Dimensions} from 'react-native';
 import Animated, {
   useSharedValue,
   withTiming,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   withSpring,
   useAnimatedStyle,
   Easing,

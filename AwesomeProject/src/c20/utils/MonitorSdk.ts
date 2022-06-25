@@ -5,7 +5,7 @@ import {
   ReactNavigationInstrumentation,
   ReactNavigationTransactionContext,
 } from '@sentry/react-native';
-import {sentryDsn} from '@app/app.json';
+import {sentryDsn} from '@app-json';
 
 export const routingInstrumentation = new ReactNavigationInstrumentation();
 

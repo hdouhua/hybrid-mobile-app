@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 
 // import {SentryInit} from './utils/MonitorSdk';
 import {SentryInit, wrap} from '@shared/utils/monitoring';
-import {sentryDsn} from '@app/app.json';
+import {sentryDsn} from '@app-json';
 import AppNavigation from './navigations';
 import {Styles} from './Styles';
 import {store} from './redux/store';

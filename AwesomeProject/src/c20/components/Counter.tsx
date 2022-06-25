@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, Button} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {RootState} from 'c20/redux/store';
+import {RootState} from '@/c20/redux/store';
 import {Styles} from '../Styles';
 
 const Counter = () => {

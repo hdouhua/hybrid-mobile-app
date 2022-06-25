@@ -1,5 +1,12 @@
 import React, {useRef, useState} from 'react';
-import {View, TextInput, Alert, TouchableWithoutFeedback} from 'react-native';
+import {
+  View,
+  TextInput,
+  Alert,
+  TouchableWithoutFeedback,
+  NativeSyntheticEvent,
+  TextInputKeyPressEventData,
+} from 'react-native';
 
 import CodeBoxItem from './CodeBoxItem';
 import {Styles} from '../Styles';
@@ -15,7 +22,7 @@ export function CodeBox() {
     codes.length < CODE_LENGTH ? codes.length : CODE_LENGTH - 1;
 
   const handlePress = () => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
   const handleFocus = () => {
     setFocused(true);
@@ -28,7 +35,7 @@ export function CodeBox() {
       Alert.alert('Verification Code', text);
     }
   };
-  const handleChange = value => {
+  const handleChange = (value: string) => {
     if (text.length >= CODE_LENGTH) {
       handleSubmit();
     } else {
@@ -36,7 +43,9 @@ export function CodeBox() {
       setText(newText);
     }
   };
-  const handleKeyPress = e => {
+  const handleKeyPress = (
+    e: NativeSyntheticEvent<TextInputKeyPressEventData>,
+  ) => {
     if (e.nativeEvent.key === 'Backspace') {
       const newText = text.slice(0, text.length - 1);
       setText(newText);
