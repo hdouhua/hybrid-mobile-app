@@ -206,3 +206,4 @@ function ExclusiveDemo() {
 
 - [Closing a Swipeable element when another is opened](https://github.com/software-mansion/react-native-gesture-handler/issues/764)
 - [PR - Returning Swipeable reference](https://github.com/software-mansion/react-native-gesture-handler/pull/2105)
+- [example of react-native-gesture-handler](https://github.com/software-mansion/react-native-gesture-handler/tree/main/example/src/showcase/swipeable)

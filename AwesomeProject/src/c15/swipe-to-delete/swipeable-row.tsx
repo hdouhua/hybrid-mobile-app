@@ -40,9 +40,9 @@ function SwipeableRow({children}: Props, openingRef: RefObject) {
     drag: Animated.AnimatedInterpolation,
   ) => {
     const trans = drag.interpolate({
-      // how to set these ranges
-      inputRange: [0, 50, 100, 101],
-      outputRange: [-20, 0, 0, 1],
+      //TODO: how to set these ranges ?
+      inputRange: [0, 80],
+      outputRange: [0, 1],
       extrapolate: 'clamp',
     });
 
@@ -72,8 +72,6 @@ function SwipeableRow({children}: Props, openingRef: RefObject) {
       const trans = progress.interpolate({
         inputRange: [0, 1],
         outputRange: [x, 0],
-        // inputRange: [-80, 0],
-        // outputRange: [1, 0],
         extrapolate: 'clamp',
       });
       const pressHandler = () => {
@@ -109,7 +107,7 @@ function SwipeableRow({children}: Props, openingRef: RefObject) {
     <Swipeable
       ref={selfRef}
       friction={1.5}
-      overshootFriction={20}
+      overshootFriction={12}
       leftThreshold={30}
       rightThreshold={50}
       onSwipeableWillOpen={willOpenHandler}
