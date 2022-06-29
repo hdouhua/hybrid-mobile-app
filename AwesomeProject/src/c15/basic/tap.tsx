@@ -1,11 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {
-  GestureHandlerRootView,
-  GestureDetector,
-  Gesture,
-} from 'react-native-gesture-handler';
+import {View, Text} from 'react-native';
+import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 import {runOnJS} from 'react-native-reanimated';
+import styles from '../styles';
 
 export default function Tap() {
   const [logs, setLogs] = useState<string[]>([]);
@@ -22,7 +19,7 @@ export default function Tap() {
   });
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <View style={styles.container}>
       <GestureDetector gesture={singleTap}>
         <View style={styles.rectangle}>
           <Text style={styles.txt}>Tap</Text>
@@ -31,24 +28,6 @@ export default function Tap() {
       {logs.map((log, index) => (
         <Text key={index}>{log}</Text>
       ))}
-    </GestureHandlerRootView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  rectangle: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'red',
-    justifyContent: 'center',
-  },
-  txt: {
-    alignSelf: 'center',
-    fontWeight: '800',
-    color: 'white',
-  },
-});

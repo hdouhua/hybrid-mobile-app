@@ -1,14 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {
-  GestureHandlerRootView,
-  GestureDetector,
-  Gesture,
-} from 'react-native-gesture-handler';
+import {Text, View} from 'react-native';
+import {GestureDetector, Gesture} from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+import styles from '../styles';
 
 export default function Drag() {
   const isPressed = useSharedValue(false);
@@ -45,31 +42,12 @@ export default function Drag() {
     });
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <View style={styles.container}>
       <GestureDetector gesture={dragGesture}>
         <Animated.View style={[styles.ball, animatedStyles]}>
           <Text style={styles.txt}>Drag me</Text>
         </Animated.View>
       </GestureDetector>
-    </GestureHandlerRootView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  ball: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'pink',
-    justifyContent: 'center',
-  },
-  txt: {
-    alignSelf: 'center',
-    fontWeight: '800',
-    color: 'gray',
-  },
-});
