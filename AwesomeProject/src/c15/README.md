@@ -6,10 +6,6 @@
 <img src="../../docs/c15_3.jpg" width="25%" />
 </p>
 
-Gesture 组件 `react-native-gesture-handler`
-
->Gesture Handler aims to replace React Native's built in touch system called [Gesture Responder System](http://facebook.github.io/react-native/docs/gesture-responder-system).
-
 ## 手势基础
 
 了解手势的基本原理，以 Pressable 点按事件为例，组件响应的整体流程：
@@ -22,6 +18,10 @@ Gesture 组件 `react-native-gesture-handler`
 这里的框架的 JavaScript 部分指的就是 RN 自带的 [PanResponder](https://www.react-native.cn/docs/panresponder) 手势系统。
 
 ## Gesture 手势组件
+
+Gesture 组件 `react-native-gesture-handler`
+
+>Gesture Handler aims to replace React Native's built in touch system called [Gesture Responder System](http://facebook.github.io/react-native/docs/gesture-responder-system).
 
 ### 人机交互的 4 步流程
 

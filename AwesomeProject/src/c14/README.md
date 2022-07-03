@@ -105,19 +105,26 @@ randomWidth.value = Math.random() * 350;
 randomWidth.value = withTiming(Math.random() * 350);
 ```
 
-## 深入 Reanimated 原理
+## 深入 Reanimated 原理 Under the Hood
 
-### 当前动画可能存在的性能问题
+### 当前动画存在的性能问题
 
-React Native 有两个常用的线程：一个是 React Native 的 JavaScript 线程，另一个是 UI 主线程。
+RN 有两个常用的线程：一个是 Native 的 JavaScript 线程，另一个是 UI 主线程。
 
-- JavaScript 线程和 UI 主线程是异步通信的，由 JavaScript 线程发起动画的执行，UI 线程并不能同步地收到该命令并且立刻执行，UI 线程至少要处理完成当前一帧的渲染任务后，才会执行 JavaScript 线程的动画命令。也就是说异步通讯会导致动画至少延迟 1 帧。
+- JavaScript 线程和 UI 主线程是异步通信的，由 JavaScript 线程发起动画的执行，UI 线程并不能同步地收到该命令并且立刻执行，UI 线程至少要处理完成当前帧的渲染任务后，才会执行 JavaScript 线程发起的动画命令。也就是说异步通讯会导致动画至少延迟 1 帧。
 
-- JavaScript 线程处理的事件很多，包括所有的业务逻辑、React Diff、事件响应等等，容易抢占动画的执行资源。（可能发生掉帧，甚至感受到卡顿。）
+- JavaScript 线程处理的事件很多，包括所有的业务逻辑、 React Diff 、事件响应等等，容易抢占动画的执行资源。（可能发生掉帧，甚至感受到卡顿。）
 
-对于 RN 自带的 Animated 动画库，开发者有个开启 UI 主线程执行动画任务的开关 `useNativeDriver` ，当开发者开启了这个开关后，动画就是在 UI 主线程执行了。
+对于 RN 自带的 Animated 动画库，为开发者提供了开启 UI 主线程执行动画任务的开关 `useNativeDriver` ，当开发者启用了这个开关后，动画就是在 UI 主线程执行了。
 
-## Reanimated 怎么解决性能问题
+>扩展
+>RN 程序主要运行在三个并行的线程上：
+>
+>1. JavaScript Thread ：我们写的 JavaScript 代码逻辑都是在这个线程上执行；
+>2. UI Thread ：即原生线程，当我们需要调用原生的渲染或者能力时会运行到这个线程上；
+>3. Shadow Thread ：这个线程创建和管理着 Shadow Tree ，它类似于虚拟 DOM 。它通过 Yoga 引擎着 Flexbox 布局转化为原生的布局方式。
+
+### Reanimated 怎么解决性能问题
 
 Reanimated 动画库采用了另一种思路，把动画相关的 JavaScript 函数及其上下文传给了 UI 主线程。同时， Reanimated 又创建了一个 JavaScript 虚拟机来运行传过来的 JavaScript 函数。
 
@@ -150,6 +157,10 @@ const handleAnimatedPress = useAnimatedGestureHandler({
 ```
 
 **一句话总结：Reanimated 动画性能好在于，在 Reanimated 真正执行动画的是 UI 线程中独立的 JavaScript 虚拟机。**
+
+### Worklets
+
+TBD
 
 ## 最佳实践
 

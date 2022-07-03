@@ -258,4 +258,7 @@ export default withProfiler(Detail, {name: 'Detail'});
 - 合理化 sentry 收集的数据量，参考 [Sampling](https://docs.sentry.io/platforms/react-native/configuration/sampling/) 和 [sentry Filtering](https://docs.sentry.io/platforms/react-native/configuration/filtering/)
 - 调试信息，参考 [Source Maps](https://docs.sentry.io/platforms/react-native/sourcemaps/) 和 [Debug Symbols](https://docs.sentry.io/platforms/react-native/upload-debug/)
 - [sentry for expo](https://github.com/expo/sentry-expo)
+- [Self-Hosted Troubleshooting](https://develop.sentry.dev/self-hosted/troubleshooting/)
+- [Sentry 中文手册](https://mp.weixin.qq.com/s/gXC0nnJnp6R5V18TwCk2qw)
+- [sentry 迁移至 k8s](https://blog.horus-k.com/2021/05/10/sentry%E8%BF%81%E7%A7%BB%E8%87%B3k8s-20-8-0/)
 - [iPhone identifiers](https://github.com/SeparateRecords/apple_device_identifiers/blob/main/devices/iPhone.json)

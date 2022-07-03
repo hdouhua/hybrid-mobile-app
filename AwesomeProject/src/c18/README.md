@@ -13,6 +13,8 @@
 
 尽管导航是开发 RN App 必不可少的工具之一，但官方框架并未将其内置，目前主流导航是 [React Navigation](https://reactnavigation.org/docs/getting-started/) 。
 
+下面是 React Navigation 各类导航的包安装：
+
 ```shell
 npm i @react-navigation/native 
 
