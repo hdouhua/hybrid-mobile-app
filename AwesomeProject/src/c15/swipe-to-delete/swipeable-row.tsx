@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import {Animated, Text, View, Alert, Pressable} from 'react-native';
-import {RectButton} from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import styles from '../styles';
@@ -81,11 +80,11 @@ function SwipeableRow({children}: Props, openingRef: RefObject) {
 
       return (
         <Animated.View style={{flex: 1, transform: [{translateX: trans}]}}>
-          <RectButton
+          <Pressable
             style={[styles.rightAction, {backgroundColor: color}]}
             onPress={pressHandler}>
             <Text style={styles.actionText}>{text}</Text>
-          </RectButton>
+          </Pressable>
         </Animated.View>
       );
     };
