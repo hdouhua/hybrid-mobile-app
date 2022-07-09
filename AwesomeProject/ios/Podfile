@@ -16,6 +16,7 @@ target 'AwesomeProject' do
     :hermes_enabled => flags[:hermes_enabled],
     # :hermes_enabled => true
     :fabric_enabled => flags[:fabric_enabled],
+    # :fabric_enabled => true,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
