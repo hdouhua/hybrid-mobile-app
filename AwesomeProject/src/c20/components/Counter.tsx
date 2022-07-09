@@ -5,12 +5,12 @@ import {RootState} from '@/c20/redux/store';
 import {Styles} from '../Styles';
 
 const Counter = () => {
-  const {count} = useSelector((state: RootState) => state.Counter);
+  const {value} = useSelector((state: RootState) => state.counter);
   const dispatch = useDispatch();
 
   return (
     <>
-      <Text style={Styles.text}>Count: {count}</Text>
+      <Text style={Styles.text}>Count: {value}</Text>
       <Button
         title="Increment"
         onPress={() =>

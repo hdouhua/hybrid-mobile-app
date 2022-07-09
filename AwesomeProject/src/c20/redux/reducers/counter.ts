@@ -1,11 +1,11 @@
 import {ActionType} from '../action-types';
 
 export type CounterState = {
-  count: number;
+  value: number;
 };
 
 const InitialState: CounterState = {
-  count: 0,
+  value: 0,
 };
 
 export const counterReducer = (state = InitialState, action: ActionType) => {
@@ -13,7 +13,7 @@ export const counterReducer = (state = InitialState, action: ActionType) => {
     case 'COUNTER_INCREMENT':
       return {
         ...state,
-        count: state.count + 1,
+        value: state.value + 1,
       };
     case 'COUNTER_RESET':
       return {

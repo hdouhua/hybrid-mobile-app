@@ -1,12 +1,11 @@
-import {createStore} from 'redux';
+import {configureStore} from '@reduxjs/toolkit';
 import rootReducer from './reducers';
 import {createReduxEnhancer} from '@shared/utils/monitoring';
 
-const sentryEnhancer = createReduxEnhancer();
-
-const store = createStore(rootReducer, sentryEnhancer);
-
-// https://redux.js.org/usage/usage-with-typescript
+const store = configureStore({
+  reducer: rootReducer,
+  enhancers: [createReduxEnhancer()],
+});
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
