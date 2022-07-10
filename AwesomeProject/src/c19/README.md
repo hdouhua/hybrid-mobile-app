@@ -34,7 +34,7 @@ Redux 通过 Store 存储了全局状态，它不仅解决了状态需要逐层�
 - Reducer ： Redux state is updated by "reducer functions"
 
 <center>
-<img alt="redux-async-logic" src="https://redux.js.org/assets/images/ReduxAsyncDataFlowDiagram-d97ff38a0f4da0f327163170ccc13e80.gif" width="50%" /><br />
+<img alt="redux-async-logic" src="../../docs/ReduxAsyncDataFlow.gif" width="50%" /><br />
 (异步工作更新的流程)
 </center>
 

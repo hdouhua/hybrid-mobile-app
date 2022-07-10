@@ -33,6 +33,9 @@ A demo project made of React Native.
    npm run ios
    # or
    npx react-native run-ios
+
+   # build for release
+   npx react-native run-ios --configuration Release
    ```
 
 - run Android emulator
@@ -44,6 +47,8 @@ A demo project made of React Native.
    ./gradlew help --warning-mode=all
    # sync gradle
    ./gradlew wrapper
+   # download AGP(android gradle plugin) distribution type all, default is bin
+   ./gradlew wrapper --gradle-version 7.3 --distribution-type=all
 
    # run
    npm run android
@@ -52,6 +57,7 @@ A demo project made of React Native.
 
    # release
    ./gradlew assembleRelease
+   npx react-native run-android --variant release
    ```
 
 ## issues & tips
@@ -59,7 +65,7 @@ A demo project made of React Native.
 1. Could not find node
 
    ```
-   Could not find node. Make sure it is in bash PATH or set the    NODE_BINARY environment variable.
+   Could not find node. Make sure it is in bash PATH or set the NODE_BINARY environment variable.
    ```
 
    to fix,
@@ -139,6 +145,22 @@ A demo project made of React Native.
    └── recyclerlistview@3.0.5
    ```
 
+4. cache issue
+
+when make some changes but it cannot work at App, such as the setting of babel extension `babel-plugin-module-resolver`, at this moment clearing cache should be on the stage
+
+```shell
+rm -rf ios/build android/app/build
+
+# resetting cache for npm 
+npm start -- --reset-cache
+# or
+react-native start --reset-cache
+
+# clean all
+watchman watch-del-all && rm -rf ${TMPDIR}metro-* ${TMPDIR}haste-map-* node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
+```
+
 ## 测试
 
 支持 RN in typescript 需要安装 ts-jest 包，配置 `transform`，详情参考 package.json 里的 jest 配置。
@@ -215,7 +237,6 @@ A demo project made of React Native.
 - [Fabric Architecture - React Native](https://medium.com/mindful-engineering/fabric-architecture-react-native-a4f5fd96b6d2)
 - [RN 升级助手](https://react-native-community.github.io/upgrade-helper/)
 - [58 车商通 RN 落地与实践 ](https://mp.weixin.qq.com/s?__biz=MzI1NDc5MzIxMw==&mid=2247487390&idx=1&sn=168e4c05f1f12ccdc2c99ad55db88f7b&chksm=ea3e8b0cdd49021a693295bde28f3c210463a644be9fb824a1ae563e18639fee826ff06ba091&scene=21)
-- [react-in-typescript](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup)
 - [typescript cheatsheets](https://github.com/typescript-cheatsheets/react)
 - [Linting your TypeScript Codebase](https://typescript-eslint.io/docs/linting/)
 - [gradle](https://www.cnblogs.com/davenkin/p/gradle-learning-1.html)
