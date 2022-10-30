@@ -9,11 +9,15 @@ TextInput 组件是自带状态的宿主组件
 
 ## 输入内容
 
-React 提供了两种方式来访问输入框的值：使用受控组件或非受控组件。
+React 提供了两种方式来访问输入框的值：使用[受控组件](#受控controlled组件)或[非受控组件](#非受控uncontrolled组件)。
+
+在大多数情况下，推荐使用受控组件来处理表单数据。
+在一个受控组件中，表单数据是由 React 组件来管理的。
+另一种替代方案是使用非受控组件，这时表单数据将交由 DOM 节点来处理。
 
 ### 非受控（Uncontrolled）组件
 
-非受控的意思就是不使用 state，直接对从宿主组件上将文本的值同步到 JavaScript。
+非受控的意思就是不使用 React 的 state ，直接对从宿主组件上将文本的值同步到 JavaScript。
 
 对于非受控组件来说，存储跨越两次 render 的可行方案是 ref。ref 的值不会因为组件刷新而重新声明，它是专门用来存储组件级别的信息的。
 
@@ -25,17 +29,15 @@ React 提供了两种方式来访问输入框的值：使用受控组件或非�
 
 ### 受控（Controlled）组件
 
-受控的意思说的是使用 JavaScript 中的 state 去控制宿主组件中的值。
+受控的意思说的是使用 JavaScript/React 中的 state 去控制宿主组件中的值。
 
->对于有状态的组件，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。
+>对于有状态的组件，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。[参考定义](https://zh-hans.reactjs.org/docs/forms.html#controlled-components)
 
-对于受控组件来说，分为用户输入文字和文字展示这两步，也就是受控组件更新了两次展示的值，但因为两次展示的值是一样的，用户看不出来而已。
+对于受控组件来说，*分为用户输入文字和文字展示这两步*，也就是受控组件更新了两次展示的值，但因为两次展示的值是一样的，用户看不出来而已。
 
 可以更加自由地控制输入的文本。
 
-对更新两次有性能上的担忧？可以使用异步事件。
-
-我的建议就是使用受控组件，并且使用异步的文字改变事件，这也符合大部分人的代码习惯。
+对更新两次有性能上的担忧？可以使用异步事件。建议：使用受控组件，并且使用异步的文字改变事件，这也符合大部分人的代码习惯。
 
 ## 设置焦点
 
@@ -101,3 +103,4 @@ TextInput 组件和键盘是联动的，得关心一下键盘。
 ## 参考
 
 - [Controlled and uncontrolled form inputs in React don't have to be complicated](https://goshacmd.com/controlled-vs-uncontrolled-inputs-react/)
+- [表单](https://zh-hans.reactjs.org/docs/forms.html)
