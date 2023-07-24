@@ -5,60 +5,62 @@ A demo project made of React Native.
 ## set up the development environment
 
 > Reference:
->- [offical reference - set up development environment](https://reactnative.dev/docs/environment-setup)
->- [video course - Installing React Native on macOS](https://academy.infinite.red/p/installing-react-native-tutorial-on-macos)
->- [video course - Installing React Native on Windows 10](https://academy.infinite.red/p/installing-react-native-tutorial-on-windows-10)
+>
+> - [offical reference - set up development environment](https://reactnative.dev/docs/environment-setup)
+> - [video course - Installing React Native on macOS](https://academy.infinite.red/p/installing-react-native-tutorial-on-macos)
+> - [video course - Installing React Native on Windows 10](https://academy.infinite.red/p/installing-react-native-tutorial-on-windows-10)
 
 - start react-native metro
 
-   ```shell
-   npm i
-   npm start
-   # or
-   npx react-native start
-   ```
+  ```shell
+  npm i
+  npm start
+  # or
+  npx react-native start
+  ```
 
 - run iOS simulator
 
-   ```shell
-   cd ios
-   
-   # at the first time
-   bundle install
-   
-   # install pod library
-   bundle exec pod install
-   
-   # run
-   npm run ios
-   # or
-   npx react-native run-ios
+  ```shell
+  cd ios
 
-   # build for release
-   npx react-native run-ios --configuration Release
-   ```
+  # at the first time
+  bundle install
+
+  # install pod library
+  bundle exec pod install
+
+  # run
+  npm run ios
+  # or
+  npx react-native run-ios
+
+  # build for release
+  npx react-native run-ios --configuration Release
+  ```
 
 - run Android emulator
 
-   ```shell
-   cd android
+  ```shell
+  cd android
 
-   # to see the help for gradle build
-   ./gradlew help --warning-mode=all
-   # sync gradle
-   ./gradlew wrapper
-   # download AGP(android gradle plugin) distribution type all, default is bin
-   ./gradlew wrapper --gradle-version 7.3 --distribution-type=all
+  # to see the help for gradle build
+  ./gradlew help --warning-mode=all
+  # sync gradle
+  ./gradlew wrapper
+  # download AGP(android gradle plugin) distribution type all, default is bin
+  ./gradlew wrapper --gradle-version 7.3 --distribution-type=all
 
-   # run
-   npm run android
-   # or
-   npx react-native run-android
+  # go to the root folder of the project
+  # run
+  npm run android
+  # or
+  npx react-native run-android
 
-   # release
-   ./gradlew assembleRelease
-   npx react-native run-android --variant release
-   ```
+  # release
+  ./gradlew assembleRelease
+  npx react-native run-android --variant release
+  ```
 
 ## issues & tips
 
@@ -73,35 +75,35 @@ A demo project made of React Native.
    ```
    sudo ln -s $(which node) /usr/local/bin/node
    ```
-   
+
    from RN 0.69, may use .env file to set environment variables，for example, create .xcode.env in the folder ios
 
    ```shell
    export NODE_BINARY=$(command -v node)
    ```
 
-2. Require cycle @`@sentry/react-native`
+1. Require cycle @`@sentry/react-native`
 
    ```shell
    Require cycle: node_modules/react-native/Libraries/Network/fetch.js -> node_modules/whatwg-fetch/dist/fetch.umd.js -> node_modules/react-native/Libraries/Network/fetch.js
-   
+
    Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
    ```
-   
-   >for issue details, please refer to https://github.com/getsentry/sentry-react-native/issues/2080
-   
-   >to find all cycling dependencies, please use madge with Graphviz
+
+   > for issue details, please refer to https://github.com/getsentry/sentry-react-native/issues/2080
+
+   > to find all cycling dependencies, please use madge with Graphviz
    >
-   >```shell
-   >npm -g install madge
+   > ```shell
+   > npm -g install madge
    >
-   >madge . --extensions ts,tsx -c --warning
-   >```
-   
+   > madge . --extensions ts,tsx -c --warning
+   > ```
+
    after researching find out the relevant code [here](https://github.com/facebook/metro/blob/main/packages/metro-runtime/src/polyfills/require.js#L170)
-   
+
    **solution1** from [this](https://github.com/facebook/metro/issues/287#issuecomment-779469905), trying to replace console warning message with empty string.
-   
+
    ```js
    const fs = require('fs');
    const codeToObscure = /console.warn\(\s*(?=["`]Require cycle:)/;
@@ -109,9 +111,9 @@ A demo project made of React Native.
    const problemFileContent = fs.readFileSync(problemFilePath,'utf8');
    fs.writeFileSync(problemFilePath,problemFileContent.replace(codeToObscure,'const noConsoleWarn = ('),'utf8');
    ```
-   
+
    **solution2** from [this](https://github.com/facebook/metro/issues/287#issuecomment-436504616), trying to show warning message 'require cycle' for our own code only
-   
+
    ```js
    // We want to show A -> B -> A: do this for our own code
    const isExternalOnly = cycle.every(function (cycleWarning) {
@@ -127,11 +129,11 @@ A demo project made of React Native.
    }
    ```
 
-3. list `$env`
+1. list `$env`
 
    ```
    node -v && npm -v && npm ls --prod --depth=0
-   
+
    v14.19.1
    8.3.1
    awesomeproject@0.0.1
@@ -145,27 +147,55 @@ A demo project made of React Native.
    └── recyclerlistview@3.0.5
    ```
 
-4. cache issue
+1. cache issue
 
-when make some changes but it cannot work at App, such as the setting of babel extension `babel-plugin-module-resolver`, at this moment clearing cache should be on the stage
+   when make some changes but it cannot work at App, such as the setting of babel extension `babel-plugin-module-resolver`, at this moment clearing cache should be on the stage
 
-```shell
-rm -rf ios/build android/app/build
+   ```shell
+   rm -rf ios/build android/app/build
 
-# resetting cache for npm 
-npm start -- --reset-cache
-# or
-react-native start --reset-cache
+   # resetting cache for npm
+   npm start -- --reset-cache
+   # or
+   react-native start --reset-cache
 
-# clean all
-watchman watch-del-all && rm -rf ${TMPDIR}metro-* ${TMPDIR}haste-map-* node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
-```
+   # clean all
+   watchman watch-del-all && rm -rf ${TMPDIR}metro-* ${TMPDIR}haste-map-* node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
+   ```
+
+1. start an emulator without android studio
+
+   ```shell
+   # list available AVDs (android virtual devices)
+   emulator -list-avds
+
+   # use a specific android virtual device
+   emulator -avd <name>
+   emulator -avd Pixel_5_API_33
+   ```
+
+1. issue on watchman
+
+   the error message,
+
+   ```
+   watchman --no-pretty get-sockname returned with exit code=1, signal=null, stderr=...
+   ```
+
+   please don't forget to set the file permission after `watchman` installed
+
+   ```
+   sudo chmod 755 /usr/local/bin/watchman
+   sudo chmod 2777 /usr/local/var/run/watchman
+   ```
+
+   for more, please refer to <https://facebook.github.io/watchman/docs/install#macos>
 
 ## 测试
 
 支持 RN in typescript 需要安装 ts-jest 包，配置 `transform`，详情参考 package.json 里的 jest 配置。
 
->参考 [ts-jest 文档](https://kulshekhar.github.io/ts-jest/docs/guides/react-native/)
+> 参考 [ts-jest 文档](https://kulshekhar.github.io/ts-jest/docs/guides/react-native/)
 
 ## 快速读懂 objective-c 代码
 
@@ -173,45 +203,45 @@ watchman watch-del-all && rm -rf ${TMPDIR}metro-* ${TMPDIR}haste-map-* node_modu
 - \+: 类方法
 - \[\]: 调用方法
 
-   >一个方法可以包含多个参数，不过后面的参数都要写名字（指第二个参数开始）。
+  > 一个方法可以包含多个参数，不过后面的参数都要写名字（指第二个参数开始）。
 
-   翻译 objective-c 的方法调用到通用的 OOC
+  翻译 objective-c 的方法调用到通用的 OOC
 
-   ```objective-c
-   [self sayHello:YES]
-   //=> 
-   this.sayHello(true);
+  ```objective-c
+  [self sayHello:YES]
+  //=>
+  this.sayHello(true);
 
-   [[[MyClass alloc] init:[foo bar]] autorelease];
-   //=>
-   MyClass.alloc().init(foo.bar()).autorelease();
-   
-   //[[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"]
-   [NSURL URLWithString:[[[[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil] absoluteString]    stringByAppendingString:@"&inlineSourceMap=true" ]];
-   //=> 
-   NSURL.URLWithString(
-       RCTBundleURLProvider.sharedSettings()
-       .jsBundleURLForBundleRoot(@"index",fallbackResource:nil)
-       .absoluteString()
-       .stringByAppendingString(@"&inlineSourceMap=true")
-   )
-   ```
+  [[[MyClass alloc] init:[foo bar]] autorelease];
+  //=>
+  MyClass.alloc().init(foo.bar()).autorelease();
+
+  //[[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"]
+  [NSURL URLWithString:[[[[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil] absoluteString]    stringByAppendingString:@"&inlineSourceMap=true" ]];
+  //=>
+  NSURL.URLWithString(
+      RCTBundleURLProvider.sharedSettings()
+      .jsBundleURLForBundleRoot(@"index",fallbackResource:nil)
+      .absoluteString()
+      .stringByAppendingString(@"&inlineSourceMap=true")
+  )
+  ```
 
 - 类库 NS 、CF 、 CA 、 CG 、UI
 - `#import`：相当于 `#include`
 - `@interface`
 
-   ```objective-c
-   @interface IA : NSObject {
+  ```objective-c
+  @interface IA : NSObject {
 
-   }
-   @end
+  }
+  @end
 
-   @implementation IA {
+  @implementation IA {
 
-   }
-   @end
-   ```
+  }
+  @end
+  ```
 
 - 同一数组可以保存不同类型的元素
 - `self`: 指向自己的指针，相当于 `this`
