@@ -14,7 +14,7 @@ SentryInit({
   debug: false,
   dsn: sentryDsn,
   enableCustomizedErrorHandler: true,
-  enableAutoPerformanceTracking: true,
+  enableAutoPerformanceTracing: true,
   // attachStacktrace: false,
 });
 

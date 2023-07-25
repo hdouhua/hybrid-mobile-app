@@ -25,7 +25,7 @@ const DEFAULT_OPTIONS: MySentryOptions = {
   enableCustomizedErrorHandler: true,
 
   // Opt In/Out automatic instrumentation
-  enableAutoPerformanceTracking: true,
+  enableAutoPerformanceTracing: true,
 
   // Release Health Session
   enableAutoSessionTracking: true,
@@ -68,7 +68,7 @@ export function SentryInit(options: MySentryOptions = {}) {
     );
   }
 
-  if (nativeOptions.enableAutoPerformanceTracking) {
+  if (nativeOptions.enableAutoPerformanceTracing) {
     // to use our own ReactNativeTracing
     if (nativeOptions.routeChangeTimeoutMs) {
       _navigationOptions = {
