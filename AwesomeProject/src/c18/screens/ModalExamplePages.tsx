@@ -3,7 +3,7 @@ import {View, Text, Button, Pressable} from 'react-native';
 import {ParamListBase} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {NativeStackParamList} from '../navigators/config';
+import {DefaultNavigationProps} from '../navigators/config';
 import {Styles as styles} from '../Styles';
 
 export function HomeScreen({
@@ -67,7 +67,7 @@ export function BottomModalScreen({
 export function DialogScreen({
   route,
   navigation,
-}: NativeStackScreenProps<NativeStackParamList, 'MyDialog'>) {
+}: DefaultNavigationProps<'MyDialog'>) {
   const {title, content} = route.params;
 
   return (

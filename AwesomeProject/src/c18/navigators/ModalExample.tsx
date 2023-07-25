@@ -1,6 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+import {NativeStackParamList} from './config';
 import {
   HomeScreen,
   ModalScreen,
@@ -8,7 +9,7 @@ import {
   DialogScreen,
 } from '../screens/ModalExamplePages';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<NativeStackParamList>();
 
 export default function ModalSampleNavigator() {
   return (

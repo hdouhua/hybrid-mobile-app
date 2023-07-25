@@ -3,15 +3,12 @@ import React, {useEffect, useLayoutEffect} from 'react';
 import {View, Text, Image, Button} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {NativeStackParamList} from '../navigators/config';
+import {DefaultNavigationProps} from '../navigators/config';
 import {Styles} from '../Styles';
 
 const ExchangeRate = 6.3;
 
-export function Detail({
-  route,
-  navigation,
-}: NativeStackScreenProps<NativeStackParamList, 'Detail'>) {
+export function Detail({route, navigation}: DefaultNavigationProps<'Detail'>) {
   const {name, image, description, price, symbol} = route.params;
 
   // // 与比较 useEffect， UX 更好

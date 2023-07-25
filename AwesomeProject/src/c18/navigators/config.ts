@@ -3,7 +3,7 @@
  */
 
 import {DefaultTheme} from '@react-navigation/native';
-
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NftType} from '../apis/cats';
 
 // export interface DetailScreenParams {
@@ -17,9 +17,20 @@ export type DialogScreenParams = {
 };
 
 export type NativeStackParamList = {
-  ['Detail']: NftType;
-  ['MyDialog']: DialogScreenParams;
+  // Modal Example
+  Home: DialogScreenParams;
+  MyDialog: DialogScreenParams;
+  MyModal: DialogScreenParams;
+  MyModal2: DialogScreenParams;
+  MyModal3: DialogScreenParams;
+  MyModal4: DialogScreenParams;
+  // Simple App
+  Discover: DialogScreenParams;
+  Detail: NftType;
 };
+
+export type DefaultNavigationProps<T extends keyof NativeStackParamList> =
+  NativeStackScreenProps<NativeStackParamList, T>;
 
 // require("image file"): ImageSourcePropType
 // export const CutePets: DetailScreenParams[] = [
