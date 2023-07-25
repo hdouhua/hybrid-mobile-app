@@ -24,7 +24,7 @@ export default function AnimatedBar(): React.ReactElement {
       }),
       // width: withSpring(randomWidth.value),
     };
-  });
+  }, [randomWidth]);
 
   console.debug('render AnimatedBar');
   return (

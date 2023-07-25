@@ -16,7 +16,7 @@ export default function Drag() {
       transform: [{translateX: offset.value.x}, {translateY: offset.value.y}],
       backgroundColor: isPressed.value ? 'limegreen' : 'pink',
     };
-  });
+  }, [offset, isPressed]);
   const dragGesture = Gesture.Pan()
     .onBegin(() => {
       console.debug('识别到手势');

@@ -15,7 +15,7 @@ export default function AnimatedText(): React.ReactElement {
 
   const animatedProps = useAnimatedProps(() => {
     return {text: sharedValue.value} as TextInputProps;
-  });
+  }, [sharedValue]);
 
   useEffect(() => {
     console.debug('use Effect');

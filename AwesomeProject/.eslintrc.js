@@ -11,7 +11,12 @@ module.exports = {
   rules: {
     'react-native/no-inline-styles': 'off',
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': [
+      'error',
+      {
+        additionalHooks: '(useAnimatedStyle|useDerivedValue|useAnimatedProps)',
+      },
+    ],
     'no-console': ['warn', {allow: ['debug', 'warn', 'error']}],
     'no-empty': 'warn',
     'no-unused-vars': 'off',

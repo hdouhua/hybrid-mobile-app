@@ -37,7 +37,7 @@ export default function AnimatedScroll(): React.ReactElement {
       width: withSpring(size),
       height: withSpring(size),
     };
-  });
+  }, [isScrolling]);
 
   const height = 200;
 
