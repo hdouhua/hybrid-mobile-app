@@ -1,0 +1,126 @@
+diff --git a/node_modules/@react-navigation/drawer/lib/commonjs/views/modern/Drawer.js b/node_modules/@react-navigation/drawer/lib/commonjs/views/modern/Drawer.js
+index a08b2d0..077ac62 100644
+--- a/node_modules/@react-navigation/drawer/lib/commonjs/views/modern/Drawer.js
++++ b/node_modules/@react-navigation/drawer/lib/commonjs/views/modern/Drawer.js
+@@ -213,9 +213,9 @@ function Drawer(_ref) {
+     //
+     // This is used only when drawerType is "front"
+     const touchDistance = drawerType === 'front' && gestureState.value === _reactNativeGestureHandler.State.ACTIVE ? minmax(drawerPosition === 'left' ? touchStartX.value - drawerWidth : dimensions.width - drawerWidth - touchStartX.value, 0, dimensions.width) : 0;
+-    const translateX = drawerPosition === 'left' ? minmax(translationX.value + touchDistance, -drawerWidth, 0) : minmax(translationX.value - touchDistance, 0, drawerWidth);
+-    return translateX;
+-  });
++    const transX = drawerPosition === 'left' ? minmax(translationX.value + touchDistance, -drawerWidth, 0) : minmax(translationX.value - touchDistance, 0, drawerWidth);
++    return transX;
++  }, [drawerType, gestureState, drawerPosition, dimensions, drawerWidth, touchStartX, translationX]);
+   const isRTL = _reactNative.I18nManager.getConstants().isRTL;
+   const drawerAnimatedStyle = (0, _reactNativeReanimated.useAnimatedStyle)(() => {
+     const distanceFromEdge = dimensions.width - drawerWidth;
+@@ -229,7 +229,7 @@ function Drawer(_ref) {
+         (drawerType === 'back' ? 0 : translateX.value) + (drawerPosition === 'left' ? isRTL ? -distanceFromEdge : 0 : isRTL ? 0 : distanceFromEdge)
+       }]
+     };
+-  });
++  }, [dimensions, drawerWidth, drawerType, translateX, drawerPosition, isRTL]);
+   const contentAnimatedStyle = (0, _reactNativeReanimated.useAnimatedStyle)(() => {
+     return {
+       transform: drawerType === 'permanent' ?
+@@ -241,10 +241,10 @@ function Drawer(_ref) {
+         drawerType === 'front' ? 0 : translateX.value + drawerWidth * (drawerPosition === 'left' ? 1 : -1)
+       }]
+     };
+-  });
++  }, [drawerType, translateX, drawerWidth, drawerPosition]);
+   const progress = (0, _reactNativeReanimated.useDerivedValue)(() => {
+     return drawerType === 'permanent' ? 1 : (0, _reactNativeReanimated.interpolate)(translateX.value, [getDrawerTranslationX(false), getDrawerTranslationX(true)], [0, 1]);
+-  });
++  }, [drawerType, translateX, getDrawerTranslationX]);
+   return /*#__PURE__*/React.createElement(_DrawerProgressContext.default.Provider, {
+     value: progress
+   }, /*#__PURE__*/React.createElement(_reactNativeGestureHandler.PanGestureHandler, _extends({
+diff --git a/node_modules/@react-navigation/drawer/lib/module/views/modern/Drawer.js b/node_modules/@react-navigation/drawer/lib/module/views/modern/Drawer.js
+index 1fdb8a2..4c13197 100644
+--- a/node_modules/@react-navigation/drawer/lib/module/views/modern/Drawer.js
++++ b/node_modules/@react-navigation/drawer/lib/module/views/modern/Drawer.js
+@@ -204,9 +204,9 @@ export default function Drawer(_ref) {
+     //
+     // This is used only when drawerType is "front"
+     const touchDistance = drawerType === 'front' && gestureState.value === GestureState.ACTIVE ? minmax(drawerPosition === 'left' ? touchStartX.value - drawerWidth : dimensions.width - drawerWidth - touchStartX.value, 0, dimensions.width) : 0;
+-    const translateX = drawerPosition === 'left' ? minmax(translationX.value + touchDistance, -drawerWidth, 0) : minmax(translationX.value - touchDistance, 0, drawerWidth);
+-    return translateX;
+-  });
++    const transX = drawerPosition === 'left' ? minmax(translationX.value + touchDistance, -drawerWidth, 0) : minmax(translationX.value - touchDistance, 0, drawerWidth);
++    return transX;
++  }, [drawerType, gestureState, drawerPosition, dimensions, drawerWidth, touchStartX, translationX]);
+   const isRTL = I18nManager.getConstants().isRTL;
+   const drawerAnimatedStyle = useAnimatedStyle(() => {
+     const distanceFromEdge = dimensions.width - drawerWidth;
+@@ -220,7 +220,7 @@ export default function Drawer(_ref) {
+         (drawerType === 'back' ? 0 : translateX.value) + (drawerPosition === 'left' ? isRTL ? -distanceFromEdge : 0 : isRTL ? 0 : distanceFromEdge)
+       }]
+     };
+-  });
++  }, [dimensions, drawerWidth, drawerType, translateX, drawerPosition, isRTL]);
+   const contentAnimatedStyle = useAnimatedStyle(() => {
+     return {
+       transform: drawerType === 'permanent' ?
+@@ -232,10 +232,10 @@ export default function Drawer(_ref) {
+         drawerType === 'front' ? 0 : translateX.value + drawerWidth * (drawerPosition === 'left' ? 1 : -1)
+       }]
+     };
+-  });
++  }, [drawerType, translateX, drawerWidth, drawerPosition]);
+   const progress = useDerivedValue(() => {
+     return drawerType === 'permanent' ? 1 : interpolate(translateX.value, [getDrawerTranslationX(false), getDrawerTranslationX(true)], [0, 1]);
+-  });
++  }, [drawerType, translateX, getDrawerTranslationX]);
+   return /*#__PURE__*/React.createElement(DrawerProgressContext.Provider, {
+     value: progress
+   }, /*#__PURE__*/React.createElement(PanGestureHandler, _extends({
+diff --git a/node_modules/@react-navigation/drawer/src/views/modern/Drawer.tsx b/node_modules/@react-navigation/drawer/src/views/modern/Drawer.tsx
+index 9909e96..0463889 100644
+--- a/node_modules/@react-navigation/drawer/src/views/modern/Drawer.tsx
++++ b/node_modules/@react-navigation/drawer/src/views/modern/Drawer.tsx
+@@ -275,13 +275,13 @@ export default function Drawer({
+           )
+         : 0;
+ 
+-    const translateX =
++    const transX =
+       drawerPosition === 'left'
+         ? minmax(translationX.value + touchDistance, -drawerWidth, 0)
+         : minmax(translationX.value - touchDistance, 0, drawerWidth);
+ 
+-    return translateX;
+-  });
++    return transX;
++  }, [drawerType, gestureState, drawerPosition, dimensions, drawerWidth, touchStartX, translationX]);
+ 
+   const isRTL = I18nManager.getConstants().isRTL;
+   const drawerAnimatedStyle = useAnimatedStyle(() => {
+@@ -308,7 +308,7 @@ export default function Drawer({
+               },
+             ],
+     };
+-  });
++  }, [dimensions, drawerWidth, drawerType, translateX, drawerPosition, isRTL]);
+ 
+   const contentAnimatedStyle = useAnimatedStyle(() => {
+     return {
+@@ -328,7 +328,7 @@ export default function Drawer({
+               },
+             ],
+     };
+-  });
++  }, [drawerType,translateX, drawerWidth, drawerPosition]);
+ 
+   const progress = useDerivedValue(() => {
+     return drawerType === 'permanent'
+@@ -338,7 +338,7 @@ export default function Drawer({
+           [getDrawerTranslationX(false), getDrawerTranslationX(true)],
+           [0, 1]
+         );
+-  });
++  }, [drawerType, translateX,getDrawerTranslationX]);
+ 
+   return (
+     <DrawerProgressContext.Provider value={progress}>
