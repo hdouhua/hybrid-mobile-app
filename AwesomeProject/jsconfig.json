@@ -2,8 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@shared/*": ["./src/shared/*"]
+      "@app-json": ["./app.json"],
+      "@shared/*": ["./src/shared/*"],
+      "@/*": ["./src/*"]
     }
   }
 }
