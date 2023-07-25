@@ -40,6 +40,14 @@ npm install @react-navigation/drawer
 npm install react-native-gesture-handler react-native-reanimated
 ```
 
+### installation on Fabric
+
+please see [the documentation](https://docs.swmansion.com/react-native-gesture-handler/docs/installation#fabric)
+
+### Testing with Jest
+
+please see [the documentation](https://docs.swmansion.com/react-native-gesture-handler/docs/guides/testing)
+
 ## 实现一个基础导航的三步
 
 ### 1. 创建“导航地图” Navigator

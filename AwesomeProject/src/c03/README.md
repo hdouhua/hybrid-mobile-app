@@ -36,7 +36,7 @@
    - flex-grow 拉伸、flex-shrink 收缩、flex-basis 分配剩余空间的属性
    - flex
 
->[参考](https://chinese.freecodecamp.org/news/the-ultimate-guide-to-flexbox-learning-through-examples/)
+>[参考](https://chinese.freecodecamp.org/news/the-ultimate-guide-to-flexbox-learning-through-examples/)，寓教于乐[FLEXBOX FROGGY 游戏](https://flexboxfroggy.com/)
 
 ## eslint issue
 

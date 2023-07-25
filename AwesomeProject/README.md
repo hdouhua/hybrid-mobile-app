@@ -195,7 +195,14 @@ A demo project made of React Native.
 
 支持 RN in typescript 需要安装 ts-jest 包，配置 `transform`，详情参考 package.json 里的 jest 配置。
 
-> 参考 [ts-jest 文档](https://kulshekhar.github.io/ts-jest/docs/guides/react-native/)
+> 参考 [ts-jest 文档](https://kulshekhar.github.io/ts-jest/docs/guides/react-native/)，
+> [Code Transformation](https://jestjs.io/docs/code-transformation#examples)
+
+清空 jest 缓存
+
+```
+jest --clearCache
+```
 
 ## 快速读懂 objective-c 代码
 
@@ -261,6 +268,9 @@ A demo project made of React Native.
 - 多行选择: Option ⌥ + Shift ⇧ + L
 - 快速删除行: Command ⌘ + X
 - 成对选中： Command ⌘ + D
+- Quick Open: Command ⌘ + P
+- Bracket matching: Command ⌘ + Shift ⇧ + \
+- display the PROBLEMS panel : Command ⌘ + Shift ⇧ + M
 
 ## further reading & reference
 
@@ -273,4 +283,6 @@ A demo project made of React Native.
 - [hooks for RN](https://github.com/react-native-community/hooks)
 - [A Comprehensive Guide To Mobile App Design](https://www.smashingmagazine.com/2018/02/comprehensive-guide-to-mobile-app-design/)
 - [Mobile App UI Design: An Expert’s Complete Guide for 2022](https://relevant.software/blog/mobile-app-ui-design-guide/)
+- [Top React Native Projects for Beginners to Advanced](https://www.interviewbit.com/blog/react-native-projects/)
 - [project template](https://instamobile.io/templates/)
+- [React Native Example](https://reactnativeexample.com/)
