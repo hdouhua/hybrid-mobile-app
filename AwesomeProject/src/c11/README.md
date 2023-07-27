@@ -134,7 +134,7 @@ lib
 
 在本节示例中，我的实践了 2 和 3，使用 2 修改了属性的访问属性为 protected ，使用 3 扩展了新布局。
 
-[生成 patch 的 bash 脚本](./npm-patch.sh)
+[生成 patch 的 bash 脚本](../../patches/make-patch-recyclerlistview.sh)
 
 ### 最佳实践
 
