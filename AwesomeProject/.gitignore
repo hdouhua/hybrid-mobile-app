@@ -63,3 +63,8 @@ yarn-error.log
 .metro-health-check*
 # testing
 /coverage
+
+
+# additional
+__*.md
+sentry.properties

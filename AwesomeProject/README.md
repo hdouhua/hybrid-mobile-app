@@ -14,6 +14,7 @@ A demo project made of React Native.
 
   ```shell
   npm i
+
   npm start
   # or
   npx react-native start
@@ -24,12 +25,21 @@ A demo project made of React Native.
   ```shell
   cd ios
 
-  # at the first time
+  # run at the first time, to install required RubyGems
+  gem install
+  # or by bundler (another tool to manager Gem package dependency)
   bundle install
 
   # install pod library
+  pod install
+  # or
   bundle exec pod install
+  # build
+  xcodebuild -workspace AwesomeProject.xcworkspace -configuration Debug -scheme AwesomeProject -destination 'generic/platform=iOS Simulator'
+  # clean
+  xcodebuild -clean
 
+  cd ..
   # run
   npm run ios
   # or
@@ -50,15 +60,18 @@ A demo project made of React Native.
   ./gradlew wrapper
   # download AGP(android gradle plugin) distribution type all, default is bin
   ./gradlew wrapper --gradle-version 7.3 --distribution-type=all
+  # release
+  ./gradlew assembleRelease
+  # clean build cache
+  ./gradlew cleanBuildCache
 
-  # go to the root folder of the project
+  cd ..
   # run
   npm run android
   # or
   npx react-native run-android
 
   # release
-  ./gradlew assembleRelease
   npx react-native run-android --variant release
   ```
 
@@ -193,15 +206,23 @@ A demo project made of React Native.
 
 ## 测试
 
-支持 RN in typescript 需要安装 ts-jest 包，配置 `transform`，详情参考 package.json 里的 jest 配置。
+支持 RN in typescript 需要安装 ts-jest 包，配置请参考 [`jest.config.json`](./jest.config.js)。
 
 > 参考 [ts-jest 文档](https://kulshekhar.github.io/ts-jest/docs/guides/react-native/)，
 > [Code Transformation](https://jestjs.io/docs/code-transformation#examples)
 
+运行测试
+
+```shell
+npm test
+```
+
 清空 jest 缓存
 
-```
+```shell
 jest --clearCache
+# or
+npm test -- --clearCache
 ```
 
 ## 快速读懂 objective-c 代码
